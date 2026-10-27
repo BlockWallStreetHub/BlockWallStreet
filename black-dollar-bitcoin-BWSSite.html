@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Black Dollar and Bitcoin | Block Wall Street</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#0a1428; --navy2:#0f1d3a; --navy3:#16264a; --line:#26385f;
+  --gold:#d9a93a; --gold2:#f0c75e; --text:#eaeef7; --muted:#93a0bd; --steel:#7a9ad6; --good:#63d6a4; --bad:#ff8a7a;
+  --display:'Bebas Neue','Arial Narrow',Impact,sans-serif;
+  --body:'Barlow',system-ui,-apple-system,'Segoe UI',Arial,sans-serif;
+  --mono:'DM Mono',ui-monospace,Consolas,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--navy);color:var(--text);font-family:var(--body);font-size:17px;line-height:1.55;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1180px;margin:0 auto;padding:0 22px}
+a{color:var(--gold2)}
+h1,h2,h3{font-family:var(--display);font-weight:400;letter-spacing:.02em;margin:0;line-height:1}
+h1{font-size:clamp(44px,7vw,84px);color:var(--text)}
+h2{font-size:clamp(32px,4vw,46px);color:var(--gold)}
+h3{font-size:24px;color:var(--text);letter-spacing:.03em}
+p{margin:0 0 .8em}
+.hero{padding:54px 0 30px;border-bottom:1px solid var(--line);background:linear-gradient(180deg,#0d1a36 0%,var(--navy) 100%)}
+.brandline{display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:26px}
+.brand{font-family:var(--display);font-size:26px;letter-spacing:.08em;color:var(--gold)}
+.chip{font-family:var(--mono);font-size:12.5px;color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:6px 13px;background:var(--navy2)}
+.chip b{color:var(--good);font-weight:500}
+.chip.warn b{color:var(--gold2)}
+.lede{max-width:760px;font-size:20px;color:#c9d2e6;margin-top:18px}
+.answer{margin-top:26px;padding:20px 24px;border-left:4px solid var(--gold);background:var(--navy2);border-radius:0 10px 10px 0;max-width:900px;font-size:19px}
+.answer .big{font-family:var(--display);font-size:1.6em;color:var(--gold2);letter-spacing:.02em}
+section{padding:46px 0 10px}
+.sechead{display:flex;flex-direction:column;gap:8px;margin-bottom:22px}
+.sechead p{color:var(--muted);max-width:760px;margin:0}
+.card{background:var(--navy2);border:1px solid var(--line);border-radius:12px;padding:22px}
+.controls{display:grid;grid-template-columns:repeat(12,1fr);gap:18px 20px;margin-top:-1px}
+.field{display:flex;flex-direction:column;gap:6px;grid-column:span 3}
+.field.wide{grid-column:span 6}
+.field label,.field .lab{font-size:14px;color:var(--muted);font-weight:500}
+select,input[type=number]{width:100%;background:var(--navy);color:var(--text);border:1px solid var(--line);border-radius:8px;padding:10px 12px;font-family:var(--mono);font-size:16px}
+select:focus,input:focus,button:focus-visible,summary:focus-visible{outline:2px solid var(--gold2);outline-offset:2px}
+input[type=range]{width:100%;accent-color:var(--gold)}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:8px;overflow:hidden;width:100%}
+.seg button{flex:1;background:var(--navy);color:var(--muted);border:0;padding:10px 8px;font-family:var(--body);font-size:15px;font-weight:500;cursor:pointer}
+.seg button[aria-pressed=true]{background:var(--gold);color:#1a1405}
+.row2{display:flex;gap:10px;align-items:center}
+.row2 .pre,.row2 .suf{font-family:var(--mono);color:var(--muted)}
+details.assume{margin-top:18px;border-top:1px dashed var(--line);padding-top:14px}
+details.assume summary{cursor:pointer;color:var(--gold2);font-weight:500}
+.bpgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:10px;margin-top:14px}
+.bpgrid label{font-family:var(--mono);font-size:12.5px;color:var(--muted);display:flex;flex-direction:column;gap:4px}
+.bpgrid input{padding:7px 9px;font-size:14px}
+.hint{font-size:14px;color:var(--muted);margin-top:10px}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:22px}
+.stat{background:var(--navy2);border:1px solid var(--line);border-radius:12px;padding:18px 18px 16px}
+.stat .v{font-family:var(--display);font-size:clamp(32px,3.6vw,44px);color:var(--gold2);line-height:1}
+.stat .l{font-size:14.5px;color:var(--text);margin-top:8px;font-weight:500}
+.stat .s{font-family:var(--mono);font-size:12.5px;color:var(--muted);margin-top:5px}
+.pos{color:var(--good)} .neg{color:var(--bad)}
+.bars{display:flex;flex-direction:column;gap:11px}
+.brow{display:grid;grid-template-columns:210px 1fr 150px;gap:14px;align-items:center}
+.brow .n{font-size:15.5px}
+.brow .track{height:20px;background:var(--navy);border-radius:5px;overflow:hidden;border:1px solid var(--line)}
+.brow .fill{height:100%;background:var(--steel);border-radius:0 4px 4px 0}
+.brow.btc .fill{background:repeating-linear-gradient(135deg,var(--gold) 0 8px,#b8892a 8px 16px)}
+.brow.btc .n{color:var(--gold2);font-weight:600}
+.brow .num{font-family:var(--mono);font-size:13.5px;text-align:right;color:var(--text)}
+.brow .num small{display:block;color:var(--muted);font-size:11.5px}
+.tablewrap{overflow-x:auto;border:1px solid var(--line);border-radius:12px;background:var(--navy2)}
+table{border-collapse:collapse;width:100%;font-family:var(--mono);font-size:13px}
+th,td{padding:9px 10px;text-align:right;white-space:nowrap}
+th:first-child,td:first-child{text-align:left;position:sticky;left:0;background:var(--navy2);z-index:1;font-family:var(--body);font-size:14.5px}
+thead th{color:var(--muted);font-weight:500;border-bottom:1px solid var(--line)}
+tbody tr+tr td{border-top:1px solid #1b2c52}
+tfoot td{border-top:2px solid var(--line);color:var(--gold2);font-weight:500}
+td.heat{color:#fff}
+tr.sel td{background:#1d3157}
+tr.sel td:first-child{background:#1d3157}
+.chartbox{position:relative}
+.chartbox svg{width:100%;height:auto;display:block}
+.tip{position:absolute;pointer-events:none;background:#06101f;border:1px solid var(--gold);border-radius:8px;padding:9px 12px;font-family:var(--mono);font-size:12.5px;line-height:1.5;display:none;z-index:5;white-space:nowrap}
+.tip b{color:var(--gold2);font-weight:500}
+.legend{display:flex;gap:20px;flex-wrap:wrap;font-size:14px;color:var(--muted);margin-bottom:8px}
+.legend i{display:inline-block;width:14px;height:4px;border-radius:2px;margin-right:7px;vertical-align:middle}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.persp{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:22px 0}
+.persp .card{font-size:16px}
+.persp .card .k{font-family:var(--display);font-size:30px;color:var(--gold2);display:block;margin-bottom:4px;line-height:1.05}
+.inlinebar{display:inline-block;height:10px;border-radius:3px;background:var(--gold);vertical-align:middle;margin-right:8px;min-width:2px}
+.notes{margin:46px 0 60px;padding:24px;border:1px solid var(--line);border-radius:12px;background:#0c1730;font-size:15px;color:#bcc6dd}
+.notes h3{color:var(--gold);margin-bottom:10px}
+.notes ul{margin:0;padding-left:20px}
+.notes li{margin-bottom:8px}
+.empty{color:var(--muted);padding:30px;text-align:center}
+footer{border-top:1px solid var(--line);padding:26px 0 40px;color:var(--muted);font-size:14px}
+@media (max-width:900px){
+  .field,.field.wide{grid-column:span 6}
+  .stats{grid-template-columns:1fr 1fr}
+  .two,.persp{grid-template-columns:1fr}
+  .brow{grid-template-columns:1fr;gap:5px}
+  .brow .num{text-align:left}
+}
+@media (max-width:560px){
+  .field,.field.wide{grid-column:span 12}
+  .stats{grid-template-columns:1fr}
+  body{font-size:16px}
+}
+
+.guide{padding-top:50px}
+.guide .intro{font-size:19px;color:#d3dbeb;max-width:780px;margin-bottom:26px}
+.terms{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:34px}
+.term{background:var(--navy2);border:1px solid var(--line);border-top:3px solid var(--gold);border-radius:12px;padding:20px}
+.term h3{color:var(--gold2);margin-bottom:8px}
+.term p{margin:0;font-size:16px;color:#c9d2e6}
+ol.steps{list-style:none;counter-reset:s;padding:0;margin:0 0 34px;display:grid;gap:12px}
+ol.steps li{counter-increment:s;display:grid;grid-template-columns:42px 1fr;gap:16px;align-items:start;background:var(--navy2);border:1px solid var(--line);border-radius:12px;padding:16px 18px}
+ol.steps li::before{content:counter(s);font-family:var(--display);font-size:28px;line-height:1;color:#1a1405;background:var(--gold);border-radius:50%;width:38px;height:38px;display:grid;place-items:center}
+ol.steps li b{display:block;color:var(--text);font-size:18px;margin-bottom:2px}
+ol.steps li span{color:#c0cadf;font-size:16px}
+.readgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-bottom:34px}
+.readgrid div{background:var(--navy2);border:1px solid var(--line);border-radius:12px;padding:16px 18px;font-size:16px;color:#c0cadf}
+.readgrid b{color:var(--gold2);display:block;font-size:17px;margin-bottom:2px}
+.tryit{background:#0c1730;border:1px solid var(--line);border-left:4px solid var(--gold);border-radius:0 12px 12px 0;padding:20px 24px;margin-bottom:26px}
+.tryit h3{color:var(--gold);margin-bottom:10px}
+.tryit ul{margin:0;padding-left:20px}
+.tryit li{margin-bottom:8px;color:#d3dbeb}
+.gotool{display:inline-block;background:var(--gold);color:#1a1405;font-weight:600;text-decoration:none;padding:12px 22px;border-radius:8px}
+.gotool:hover{background:var(--gold2)}
+.guide .fine{color:var(--muted);font-size:14.5px;margin-top:16px}
+@media (max-width:900px){.terms,.readgrid{grid-template-columns:1fr}}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+
+.sitebar{background:#060d1f;border-bottom:1px solid #26385f;font:600 13px/1 'Barlow',system-ui,sans-serif}
+.sitebar .wrap{display:flex;gap:22px;flex-wrap:wrap;align-items:center;padding-top:13px;padding-bottom:13px}
+.sitebar a{color:#f0c75e;text-decoration:none}.sitebar a:hover{text-decoration:underline}
+.sitebar .sp{flex:1}
+</style>
+</head>
+<body>
+<div class="sitebar"><div class="wrap"><a href="index.html">&larr; Block Wall Street Academy</a><a href="rebuilding-black-wall-street-BWSSite.html">The story behind this tool</a><span class="sp"></span><a href="tools-BWSSite.html">More tools</a><a href="consultations-BWSSite.html">Book a session</a></div></div>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="brandline">
+      <div class="brand">BLOCK WALL STREET</div>
+      <div class="chip" id="statusChip">Loading Bitcoin prices&hellip;</div>
+    </div>
+    <h1>What if Black America put a slice of its spending into Bitcoin?</h1>
+    <p class="lede">See where the Black dollar goes each month, then see what happens when everyone sets aside a small, steady amount into Bitcoin over the same years.</p>
+    <div class="answer" id="heroAnswer">Calculating&hellip;</div>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <section class="guide" aria-labelledby="h-guide">
+    <div class="sechead">
+      <h2 id="h-guide">Start here: how to use this tool</h2>
+    </div>
+    <p class="intro">This tool answers one question: <b>if Black Americans set aside a small, steady amount of their spending for Bitcoin, what could it grow into?</b> You don't need to know anything about Bitcoin to use it. Give it two minutes, then play with the numbers.</p>
+
+    <div class="terms">
+      <div class="term">
+        <h3>Buying power</h3>
+        <p>The money Black households have left after taxes to spend. It is estimated at close to $2 trillion a year. It measures spending ability, not savings sitting in a bank.</p>
+      </div>
+      <div class="term">
+        <h3>Dollar-cost averaging</h3>
+        <p>Putting in the same amount on a regular schedule, no matter the price. When the price is low your money buys more Bitcoin, and when it's high it buys less. You never have to guess the best day to buy.</p>
+      </div>
+      <div class="term">
+        <h3>Price swings</h3>
+        <p>Bitcoin's price goes up and down, sometimes by a lot. The tool shows the rough patches as well as the wins, so you can see what holding through them would have felt like.</p>
+      </div>
+    </div>
+
+    <h3 style="margin-bottom:14px">Five steps</h3>
+    <ol class="steps">
+      <li><div><b>Look at where the money goes.</b><span>Pick a spending year under &ldquo;Set your scenario.&rdquo; The page shows the biggest spending categories and how spending rises and falls through the year.</span></div></li>
+      <li><div><b>Choose your years.</b><span>Pick the year to start buying Bitcoin and the year to stop. Try a few. Starting at a different time can change the result a lot.</span></div></li>
+      <li><div><b>Say how many people take part.</b><span>The people box is the size of the community in millions. The slider is the share of those people who actually join. Not everyone would, so try 5% to 10% for a realistic picture. At 100%, the community would own a huge slice of all Bitcoin.</span></div></li>
+      <li><div><b>Set how often and how much.</b><span>Choose daily, weekly, or monthly deposits. Then enter a dollar amount each person puts in, or switch to a percent of their spending. Small amounts add up when many people do it together.</span></div></li>
+      <li><div><b>Read the results.</b><span>Scroll down to see what was put in, what it's worth, and how it moved over time. Then check the comparison tables to see how the start year and the amount change the outcome.</span></div></li>
+    </ol>
+
+    <h3 style="margin-bottom:14px">What the result cards mean</h3>
+    <div class="readgrid">
+      <div><b>Total put in</b>Every dollar the community deposited during your window. This is the money out of pocket.</div>
+      <div><b>Bitcoin bought</b>How much Bitcoin those deposits bought at each day's price, and what share of all Bitcoin that is.</div>
+      <div><b>Worth at the end of the window</b>What that Bitcoin was worth on the last day you picked. The percent is the gain or loss on what was put in.</div>
+      <div><b>Lowest point</b>The worst moment along the way, shown as how much the portfolio was worth compared with what had been put in. This is the honest picture of the ride.</div>
+    </div>
+
+    <div class="tryit">
+      <h3>Three things to try first</h3>
+      <ul>
+        <li>Start in <b>2018</b>, deposit <b>$20 a month</b>, and set the participation slider to <b>10%</b>. Note the lowest point, then the final value.</li>
+        <li>Switch from monthly to <b>daily</b> and compare the percent gain. It barely moves, because the buy days change but the price path stays the same.</li>
+        <li>Open the start-year table in &ldquo;Compare the options.&rdquo; See how a different start year changes the multiple.</li>
+      </ul>
+    </div>
+
+    <a class="gotool" href="#h-setup">Go to the tool</a>
+    <p class="fine">This tool shows what happened in the past. It does not predict the future and it is not financial advice. Block Wall Street built it for education.</p>
+  </section>
+
+  <section aria-labelledby="h-setup">
+    <div class="sechead">
+      <h2 id="h-setup">Set your scenario</h2>
+      <p>Everything below updates as you change these. Pick the years, how many people take part, and how much each one sets aside.</p>
+    </div>
+    <div class="card">
+      <div class="controls">
+        <div class="field">
+          <label for="selSpend">Spending year to explore</label>
+          <select id="selSpend"></select>
+        </div>
+        <div class="field">
+          <label for="selStart">Start buying Bitcoin in</label>
+          <select id="selStart"></select>
+        </div>
+        <div class="field">
+          <label for="selEnd">Stop buying after</label>
+          <select id="selEnd"></select>
+        </div>
+        <div class="field">
+          <label for="inpPeople">People in the community (millions)</label>
+          <input type="number" id="inpPeople" value="48" min="1" max="100" step="0.5">
+        </div>
+        <div class="field">
+          <label for="rngPart">Share of people taking part: <span id="outPart" style="font-family:var(--mono);color:var(--gold2)">100%</span></label>
+          <input type="range" id="rngPart" min="1" max="100" value="100">
+        </div>
+        <div class="field">
+          <span class="lab">How each person sets money aside</span>
+          <div class="seg" role="group" aria-label="Allocation type">
+            <button type="button" id="segUsd" aria-pressed="true">Dollars a month</button>
+            <button type="button" id="segPct" aria-pressed="false">% of spending</button>
+          </div>
+        </div>
+        <div class="field">
+          <span class="lab">How often each person deposits</span>
+          <div class="seg" role="group" aria-label="Deposit frequency">
+            <button type="button" id="segDay" aria-pressed="false">Daily</button>
+            <button type="button" id="segWeek" aria-pressed="false">Weekly</button>
+            <button type="button" id="segMonth" aria-pressed="true">Monthly</button>
+          </div>
+        </div>
+        <div class="field">
+          <label for="inpAmt" id="amtLabel">Dollars per person, each month</label>
+          <div class="row2"><span class="pre" id="amtPre">$</span><input type="number" id="inpAmt" value="20" min="0" step="1"><span class="suf" id="amtSuf"></span></div>
+        </div>
+      </div>
+      <details class="assume">
+        <summary>Edit the buying power numbers (billions of dollars per year)</summary>
+        <div class="bpgrid" id="bpGrid"></div>
+        <p class="hint">Starting values are rounded estimates built around the Selig Center for Economic Growth figures (about $1.3 trillion in 2017 and about $1.98 trillion projected for 2025). Years in between are interpolated. Replace them with your own numbers any time.</p>
+      </details>
+    </div>
+  </section>
+
+  <section aria-labelledby="h-spend">
+    <div class="sechead">
+      <h2 id="h-spend">Where the Black dollar goes</h2>
+      <p>Monthly spending by category for the year you picked. The gold bar is what your Bitcoin allocation would be next to them.</p>
+    </div>
+    <div class="stats" id="spendStats"></div>
+    <div class="card" style="margin-bottom:20px">
+      <h3 style="margin-bottom:14px">Average month, biggest to smallest</h3>
+      <div class="bars" id="rankBars"></div>
+    </div>
+    <h3 style="margin:26px 0 12px">Month by month</h3>
+    <div class="tablewrap"><table id="heatTable"></table></div>
+    <p class="hint" id="heatNote"></p>
+  </section>
+
+  <section aria-labelledby="h-dca">
+    <div class="sechead">
+      <h2 id="h-dca">What the Bitcoin slice grows into</h2>
+      <p>On every deposit day, the community buys Bitcoin at that day's closing price, no matter what the price is. That is dollar-cost averaging. Switch between daily, weekly, and monthly deposits above.</p>
+    </div>
+    <div class="stats" id="dcaStats"></div>
+    <div class="card">
+      <div class="legend"><span><i style="background:var(--gold)"></i>Worth</span><span><i style="background:var(--steel)"></i>Total put in</span></div>
+      <div class="chartbox" id="chartGrowth"></div>
+    </div>
+    <div class="persp" id="persp"></div>
+  </section>
+
+  <section aria-labelledby="h-compare">
+    <div class="sechead">
+      <h2 id="h-compare">Compare the options</h2>
+      <p>Same deposits, different starting years. Then the same window with different amounts.</p>
+    </div>
+    <h3 style="margin-bottom:12px">Does the start year matter?</h3>
+    <div class="tablewrap" style="margin-bottom:28px"><table id="cmpStart"></table></div>
+    <h3 style="margin-bottom:12px">Does the amount matter?</h3>
+    <div class="tablewrap"><table id="cmpAmt"></table></div>
+  </section>
+
+  <section class="abr" aria-labelledby="h-abr"><div>
+  <div class="card" style="border-left:4px solid var(--gold)">
+    <h3 id="h-abr" style="color:var(--gold);margin-bottom:10px">It's already happening in Chicago</h3>
+    <p>The <a href="https://altgeldbitcoinreserve.com/" target="_blank" rel="noopener">Altgeld Bitcoin Reserve</a> was founded in Altgeld Gardens, a public housing community on Chicago's South Side. It describes itself as the first community-operated Bitcoin treasury in the United States, held in a 2-of-3 multisig cold storage vault, with holdings anyone can check on-chain. The Illinois House of Representatives recognized it as the nation's first community-run Bitcoin reserve in October 2025.</p>
+    <p>It matters as a precedent. A reserve that started in public housing now appears on <a href="https://bitcointreasuries.net/private-companies/altgeld-bitcoin-reserve" target="_blank" rel="noopener">BitcoinTreasuries.net</a>, the tracker that also lists companies like Strategy and Tesla. At last check it ranked #69 among private entities. The amount is small, but a neighborhood that banks overlooked is on the same public ledger as Wall Street firms.</p>
+    <p style="margin:0"><a class="gotool" href="rebuilding-black-wall-street-BWSSite.html#abr">Read the full story</a></p>
+  </div>
+</div></section>
+<div class="notes">
+    <h3>Read this before you share these numbers</h3>
+    <ul>
+      <li><b>This is education, not financial advice.</b> It shows what would have happened in the past. Bitcoin can fall more than 70% from a peak, and it has. The &ldquo;lowest point&rdquo; number above shows how rough the ride was for the window you picked.</li>
+      <li><b>Buying power is not savings or wealth.</b> It is an estimate of after-tax income available to spend, and it is debated by economists. Most households would not set aside money the way this model assumes, which is why the participation slider exists.</li>
+      <li><b>Category shares are modeled.</b> The split follows the general pattern of the Bureau of Labor Statistics Consumer Expenditure Survey for Black households. Month-to-month swings (the holiday bump, back-to-school) are illustrative, not measured.</li>
+      <li><b>Bitcoin prices</b> are daily closing prices pulled live from CryptoCompare when your browser is online. Daily deposits buy at each day's close, weekly deposits buy on Mondays, and monthly deposits buy on the 1st. If the live feed can't load, the page falls back to rounded month-end prices connected day to day, so daily and weekly results are only rough estimates. It says so at the top.</li>
+      <li><b>Price impact is ignored.</b> The model buys at the historical monthly price as if the community's buying never moved the market. With a large group putting in even small amounts, the real market would likely have moved against them. Check the &ldquo;share of all Bitcoin&rdquo; number in the Bitcoin bought card. Lower the participation slider to see a more realistic scale.</li>
+      <li>Fees, taxes, and the cost of buying are not included.</li>
+    </ul>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">Built by Block Wall Street &middot; <a href="index.html">blockwallstreet.biz</a> &middot; <a href="rebuilding-black-wall-street-BWSSite.html">Read the story</a> &middot; For education only.</div>
+</footer>
+
+<script>
+(function(){
+'use strict';
+
+var MON=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+
+/* Rounded month-end Bitcoin closes (USD). Used only if the live feed cannot load. */
+var FALLBACK={
+2015:[217,255,244,236,230,263,284,230,236,315,378,430],
+2016:[369,437,416,448,531,673,624,575,609,702,742,963],
+2017:[965,1190,1079,1347,2287,2481,2875,4703,4338,6468,10233,14156],
+2018:[10285,10326,6924,9245,7494,6391,7735,7011,6625,6318,4017,3742],
+2019:[3438,3854,4106,5324,8574,10817,9552,9631,8293,9199,7569,7193],
+2020:[9351,8532,6411,8624,9455,9137,11335,11649,10776,13781,19697,28949],
+2021:[33114,45137,58918,57750,37333,35026,41461,47167,43790,61318,57005,46306],
+2022:[38483,43194,45538,37714,31792,19785,23296,20050,19432,20495,17168,16547],
+2023:[23139,23147,28478,29268,27219,30477,29232,25931,26967,34502,37713,42265],
+2024:[42580,61198,71333,60636,67491,62678,64619,58969,63329,70215,96407,93429],
+2025:[102405,84350,82550,94172,104590,107135,115764,108237,114056]
+};
+
+/* Buying power, billions of USD per year (rounded, editable) */
+var BP={2015:1200,2016:1260,2017:1300,2018:1320,2019:1400,2020:1500,2021:1600,2022:1700,2023:1800,2024:1900,2025:1980,2026:2050};
+
+var FLAT=[1,1,1,1,1,1,1,1,1,1,1,1];
+var CATS=[
+ {id:'housing',name:'Housing',share:34.0,s:FLAT},
+ {id:'transport',name:'Transportation',share:15.8,s:[.95,.95,1,1,1.05,1.05,1.05,1.05,1,1,.95,.95]},
+ {id:'insure',name:'Insurance & retirement',share:10.4,s:FLAT},
+ {id:'foodhome',name:'Food at home',share:7.9,s:[1,.95,1,1,1,1,1,1,1,1,1.05,1.15]},
+ {id:'other',name:'Other (alcohol, tobacco, misc.)',share:7.4,s:FLAT},
+ {id:'health',name:'Healthcare',share:5.9,s:FLAT},
+ {id:'foodaway',name:'Food away from home',share:4.9,s:[.9,.9,1,1,1.05,1.1,1.1,1.1,1,1,1,1.1]},
+ {id:'fun',name:'Entertainment',share:4.0,s:[.9,.85,.95,1,1,1.05,1.1,1.05,.95,1,1.05,1.4]},
+ {id:'apparel',name:'Apparel & services',share:3.6,s:[.85,.8,.95,1,1,.95,.95,1.1,1,1,1.2,1.5]},
+ {id:'gifts',name:'Gifts & contributions',share:2.7,s:[.8,.8,.9,.9,1,.9,.9,.9,.9,1,1.3,2]},
+ {id:'edu',name:'Education',share:2.2,s:[1,.9,.9,.9,.8,.8,.9,1.6,1.5,1,.9,.8]},
+ {id:'care',name:'Personal care',share:1.2,s:FLAT}
+];
+CATS.forEach(function(c){var m=c.s.reduce(function(a,b){return a+b;},0)/12;c.w=c.s.map(function(v){return v/m;});});
+
+var PER={daily:365,weekly:52,monthly:12};
+var UNIT={daily:'day',weekly:'week',monthly:'month'};
+var ADV={daily:'daily',weekly:'weekly',monthly:'monthly'};
+var DEF_USD={daily:1,weekly:5,monthly:20};
+
+var days=[];            /* [{y,m,d,dow,price}] one per day */
+var latest={price:0,label:''};
+var live=false;
+var $=function(id){return document.getElementById(id);};
+var mode='usd',freq='monthly';
+
+/* ---------- formatting ---------- */
+function money(n){
+  var a=Math.abs(n),s=n<0?'-':'';
+  if(a>=1e12) return s+'$'+(a/1e12).toFixed(2)+'T';
+  if(a>=1e9) return s+'$'+(a/1e9).toFixed(a>=1e11?0:1)+'B';
+  if(a>=1e6) return s+'$'+(a/1e6).toFixed(a>=1e8?0:1)+'M';
+  if(a>=1e4) return s+'$'+Math.round(a/1e3)+'K';
+  if(a>=1e3) return s+'$'+(a/1e3).toFixed(1)+'K';
+  return s+'$'+Math.round(a).toLocaleString('en-US');
+}
+function usd(n){return '$'+Math.round(n).toLocaleString('en-US');}
+function num(n,d){return n.toLocaleString('en-US',{maximumFractionDigits:d||0});}
+function pct(n,d){return n.toFixed(d==null?0:d)+'%';}
+
+/* ---------- data ---------- */
+function dayFromMs(ms,price){
+  var dt=new Date(ms);
+  return {y:dt.getUTCFullYear(),m:dt.getUTCMonth(),d:dt.getUTCDate(),dow:dt.getUTCDay(),price:price};
+}
+function dailyFromApi(arr){
+  var out=[];
+  arr.forEach(function(x){
+    if(!x||!(x.close>0)) return;
+    var r=dayFromMs(x.time*1000,x.close);
+    if(r.y>=2015) out.push(r);
+  });
+  return out;
+}
+function interpolateDaily(){
+  var pts=[];
+  Object.keys(FALLBACK).forEach(function(y){FALLBACK[y].forEach(function(p,m){pts.push({t:Date.UTC(+y,m+1,0),price:p});});});
+  pts.sort(function(a,b){return a.t-b.t;});
+  var out=[],DAY=86400000;
+  for(var i=0;i<pts.length;i++){
+    if(i===0){out.push(dayFromMs(pts[0].t,pts[0].price));continue;}
+    var a=pts[i-1],b=pts[i],n=Math.round((b.t-a.t)/DAY);
+    for(var k=1;k<=n;k++){out.push(dayFromMs(a.t+k*DAY,a.price+(b.price-a.price)*k/n));}
+  }
+  return out;
+}
+function loadPrices(){
+  var ctrl=(typeof AbortController!=='undefined')?new AbortController():null;
+  var timer=setTimeout(function(){if(ctrl)ctrl.abort();},9000);
+  return fetch('https://min-api.cryptocompare.com/data/v2/histoday?fsym=BTC&tsym=USD&allData=true',ctrl?{signal:ctrl.signal}:{})
+    .then(function(r){clearTimeout(timer);return r.json();})
+    .then(function(j){
+      var arr=j&&j.Data&&j.Data.Data;
+      if(!arr||arr.length<1500) throw new Error('short');
+      var d=dailyFromApi(arr);
+      if(d.length<1500) throw new Error('short');
+      var last=d[d.length-1];
+      days=d;
+      latest={price:last.price,label:MON[last.m]+' '+last.d+', '+last.y};
+      live=true;
+    })
+    .catch(function(){
+      clearTimeout(timer);
+      days=interpolateDaily();
+      var l=days[days.length-1];
+      latest={price:l.price,label:MON[l.m]+' '+l.y};
+      live=false;
+    });
+}
+
+/* ---------- model ---------- */
+function readState(){
+  return {
+    spendYear:+$('selSpend').value,
+    start:+$('selStart').value,
+    end:+$('selEnd').value,
+    people:Math.max(0.1,parseFloat($('inpPeople').value)||48),
+    part:(parseFloat($('rngPart').value)||100)/100,
+    amt:Math.max(0,parseFloat($('inpAmt').value)||0),
+    mode:mode,freq:freq
+  };
+}
+function perDeposit(st,year){
+  if(st.mode==='usd') return st.amt*st.people*1e6*st.part;
+  return (BP[year]||0)*1e9/PER[st.freq]*(st.amt/100)*st.part;
+}
+function monthlyEquiv(st,year){return perDeposit(st,year)*PER[st.freq]/12;}
+function isDepositDay(f,p){
+  if(f==='daily') return true;
+  if(f==='weekly') return p.dow===1;
+  return p.d===1;
+}
+function runDCA(st,start,end,amtOverride){
+  var s=Object.assign({},st);
+  if(amtOverride!=null) s.amt=amtOverride;
+  var rows=[],cumBtc=0,cumInv=0,deposits=0,minRatio=null;
+  for(var i=0;i<days.length;i++){
+    var p=days[i];
+    if(p.y<start||p.y>end) continue;
+    var c=0;
+    if(isDepositDay(s.freq,p)){c=perDeposit(s,p.y);deposits++;}
+    cumBtc+=c/p.price;cumInv+=c;
+    var v=cumBtc*p.price;
+    rows.push({y:p.y,m:p.m,d:p.d,price:p.price,inv:cumInv,btc:cumBtc,val:v});
+    if(rows.length>=60&&cumInv>0){
+      var r=v/cumInv;
+      if(!minRatio||r<minRatio.ratio) minRatio={ratio:r,y:p.y,m:p.m,d:p.d,val:v,inv:cumInv};
+    }
+  }
+  if(!deposits) return null;
+  var last=rows[rows.length-1];
+  return {rows:rows,deposits:deposits,inv:last.inv,btc:last.btc,valEnd:last.val,endPrice:last.price,
+          valToday:last.btc*latest.price,minRatio:minRatio,avgCost:last.btc?last.inv/last.btc:0};
+}
+function spendMatrix(year){
+  var bp=(BP[year]||0)*1e9;
+  return CATS.map(function(c){
+    var months=c.w.map(function(w){return bp*c.share/100*w/12;});
+    return {id:c.id,name:c.name,share:c.share,months:months,annual:months.reduce(function(a,b){return a+b;},0)};
+  }).sort(function(a,b){return b.annual-a.annual;});
+}
+
+/* ---------- charts ---------- */
+function niceTicks(max,count){
+  if(max<=0) return [0,1];
+  var raw=max/count,mag=Math.pow(10,Math.floor(Math.log10(raw))),norm=raw/mag;
+  var step=(norm<=1?1:norm<=2?2:norm<=2.5?2.5:norm<=5?5:10)*mag,t=[];
+  for(var v=0;;v+=step){t.push(v);if(v>=max)break;}
+  return t;
+}
+function lineChart(el,cfg){
+  var n=cfg.labels.length;
+  if(n<2){el.innerHTML='<p class="empty">Pick a longer window to see the chart.</p>';return;}
+  var W=760,H=320,pl=64,pr=14,pt=14,pb=30,max=0;
+  cfg.series.forEach(function(s){s.values.forEach(function(v){if(v>max)max=v;});});
+  var ticks=niceTicks(max,4),top=ticks[ticks.length-1];
+  var X=function(i){return pl+(W-pl-pr)*i/(n-1);};
+  var Y=function(v){return pt+(H-pt-pb)*(1-v/top);};
+  var g='';
+  ticks.forEach(function(t){
+    g+='<line x1="'+pl+'" x2="'+(W-pr)+'" y1="'+Y(t)+'" y2="'+Y(t)+'" stroke="#26385f" stroke-width="1"/>'+
+       '<text x="'+(pl-8)+'" y="'+(Y(t)+4)+'" text-anchor="end" font-family="DM Mono,monospace" font-size="11" fill="#93a0bd">'+money(t)+'</text>';
+  });
+  var seen={},yrs=[];
+  cfg.labels.forEach(function(l,i){if(!seen[l.y]){seen[l.y]=1;yrs.push({y:l.y,i:i});}});
+  var every=Math.max(1,Math.ceil(yrs.length/9));
+  yrs.forEach(function(o,k){
+    if(k%every) return;
+    g+='<text x="'+X(o.i)+'" y="'+(H-8)+'" text-anchor="middle" font-family="DM Mono,monospace" font-size="11" fill="#93a0bd">'+o.y+'</text>';
+  });
+  cfg.series.forEach(function(s){
+    var pts=new Array(n);
+    for(var i=0;i<n;i++) pts[i]=X(i).toFixed(1)+','+Y(s.values[i]).toFixed(1);
+    if(s.area){g+='<polygon points="'+X(0)+','+Y(0)+' '+pts.join(' ')+' '+X(n-1)+','+Y(0)+'" fill="'+s.color+'" opacity=".16"/>';}
+    g+='<polyline points="'+pts.join(' ')+'" fill="none" stroke="'+s.color+'" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/>';
+  });
+  g+='<line id="hv" x1="0" x2="0" y1="'+pt+'" y2="'+(H-pb)+'" stroke="#f0c75e" stroke-width="1" opacity="0"/>';
+  el.innerHTML='<svg viewBox="0 0 '+W+' '+H+'" role="img" aria-label="'+cfg.aria+'">'+g+'<rect x="'+pl+'" y="'+pt+'" width="'+(W-pl-pr)+'" height="'+(H-pt-pb)+'" fill="transparent" id="hit"/></svg><div class="tip"></div>';
+  var svg=el.querySelector('svg'),hit=el.querySelector('#hit'),hv=el.querySelector('#hv'),tip=el.querySelector('.tip');
+  function move(ev){
+    var r=svg.getBoundingClientRect();
+    var cx=(ev.touches?ev.touches[0].clientX:ev.clientX)-r.left;
+    var vx=cx/r.width*W;
+    var i=Math.round((vx-pl)/(W-pl-pr)*(n-1));
+    i=Math.max(0,Math.min(n-1,i));
+    hv.setAttribute('x1',X(i));hv.setAttribute('x2',X(i));hv.setAttribute('opacity','1');
+    var l=cfg.labels[i];
+    var html='<b>'+MON[l.m]+' '+l.d+', '+l.y+'</b>';
+    cfg.series.forEach(function(s){html+='<br>'+s.name+': '+money(s.values[i]);});
+    if(cfg.extra) html+='<br>'+cfg.extra(i);
+    tip.innerHTML=html;tip.style.display='block';
+    var tx=cx+14;if(tx>r.width-190)tx=cx-190;
+    tip.style.left=Math.max(4,tx)+'px';tip.style.top='10px';
+  }
+  function leave(){hv.setAttribute('opacity','0');tip.style.display='none';}
+  hit.addEventListener('mousemove',move);hit.addEventListener('touchmove',move,{passive:true});hit.addEventListener('touchstart',move,{passive:true});
+  hit.addEventListener('mouseleave',leave);hit.addEventListener('touchend',leave);
+}
+
+/* ---------- rendering ---------- */
+function stat(v,l,s){return '<div class="stat"><div class="v">'+v+'</div><div class="l">'+l+'</div><div class="s">'+s+'</div></div>';}
+
+function renderSpend(st){
+  var y=st.spendYear,bp=(BP[y]||0)*1e9;
+  var mat=spendMatrix(y);
+  var avgMonth=bp/12;
+  var contribM=monthlyEquiv(st,y),contribY=contribM*12;
+  var topCat=mat[0];
+  var perPerson=bp/(st.people*1e6);
+  $('spendStats').innerHTML=
+    stat(money(bp),'Buying power in '+y,'about '+usd(perPerson)+' per person')+
+    stat(money(avgMonth),'Spent in an average month','across all categories')+
+    stat(money(topCat.annual/12),'Biggest category: '+topCat.name,pct(topCat.share,1)+' of spending, per month')+
+    stat(money(contribM),'Bitcoin allocation per month',pct(contribY/bp*100,2)+' of '+y+' spending power');
+  var maxV=Math.max(topCat.annual/12,contribM);
+  var h='';
+  mat.forEach(function(c){
+    h+='<div class="brow"><div class="n">'+c.name+'</div><div class="track"><div class="fill" style="width:'+(c.annual/12/maxV*100).toFixed(1)+'%"></div></div><div class="num">'+money(c.annual/12)+' / mo<small>'+money(c.annual)+' / yr</small></div></div>';
+  });
+  h+='<div class="brow btc"><div class="n">Bitcoin allocation (your scenario)</div><div class="track"><div class="fill" style="width:'+Math.max(0.6,contribM/maxV*100).toFixed(1)+'%"></div></div><div class="num">'+money(contribM)+' / mo<small>'+money(contribY)+' / yr</small></div></div>';
+  $('rankBars').innerHTML=h;
+
+  var t='<thead><tr><th>Category</th>'+MON.map(function(m){return '<th>'+m+'</th>';}).join('')+'<th>Year</th></tr></thead><tbody>';
+  mat.forEach(function(c){
+    var mn=Math.min.apply(null,c.months),mx=Math.max.apply(null,c.months);
+    t+='<tr><td>'+c.name+'</td>';
+    c.months.forEach(function(v){
+      var a=mx===mn?0.12:0.1+0.55*(v-mn)/(mx-mn);
+      t+='<td class="heat" style="background:rgba(217,169,58,'+a.toFixed(2)+')">'+money(v)+'</td>';
+    });
+    t+='<td>'+money(c.annual)+'</td></tr>';
+  });
+  t+='</tbody><tfoot><tr><td>All spending</td>';
+  var monthTotals=[];
+  for(var m=0;m<12;m++){var s=0;mat.forEach(function(c){s+=c.months[m];});monthTotals.push(s);t+='<td>'+money(s)+'</td>';}
+  t+='<td>'+money(bp)+'</td></tr></tfoot>';
+  $('heatTable').innerHTML=t;
+  var order=monthTotals.map(function(v,i){return {v:v,i:i};}).sort(function(a,b){return b.v-a.v;}).slice(0,3).map(function(o){return MON[o.i];});
+  $('heatNote').textContent='Biggest spending months in '+y+': '+order.join(', ')+'. Shading shows each category against its own low and high month.';
+}
+
+function whatLine(st){
+  if(st.mode==='usd') return '<b>'+usd(st.amt)+'</b> a '+UNIT[st.freq];
+  return '<b>'+st.amt+'%</b> of their spending, deposited '+ADV[st.freq];
+}
+
+function renderDCA(st,res){
+  if(!res){
+    $('dcaStats').innerHTML='<div class="card empty" style="grid-column:1/-1">No deposits fall in that window. Choose a start year that is not after the end year.</div>';
+    $('chartGrowth').innerHTML='';$('persp').innerHTML='';
+    $('heroAnswer').textContent='Choose a start year that is not after the end year.';return;
+  }
+  var who=st.people*1e6*st.part;
+  var gain=(res.valEnd/res.inv-1)*100;
+  var maxYear=days[days.length-1].y;
+  var cards=
+    stat(money(res.inv),'Total put in',usd(res.inv/who)+' per person over '+num(res.deposits)+' '+ADV[st.freq]+' deposits')+
+    stat(num(res.btc,0)+' BTC','Bitcoin bought','about '+pct(res.btc/21e6*100,1)+' of all Bitcoin that will ever exist &middot; avg cost '+usd(res.avgCost))+
+    stat(money(res.valEnd),'Worth at the end of the window','<span class="'+(gain>=0?'pos':'neg')+'">'+(gain>=0?'+':'')+num(gain,0)+'%</span> &middot; '+usd(res.valEnd/who)+' per person');
+  if(st.end>=maxYear&&res.minRatio){
+    var mr=res.minRatio;
+    cards+=stat(pct(mr.ratio*100,0),'Worth vs. put in at the lowest point',MON[mr.m]+' '+mr.d+', '+mr.y+': '+money(mr.val)+' on '+money(mr.inv));
+  }else{
+    var g2=(res.valToday/res.inv-1)*100;
+    cards+=stat(money(res.valToday),'Worth today if held','<span class="'+(g2>=0?'pos':'neg')+'">'+(g2>=0?'+':'')+num(g2,0)+'%</span> at '+usd(latest.price)+' per BTC');
+  }
+  $('dcaStats').innerHTML=cards;
+
+  lineChart($('chartGrowth'),{
+    labels:res.rows,
+    aria:'Chart of total money put in versus what it is worth over time',
+    series:[
+      {name:'Worth',color:'#f0c75e',values:res.rows.map(function(r){return r.val;}),area:true},
+      {name:'Put in',color:'#7a9ad6',values:res.rows.map(function(r){return r.inv;})}
+    ],
+    extra:function(i){return 'BTC price: '+usd(res.rows[i].price);}
+  });
+
+  var bpSum=0;res.rows.forEach(function(r){bpSum+=(BP[r.y]||0)*1e9/365;});
+  var endY=Math.min(st.end,maxYear);
+  var housingMonth=(BP[endY]||0)*1e9*0.34/12;
+  var perMonth=res.inv/who/(res.rows.length/30.4375);
+  $('persp').innerHTML=
+    '<div class="card"><span class="k">'+pct(res.inv/bpSum*100,2)+'</span>Of everything the community had to spend between '+res.rows[0].y+' and '+res.rows[res.rows.length-1].y+', this is the share set aside for Bitcoin.</div>'+
+    '<div class="card"><span class="k">'+num(res.valEnd/housingMonth,1)+' months</span>Of housing spending (at '+endY+' levels) that the portfolio would cover at the end of the window.</div>'+
+    '<div class="card"><span class="k">'+usd(perMonth)+' a month</span>What each participating person averaged over the window. About '+usd(perMonth*12)+' a year.</div>';
+
+  var first=res.rows[0].y,lastY=res.rows[res.rows.length-1].y;
+  $('heroAnswer').innerHTML='If <b>'+num(st.people*st.part,1)+' million</b> people put in '+whatLine(st)+' from <b>'+first+'</b> through <b>'+lastY+'</b>, the community would have put in <span class="big">'+money(res.inv)+'</span> and held Bitcoin worth <span class="big">'+money(res.valEnd)+'</span> at the end of that window'+
+    (st.end<maxYear?', or <span class="big">'+money(res.valToday)+'</span> if held until today':'')+'.';
+}
+
+function levelsFor(st){
+  if(st.mode==='pct') return [0.5,1,2,5,10];
+  return {daily:[1,2,5,10,20],weekly:[5,10,25,50,100],monthly:[5,10,20,50,100]}[st.freq];
+}
+function renderCompare(st){
+  var who=st.people*1e6*st.part;
+  var rows=[],best=0;
+  for(var s=2015;s<=st.end;s++){
+    var r=runDCA(st,s,st.end);
+    if(!r) continue;
+    rows.push({s:s,r:r});
+    if(r.valEnd/r.inv>best) best=r.valEnd/r.inv;
+  }
+  var t='<thead><tr><th>Start year</th><th>Put in</th><th>Worth at end</th><th>Multiple</th><th>Per person</th><th>Lowest point</th></tr></thead><tbody>';
+  rows.forEach(function(o){
+    var mult=o.r.valEnd/o.r.inv;
+    t+='<tr class="'+(o.s===st.start?'sel':'')+'"><td>'+o.s+(o.s===st.start?' (your pick)':'')+'</td><td>'+money(o.r.inv)+'</td><td>'+money(o.r.valEnd)+'</td>'+
+       '<td><span class="inlinebar" style="width:'+Math.max(2,mult/best*90).toFixed(0)+'px"></span>'+mult.toFixed(2)+'x</td>'+
+       '<td>'+usd(o.r.valEnd/who)+'</td><td>'+(o.r.minRatio?pct(o.r.minRatio.ratio*100,0)+' of put in':'n/a')+'</td></tr>';
+  });
+  $('cmpStart').innerHTML=t+'</tbody>';
+
+  var head=st.mode==='usd'?'Dollars a '+UNIT[st.freq]:'% of spending';
+  var t2='<thead><tr><th>'+head+'</th><th>Put in</th><th>Worth at end</th><th>Gain</th><th>Per person worth</th></tr></thead><tbody>';
+  levelsFor(st).forEach(function(a){
+    var r=runDCA(st,st.start,st.end,a);
+    if(!r) return;
+    var g=(r.valEnd/r.inv-1)*100;
+    t2+='<tr><td>'+(st.mode==='usd'?usd(a):a+'%')+'</td><td>'+money(r.inv)+'</td><td>'+money(r.valEnd)+'</td><td class="'+(g>=0?'pos':'neg')+'">'+(g>=0?'+':'')+num(g,0)+'%</td><td>'+usd(r.valEnd/who)+'</td></tr>';
+  });
+  $('cmpAmt').innerHTML=t2+'</tbody>';
+}
+
+function renderAll(){
+  if(!days.length) return;
+  var st=readState();
+  if(st.start>st.end){$('selEnd').value=st.start;st.end=st.start;}
+  var res=runDCA(st,st.start,st.end);
+  renderSpend(st);
+  renderDCA(st,res);
+  renderCompare(st);
+}
+
+/* ---------- setup ---------- */
+function fillSelect(el,from,to,sel){
+  var h='';for(var y=from;y<=to;y++) h+='<option value="'+y+'"'+(y===sel?' selected':'')+'>'+y+'</option>';
+  el.innerHTML=h;
+}
+function buildBpGrid(){
+  var h='';
+  Object.keys(BP).forEach(function(y){h+='<label>'+y+'<input type="number" data-y="'+y+'" value="'+BP[y]+'" step="10" min="0"></label>';});
+  $('bpGrid').innerHTML=h;
+  $('bpGrid').addEventListener('input',function(e){
+    var y=e.target.getAttribute('data-y');
+    if(y){BP[y]=Math.max(0,parseFloat(e.target.value)||0);renderAll();}
+  });
+}
+function updateAmtUi(resetValue){
+  if(mode==='usd'){
+    $('amtLabel').textContent='Dollars per person, each '+UNIT[freq];
+    $('amtPre').textContent='$';$('amtSuf').textContent='';
+    $('inpAmt').step=1;
+    if(resetValue) $('inpAmt').value=DEF_USD[freq];
+  }else{
+    $('amtLabel').textContent='Share of spending set aside, deposited '+ADV[freq];
+    $('amtPre').textContent='';$('amtSuf').textContent='%';
+    $('inpAmt').step=0.25;
+    if(resetValue) $('inpAmt').value=1;
+  }
+}
+function setMode(m){
+  mode=m;
+  $('segUsd').setAttribute('aria-pressed',m==='usd');
+  $('segPct').setAttribute('aria-pressed',m==='pct');
+  updateAmtUi(true);renderAll();
+}
+function setFreq(f){
+  freq=f;
+  $('segDay').setAttribute('aria-pressed',f==='daily');
+  $('segWeek').setAttribute('aria-pressed',f==='weekly');
+  $('segMonth').setAttribute('aria-pressed',f==='monthly');
+  updateAmtUi(mode==='usd');renderAll();
+}
+function init(){
+  buildBpGrid();
+  loadPrices().then(function(){
+    var lastDay=days[days.length-1],maxYear=lastDay.y;
+    var lastFull=(lastDay.m===11&&lastDay.d===31)?maxYear:maxYear-1;
+    fillSelect($('selSpend'),2015,maxYear,lastFull);
+    fillSelect($('selStart'),2015,maxYear,Math.min(2018,maxYear));
+    fillSelect($('selEnd'),2015,maxYear,maxYear);
+    var chip=$('statusChip');
+    if(live){chip.innerHTML='<b>Live</b> Bitcoin prices &middot; latest '+usd(latest.price)+' on '+latest.label;}
+    else{chip.className='chip warn';chip.innerHTML='<b>Offline estimate</b> &middot; rounded prices through '+latest.label+'; daily and weekly results are rough. Open with internet for live data.';}
+    renderAll();
+  });
+  ['selSpend','selStart','selEnd','inpPeople','inpAmt'].forEach(function(id){$(id).addEventListener('input',renderAll);$(id).addEventListener('change',renderAll);});
+  $('rngPart').addEventListener('input',function(){$('outPart').textContent=this.value+'%';renderAll();});
+  $('segUsd').addEventListener('click',function(){setMode('usd');});
+  $('segPct').addEventListener('click',function(){setMode('pct');});
+  $('segDay').addEventListener('click',function(){setFreq('daily');});
+  $('segWeek').addEventListener('click',function(){setFreq('weekly');});
+  $('segMonth').addEventListener('click',function(){setFreq('monthly');});
+}
+if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',init); else init();
+})();
+</script>
+</body>
+</html>
