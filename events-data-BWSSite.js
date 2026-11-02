@@ -7,7 +7,7 @@ window.BWS_EVENTS = [
     "time": "8:00 PM CST",
     "format": "4 weeks, 8 live sessions, 2 hours each, in person (Chicago) or online",
     "desc": "A hands-on boot camp that takes you from zero to confident: wallets and self-custody, buying and stacking Bitcoin and other blue chips, on-chain credit and income, and a personal plan you can follow. 8 days in all, every Tuesday and Thursday at 8 PM CST, starting Tuesday, November 3. Every session is live and hands-on, recorded, and comes with its own interactive course for that day. No experience needed.",
-    "price": "$650. Chime 10% off, crypto 15% off",
+    "price": "$650. Chime 10% off, crypto 15% off. Payment plans available",
     "link": "payment-BWSSite.html",
     "cta": "See payment options",
     "logo": "boot-camp-class-logo-BWSSite.png",
