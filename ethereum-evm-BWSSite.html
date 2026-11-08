@@ -1,0 +1,1124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="icon" type="image/png" href="bws-favicon.png">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ethereum &amp; EVM Networks | Block Wall Street</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;500;600;700&family=DM+Mono:wght@400;500&family=Great+Vibes&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#0a1628;--navy2:#0f2038;--panel:#13294a;--line:#25416b;--gold:#f0b429;--gold2:#d4a017;--text:#e9eef7;--muted:#9fb2cf;--good:#3ecf8e;--bad:#ff6b6b;--r:14px}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:radial-gradient(1200px 600px at 80% -10%,#16315c 0%,var(--navy) 55%) fixed;color:var(--text);font-family:'Barlow',system-ui,Segoe UI,Arial,sans-serif;font-size:19px;line-height:1.7}
+a{color:var(--gold)}
+header.top{position:sticky;top:0;z-index:50;background:rgba(10,22,40,.96);border-bottom:1px solid var(--line);display:flex;align-items:center;gap:14px;padding:10px 18px}
+.logo{font-family:'Bebas Neue',Impact,sans-serif;letter-spacing:2px;font-size:26px;color:var(--gold);line-height:1;white-space:nowrap}
+.logo small{display:block;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:1.5px;color:var(--muted)}
+.pbar{flex:1;height:10px;background:var(--navy2);border:1px solid var(--line);border-radius:99px;overflow:hidden}
+.pbar>i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--gold2),var(--gold));transition:width .5s}
+.pct{font-family:'DM Mono',monospace;font-size:13px;color:var(--muted);min-width:44px;text-align:right}
+button,.btn{font-family:'Barlow',sans-serif;font-weight:700;font-size:17px;cursor:pointer;border-radius:10px;border:1px solid var(--gold2);background:transparent;color:var(--gold);padding:10px 18px;transition:.15s}
+button:hover{background:rgba(240,180,41,.12)}
+button.primary{background:var(--gold);color:#1b1300;border-color:var(--gold)}
+button.primary:hover{background:#ffc94d}
+button:disabled{opacity:.45;cursor:not-allowed}
+button.ghost{border-color:var(--line);color:var(--text)}
+main{max-width:860px;margin:0 auto;padding:26px 18px 120px}
+.hero{text-align:center;padding:28px 10px 6px}
+.hero h1{font-family:'Bebas Neue',Impact,sans-serif;font-weight:400;font-size:clamp(46px,9vw,84px);line-height:.95;margin:6px 0;color:#fff;letter-spacing:2px}
+.hero h1 span{color:var(--gold)}
+.eyebrow{font-family:'DM Mono',monospace;color:var(--gold);letter-spacing:3px;font-size:13px;text-transform:uppercase}
+.card{background:linear-gradient(180deg,var(--panel),var(--navy2));border:1px solid var(--line);border-radius:var(--r);padding:22px;margin:18px 0}
+.card h2{font-family:'Bebas Neue',Impact,sans-serif;font-weight:400;letter-spacing:1.5px;font-size:30px;margin:0 0 8px;color:var(--gold)}
+label{display:block;font-weight:600;margin:14px 0 6px}
+input[type=text],input[type=email]{width:100%;padding:14px;border-radius:10px;border:1px solid var(--line);background:#0b1a31;color:#fff;font-size:19px;font-family:inherit}
+input:focus{outline:2px solid var(--gold2)}
+.small{font-size:15px;color:var(--muted);line-height:1.5}
+.grid{display:grid;gap:12px}
+.sec{display:flex;gap:14px;align-items:center;background:var(--navy2);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+.sec .num{font-family:'Bebas Neue',sans-serif;font-size:38px;color:var(--gold);width:46px;text-align:center;line-height:1}
+.sec .meta{flex:1}
+.sec .meta b{display:block;line-height:1.25}
+.sec .meta span{font-size:14px;color:var(--muted)}
+.tag{font-family:'DM Mono',monospace;font-size:12px;padding:3px 9px;border-radius:99px;border:1px solid var(--line);color:var(--muted);white-space:nowrap}
+.tag.ok{border-color:var(--good);color:var(--good)}
+.tag.lock{opacity:.7}
+.lessonhead{border-bottom:1px solid var(--line);padding-bottom:10px;margin-bottom:6px}
+.lessonhead h1{font-family:'Bebas Neue',Impact,sans-serif;font-weight:400;font-size:clamp(34px,6vw,52px);line-height:1.02;margin:4px 0;color:#fff;letter-spacing:1px}
+#lessonBody h3{font-family:'Bebas Neue',Impact,sans-serif;font-weight:400;color:var(--gold);font-size:31px;letter-spacing:1px;margin:34px 0 4px}
+#lessonBody p,#lessonBody li{margin:.7em 0}
+#lessonBody ul,#lessonBody ol{padding-left:1.3em}
+#lessonBody b{color:#fff}
+.callout{background:rgba(240,180,41,.09);border-left:5px solid var(--gold);border-radius:8px;padding:6px 18px;margin:24px 0}
+.callout.paper{background:rgba(62,207,142,.08);border-left-color:var(--good)}
+.speaking{background:rgba(240,180,41,.20);box-shadow:0 0 0 6px rgba(240,180,41,.20);border-radius:6px}
+.audio{position:sticky;top:60px;z-index:40;background:rgba(15,32,56,.98);border:1px solid var(--line);border-radius:12px;padding:10px 12px;display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:12px 0}
+.audio button{padding:8px 14px;font-size:16px}
+.audio select{background:#0b1a31;color:#fff;border:1px solid var(--line);border-radius:8px;padding:7px;font-family:inherit;font-size:15px;max-width:210px}
+.audio .lab{font-family:'DM Mono',monospace;font-size:12px;color:var(--muted)}
+.gate{text-align:center;margin-top:34px}
+.gate .msg{font-family:'DM Mono',monospace;font-size:14px;color:var(--muted);margin-bottom:10px}
+.qhead{display:flex;justify-content:space-between;align-items:center;font-family:'DM Mono',monospace;font-size:14px;color:var(--muted)}
+.qbar{height:8px;background:var(--navy2);border-radius:99px;margin:8px 0 18px;overflow:hidden;border:1px solid var(--line)}
+.qbar>i{display:block;height:100%;background:var(--gold);width:0}
+.qtext{font-size:23px;font-weight:600;line-height:1.45;margin:6px 0 18px}
+.opt{display:block;width:100%;text-align:left;margin:10px 0;padding:15px 16px;background:var(--navy2);border:1px solid var(--line);color:var(--text);font-weight:500;font-size:19px;border-radius:12px;line-height:1.45}
+.opt:hover{border-color:var(--gold2);background:#12294b}
+.opt.sel{border-color:var(--gold);background:rgba(240,180,41,.16);box-shadow:inset 0 0 0 1px var(--gold)}
+.dots{display:flex;flex-wrap:wrap;gap:6px;margin:18px 0}
+.dots i{width:26px;height:26px;border-radius:7px;border:1px solid var(--line);font:500 12px 'DM Mono',monospace;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--muted);font-style:normal}
+.dots i.done{background:rgba(240,180,41,.22);color:#fff;border-color:var(--gold2)}
+.dots i.cur{outline:2px solid #fff}
+.nav{display:flex;justify-content:space-between;gap:10px;margin-top:20px}
+.score{text-align:center}
+.score .big{font-family:'Bebas Neue',sans-serif;font-size:96px;line-height:1;color:var(--gold)}
+.score.fail .big{color:var(--bad)}
+.rev{border-top:1px solid var(--line);padding:14px 0}
+.rev .q{font-weight:600}
+.rev .y{color:var(--good)} .rev .n{color:var(--bad)}
+.rev .why{font-size:16px;color:var(--muted)}
+canvas#cert{width:100%;height:auto;border:2px solid var(--gold2);border-radius:10px;background:#000}
+.drawer{position:fixed;inset:0 auto 0 0;width:min(380px,92vw);background:var(--navy);border-right:1px solid var(--line);transform:translateX(-102%);transition:.25s;z-index:80;padding:16px;overflow:auto}
+.drawer.open{transform:none}
+.veil{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:70;display:none}
+.veil.open{display:block}
+.drawer .sec{margin:8px 0;cursor:pointer;padding:10px 12px}
+.drawer .sec .num{font-size:30px;width:36px}
+.hide{display:none!important}
+.status{padding:12px 14px;border-radius:10px;margin:12px 0;font-size:16px}
+.status.ok{background:rgba(62,207,142,.12);border:1px solid var(--good)}
+.status.warn{background:rgba(255,107,107,.1);border:1px solid var(--bad)}
+
+.calc label{margin:10px 0 4px;font-size:17px}
+.calc input[type=number]{width:100%;padding:12px;border-radius:10px;border:1px solid var(--line);background:#0b1a31;color:#fff;font-size:19px;font-family:inherit}
+.calc select{width:100%;padding:12px;border-radius:10px;border:1px solid var(--line);background:#0b1a31;color:#fff;font-size:19px;font-family:inherit}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media (max-width:560px){.row2{grid-template-columns:1fr}}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:6px 0}
+.chip{padding:9px 14px;font-size:16px;border-radius:99px}
+.chip.on{background:var(--gold);color:#1b1300}
+.res{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin:14px 0}
+.res div{background:var(--navy2);border:1px solid var(--line);border-radius:12px;padding:12px 14px}
+.res small{display:block;font-family:'DM Mono',monospace;font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:1px}
+.res b{font-size:25px;color:#fff}
+.res b.up{color:var(--good)} .res b.dn{color:var(--bad)}
+.stepcard h3{margin-top:26px!important}
+@media (max-width:560px){body{font-size:18px}.logo small{display:none}.pct{display:none}}
+@media print{body{background:#fff}header,.audio,.nav,button{display:none}}
+.sitebar{background:#060d1f;border-bottom:1px solid #26385f;font:600 13px/1 Barlow,system-ui,sans-serif}.sitebar .wrap{max-width:1180px;margin:0 auto;display:flex;gap:22px;flex-wrap:wrap;align-items:center;padding:13px 22px}.sitebar a{color:#f0c75e;text-decoration:none}.sitebar a:hover{text-decoration:underline}.sitebar .sp{flex:1}
+</style>
+</head>
+<body>
+<div class="sitebar"><div class="wrap"><a href="index.html">&larr; Block Wall Street Academy</a><span class="sp"></span><a href="tools-BWSSite.html">More tools</a><a href="consultations-BWSSite.html">Book a session</a></div></div>
+<header class="top">
+  <button class="ghost" id="menuBtn" aria-label="Open course menu">☰ Menu</button>
+  <div class="logo">BLOCK WALL STREET<small>ETHEREUM · EVM NETWORKS</small></div>
+  <div class="pbar"><i id="pfill"></i></div>
+  <div class="pct" id="ptxt">0%</div>
+</header>
+<div class="veil" id="veil"></div>
+<aside class="drawer" id="drawer"></aside>
+<main id="app"></main>
+
+<script>
+/* ============ COURSE DATA ============ */
+var SECTIONS=[];var FINAL=[];
+SECTIONS.push({
+n:1,
+title:"What Ethereum Is and Why It Matters",
+sub:"Smart contracts, accounts, ETH and the idea of a shared computer that no single company runs.",
+lesson:`
+<h3>Start with a vending machine</h3>
+<p>A vending machine is a tiny, honest robot. You put in the money, press a button, and the machine follows its rules. It does not care who you are. It does not need a cashier. If you paid enough, it gives you the snack.</p>
+<p>Now imagine a vending machine that does not sell snacks. It can hold money, lend it out, swap one kind of money for another, or hand out tickets. Anyone in the world can use it, and no one can secretly change the rules. That is a good way to picture a <b>smart contract</b>, and smart contracts are what make Ethereum different from Bitcoin.</p>
+
+<h3>Bitcoin and Ethereum: two different jobs</h3>
+<p>Bitcoin was built to be digital money that is hard to change and hard to stop. Ethereum was built to be a shared computer. It still has money, called <b>ether</b> or <b>ETH</b>. But on top of that, it lets people publish small programs that everyone can run and no one can quietly edit. Ethereum was proposed by Vitalik Buterin and a group of co-founders and went live in July 2015.</p>
+<p>One simple way to remember it: Bitcoin is like digital gold that you hold. Ethereum is like a digital city where things get built. Both are useful. They do different jobs.</p>
+
+<h3>The two kinds of accounts</h3>
+<p>Ethereum has two kinds of accounts. An <b>externally owned account</b>, often shortened to <b>EOA</b>, belongs to a person. It is controlled by a secret key, just like the wallets you may have used before. A <b>contract account</b> holds a program. Nobody holds a key to a contract. It simply runs its code when someone sends it a transaction.</p>
+<p>Both kinds of account have an <b>address</b>. An Ethereum address is a long string that starts with <b>0x</b> followed by 40 letters and numbers. Remember that "0x" start. You will see it on every network in this course.</p>
+
+<h3>What is a smart contract, really?</h3>
+<p>A smart contract is a program stored on the blockchain. It has a few simple parts: some saved information, called its state, and some functions, which are actions people can call. For example, a token contract might keep a list of who owns how many tokens and have an action called "transfer."</p>
+<p>The word "smart" is a little misleading. These programs are not intelligent. They do exactly what their code says, no more and no less. They are not legal contracts, either. They are code. The strength is that the rules are public and anyone can check them. The danger is that a mistake in the code can cost real money, and on a blockchain, mistakes are very hard to undo.</p>
+
+<h3>The Ethereum Virtual Machine</h3>
+<p>Every computer needs a way to run programs. On Ethereum that engine is called the <b>Ethereum Virtual Machine</b>, or <b>EVM</b>. Think of it as a shared set of instructions that every Ethereum computer follows the same way, so that everyone gets the same result from the same program.</p>
+<p>This idea turned out to be very important. Many other blockchains copied the EVM so that programs written for Ethereum would also run on them. When a network does this, people call it <b>EVM-compatible</b> or just an <b>EVM network</b>. The programming language most people use is called <b>Solidity</b>. This course is about Ethereum and the most popular EVM networks: Base, Arbitrum, Optimism, BNB Chain, Avalanche and Robinhood Chain.</p>
+
+<h3>Why do people care?</h3>
+<p>Smart contracts let people build things that used to need a company in the middle. Examples include swapping tokens without a broker, lending and borrowing without a bank, issuing digital collectibles, and creating stablecoins, which are tokens built to hold a steady value. All of this is called <b>decentralized finance</b>, or <b>DeFi</b>, when it involves money services. You will meet each idea in later sections.</p>
+
+<h3>Where ETH fits in</h3>
+<p>ETH is the native coin of Ethereum. People use it to pay fees, which you will learn about in Section 2. It is also used as collateral in many DeFi apps, and it is what validators lock up to help secure the network. Calling ETH only a "coin" is too small. It is the fuel for the shared computer.</p>
+
+<h3>A healthy dose of caution</h3>
+<p>Because anyone can publish a smart contract, anyone can also publish a bad one. Some are mistakes and some are scams. A busy, open platform has both great builders and bad actors. Throughout this course, you will learn how to tell the difference and how to protect yourself. This course is education, not financial advice.</p>
+`,
+q:[
+["What is the best comparison for a smart contract?","A vending machine that follows its rules for anyone who uses it","A paper contract signed by lawyers","A bank teller","A mining computer","The lesson compares smart contracts to vending machines."],
+["What is a smart contract?","A program stored on the blockchain that runs when it is called","A legal contract written in plain English","An artificial intelligence","A type of coin","Smart contracts are code on the chain."],
+["Which statement correctly compares Bitcoin and Ethereum?","Bitcoin was built as hard-to-change digital money; Ethereum was built as a shared computer","Bitcoin is the shared computer and Ethereum is gold","They are exactly the same","Ethereum is a bank","The lesson separates their jobs."],
+["Who proposed Ethereum, with a group of co-founders?","Vitalik Buterin","Satoshi Nakamoto","Brad Garlinghouse","A government panel","Vitalik Buterin proposed it."],
+["When did Ethereum go live?","July 2015","January 2009","June 2012","March 2024","The lesson says July 2015."],
+["What is an externally owned account (EOA)?","An account controlled by a person with a secret key","An account that holds a program","A validator","A bank account","EOAs belong to people."],
+["What is a contract account?","An account that holds a program and runs its code","An account owned by a bank","An account that never holds ETH","A wallet app","Contract accounts hold code."],
+["What does an Ethereum address start with?","0x","r","bc1","$","Addresses start with 0x."],
+["What is the EVM?","The Ethereum Virtual Machine, the engine that runs smart contracts","An Ethereum Voting Method","A type of wallet","A stablecoin","EVM stands for Ethereum Virtual Machine."],
+["What does EVM-compatible mean?","A network can run programs written for Ethereum","The network is owned by Ethereum","The network has no fees","The network only uses Bitcoin","Compatible networks copy the EVM."],
+["Which programming language do most Ethereum developers use for smart contracts?","Solidity","Hooks","Excel","Morse code","Solidity is the common language."],
+["What is DeFi?","Decentralized finance, money services built with smart contracts","Digital federal income","A type of NFT","A Bitcoin wallet","DeFi means decentralized finance."],
+["What is a stablecoin?","A token built to hold a steady value","A coin that doubles every year","A validator reward","A type of wallet","Stablecoins aim for steady value."],
+["Why can a coding mistake be costly on a blockchain?","Transactions are very hard to undo","Banks always refund","Validators fix every bug","Contracts cannot hold money","Mistakes are hard to reverse."],
+["Besides paying fees, what do ETH holders use ETH for?","As collateral in DeFi and to help secure the network","To mine Bitcoin","To print paper money","To buy a bank charter","ETH is used as collateral and for staking."],
+["Which pair is NOT one of the networks named for this course?","Bitcoin Cash and Litecoin","Base and Arbitrum","BNB Chain and Avalanche","Optimism and Robinhood Chain","The course covers Ethereum and the named EVM networks."],
+["Are smart contracts intelligent programs?","No, they do exactly what their code says","Yes, they think for themselves","Yes, they learn from users","Only on weekends","The word smart is misleading."],
+["What is a main strength of public smart contracts?","The rules are public and anyone can check them","They are always bug-free","They are guaranteed by a bank","They cannot be copied","Anyone can read the rules."]
+]
+});
+
+SECTIONS.push({
+n:2,
+title:"How Ethereum Works: Gas, Staking and Upgrades",
+sub:"Validators, 12-second slots, why you pay gas, how fees get burned and what the big upgrades did.",
+lesson:`
+<h3>From mining to staking</h3>
+<p>Early on, Ethereum used proof of work, like Bitcoin. Computers raced to solve puzzles, and the winner added the next page of the ledger. On September 15, 2022, in an event called <b>The Merge</b>, Ethereum switched to <b>proof of stake</b>. After that date, there was no more mining on Ethereum, and the network used far less energy.</p>
+<p>In proof of stake, <b>validators</b> lock up ETH as a deposit, called a <b>stake</b>. The usual minimum to run a validator is 32 ETH. The system picks validators to propose new pages, called <b>blocks</b>, and other validators vote to confirm them. Honest work earns rewards. A validator who cheats can lose part of the stake, and that punishment is called <b>slashing</b>. The idea is simple: it should cost more to attack the network than you could ever gain.</p>
+<p>In May 2025, the Pectra upgrade let a single validator hold more than 32 ETH, up to 2,048 ETH, which makes large operations easier to manage. Most regular people do not run their own validator. They stake through an exchange, a pool, or a staking service, which carries its own risks and fees.</p>
+
+<h3>Slots, epochs and finality</h3>
+<p>Ethereum keeps time in <b>slots</b> of 12 seconds. A new block is meant to arrive in each slot. Thirty-two slots make an <b>epoch</b>, about 6.4 minutes. When enough validators vote across two epochs, a block becomes <b>finalized</b>, which takes about 13 minutes. Finalized means it would take a huge amount of stake to undo it. Many wallets show your transaction as done in seconds, but true finality takes longer.</p>
+
+<h3>What is gas?</h3>
+<p>Every action on Ethereum uses a little computing work, and that work costs money. The price of that work is called <b>gas</b>. A simple ETH transfer uses a small amount of gas. A complicated action, like swapping tokens through several contracts, uses much more. This is why different actions cost different amounts.</p>
+<p>Gas is measured in <b>gwei</b>. One ETH equals one billion gwei, so a gwei is a tiny slice of ETH. Your fee is the amount of gas your action uses multiplied by the price per unit of gas. A simple transfer uses 21,000 units of gas. If the price is 10 gwei, the fee is 210,000 gwei, which is 0.00021 ETH. You will practice this math in the bonus calculator.</p>
+
+<h3>The base fee, the tip and the burn</h3>
+<p>Since an upgrade in August 2021 called <b>EIP-1559</b>, a fee has two parts. The <b>base fee</b> is set by the network and goes up when blocks are busy and down when they are quiet. The base fee is <b>burned</b>, meaning it is destroyed. The second part is a <b>tip</b>, which goes to the validator and encourages them to include your transaction faster. Because of burning, when the network is busy more ETH is destroyed than created, which can make the supply of ETH shrink. When the network is quiet, supply can grow slightly because of staking rewards. ETH does not have a fixed maximum supply like Bitcoin does.</p>
+
+<h3>Why fees can be high</h3>
+<p>The base layer of Ethereum has limited room in each block. When many people want to use it at once, they compete, and the base fee rises. That is one major reason other networks and scaling solutions exist, which is the story of the next sections.</p>
+
+<h3>Upgrades: how Ethereum changes</h3>
+<p>Ethereum changes through coordinated upgrades called <b>hard forks</b>, where all the software teams agree on a date. Here are a few you should know:</p>
+<p><b>The Merge (September 2022)</b> moved Ethereum to proof of stake. <b>Dencun (March 2024)</b> added <b>blobs</b>, a cheaper kind of data space meant for layer 2 networks. <b>Pectra (May 2025)</b> improved staking and wallet features. <b>Fusaka (December 3, 2025)</b> expanded blob capacity with a technique called PeerDAS, aimed at lowering costs for layer 2 networks further.</p>
+<p>The next big upgrade is called <b>Glamsterdam</b>. As of the latest reports I found, it was being tested on public test networks, with a first test fork on the Sepolia testnet scheduled for October 6, 2026, and no firm date set for mainnet. Check the Ethereum Foundation's blog for the latest status before you rely on any date. Developers have said they now plan upgrades roughly twice a year, though schedules often slip.</p>
+
+<h3>Ethereum is slow on purpose</h3>
+<p>People sometimes say Ethereum is "slow." It is better to say Ethereum puts security and broad participation first. The base layer is the settlement court. Faster, cheaper activity is meant to happen on other networks that settle back to it.</p>
+`,
+q:[
+["What was The Merge?","Ethereum's switch from proof of work to proof of stake","A merger of two banks","The launch of Bitcoin","A stablecoin launch","The Merge moved Ethereum to proof of stake."],
+["When did The Merge happen?","September 15, 2022","July 2015","March 2024","May 2025","The lesson gives September 15, 2022."],
+["What is a validator in proof of stake?","Someone who locks up ETH and helps propose and confirm blocks","A miner with a graphics card","A bank officer","A stablecoin issuer","Validators stake ETH."],
+["What is the usual minimum stake to run a validator?","32 ETH","1 ETH","1,000 ETH","0.01 ETH","The usual minimum is 32 ETH."],
+["What is slashing?","A punishment where a cheating validator can lose part of its stake","A fee refund","A new upgrade","A type of token","Slashing punishes cheating."],
+["What did Pectra (May 2025) allow for validators?","A single validator could hold up to 2,048 ETH","Validators were banned","Validators earned Bitcoin","Mining returned","The lesson says up to 2,048 ETH."],
+["How long is an Ethereum slot?","12 seconds","10 minutes","1 hour","3 seconds","Slots are 12 seconds."],
+["About how long does it take for a block to be finalized?","About 13 minutes","About 1 second","About 1 week","About 3 months","Finality takes about two epochs."],
+["What is gas?","The price of the computing work an action uses","A type of stablecoin","A reward for miners","A government tax","Gas pays for computing work."],
+["What is a gwei?","A tiny slice of ETH, one billionth of an ETH","A type of NFT","A large bag of ETH","A validator","1 ETH equals one billion gwei."],
+["How many units of gas does a simple ETH transfer use?","21,000","1","21 billion","210","Simple transfers use 21,000 gas."],
+["A transfer uses 21,000 gas at 10 gwei. What is the fee?","0.00021 ETH","0.021 ETH","21 ETH","0.0000021 ETH","21,000 × 10 gwei = 210,000 gwei = 0.00021 ETH."],
+["What happens to the base fee under EIP-1559?","It is burned","It goes to the validator","It goes to Vitalik","It is refunded","The base fee is burned."],
+["What is the tip?","An extra amount that goes to the validator","A burn","A refund","A tax","The tip goes to the validator."],
+["Does ETH have a fixed maximum supply like Bitcoin?","No, supply can grow or shrink depending on activity","Yes, exactly 21 million","Yes, exactly 100 billion","Yes, 1 million","The lesson says no fixed maximum."],
+["Why can fees on the base layer rise?","Block space is limited and users compete when it is busy","Validators raise them for fun","The SEC sets them","They never rise","Competition raises the base fee."],
+["What did Dencun (March 2024) add?","Blobs, cheaper data space meant for layer 2 networks","Proof of stake","Mining","A new coin","Dencun added blobs."],
+["What is the status of Glamsterdam in the lesson?","In testing, with a Sepolia test fork scheduled for Oct 6, 2026 and no firm mainnet date","Already live for years","Cancelled","A new coin","The lesson hedges on the latest reports."]
+]
+});
+
+SECTIONS.push({
+n:3,
+title:"Tokens, Standards and DeFi Basics",
+sub:"ERC-20, NFTs, stablecoins, swapping, lending and the one setting that trips up beginners: approvals.",
+lesson:`
+<h3>Coins versus tokens</h3>
+<p>A <b>coin</b> is the native money of a blockchain, like ETH on Ethereum. A <b>token</b> is a different kind of asset that lives inside a smart contract on a blockchain. Anyone can create a token. A token might stand for a dollar, a share in a project, a game item or a vote.</p>
+
+<h3>The standards that made it easy</h3>
+<p>Ethereum developers agreed on shared recipes for tokens. These recipes are called <b>ERC standards</b>, short for "Ethereum Request for Comments." Because everyone follows the same recipe, wallets and apps can handle thousands of tokens without custom work. You should know three:</p>
+<p><b>ERC-20</b> is the recipe for tokens where every unit is the same, like dollars. Stablecoins such as USDC and USDT are ERC-20 tokens on many networks. <b>ERC-721</b> is the recipe for one-of-a-kind items, the standard behind most NFTs. <b>ERC-1155</b> lets one contract hold both kinds, which games like because they can have many copies of an item.</p>
+<p>These standards work on Ethereum and on the other EVM networks in this course, because they all run the same kind of code.</p>
+
+<h3>A token is a contract address</h3>
+<p>Here is a key idea. A token is not defined by its name. It is defined by the <b>contract address</b> where it lives. Anyone can create a token called "USDC." The real one lives at one specific address on each network. A fake could have the same name, the same logo and a different address. Always get the address from the issuer's official website, and compare it before you trade or hold.</p>
+
+<h3>Wrapped ETH</h3>
+<p>ETH is a coin, not an ERC-20 token, so many apps cannot handle it the same way. The fix is <b>wrapped ETH</b>, or <b>WETH</b>. You deposit ETH into a contract and get one WETH for each ETH. You can swap it back at any time. Think of it as ETH in a standard jacket so apps can accept it.</p>
+
+<h3>Swapping on a decentralized exchange</h3>
+<p>A <b>decentralized exchange</b>, or <b>DEX</b>, lets you swap tokens directly from your wallet without handing money to a company. Many use an <b>automated market maker</b>, or <b>AMM</b>. An AMM is a pool of two tokens held in a smart contract. A formula sets the price based on how much of each token is in the pool. People who add tokens to the pool, called <b>liquidity providers</b>, earn a share of fees. Uniswap is the best-known example, and it runs on many of the networks in this course.</p>
+<p>When you swap, you can set <b>slippage</b>, the most price movement you will accept between clicking and the swap finishing. Too low and the swap may fail. Too high and you could be hit by an unfavorable price.</p>
+
+<h3>Lending and borrowing</h3>
+<p>In DeFi lending, people deposit tokens into a pool and earn interest. Others borrow from the pool, but they must lock up more value than they borrow, called <b>over-collateralization</b>. If the value of the collateral drops too far, the system sells it automatically in a <b>liquidation</b> to protect lenders. Aave is a widely used example. Borrowing is risky, because a sharp price drop can wipe out your collateral quickly.</p>
+
+<h3>Approvals: the setting that trips people up</h3>
+<p>Before a contract can move your ERC-20 tokens, you must give it permission. This is called an <b>approval</b>. When you press "Approve," you are saying that a certain contract may spend up to a certain amount of a certain token from your wallet. Many apps ask for an <b>unlimited approval</b> to save you from approving each time. That is convenient, but it means that if the contract is ever hacked, or if you approved a scam contract, someone could drain that token from your wallet without asking again.</p>
+<p>Two habits protect you. First, read the approval screen. Second, from time to time, review and revoke approvals you no longer use. Free tools exist for this, and block explorers have a section for it. Approvals are a big theme of Section 9.</p>
+
+<h3>Why this matters for the rest of the course</h3>
+<p>Everything you just learned works the same on Base, Arbitrum, Optimism, BNB Chain, Avalanche and Robinhood Chain. That is the beauty of the EVM: learn it once and use it on many networks. The details that change from network to network are the fee token, the speed, the security design and who runs it.</p>
+`,
+q:[
+["What is the difference between a coin and a token?","A coin is a network's native money; a token lives inside a smart contract","They are identical","A token is paper money","A coin is always an NFT","The lesson separates native coins from tokens."],
+["What is ERC-20?","The standard recipe for tokens where each unit is the same","The recipe for one-of-a-kind items","A validator rule","A wallet app","ERC-20 is for fungible tokens."],
+["Which standard is behind most NFTs?","ERC-721","ERC-20","ERC-1","ERC-9000","ERC-721 is for one-of-a-kind items."],
+["What is special about ERC-1155?","One contract can hold both kinds of items","It is only for Bitcoin","It is only for stablecoins","It has no fees","ERC-1155 handles both."],
+["How is a token really identified?","By its contract address","By its name","By its logo","By its color","The lesson stresses the contract address."],
+["Where should you get a token's contract address?","From the issuer's official website","From a random message","From a pop-up ad","From a stranger in chat","Official sources only."],
+["What is WETH?","Wrapped ETH, ETH in a standard token form that apps can accept","A new coin","A type of NFT","A validator","WETH is wrapped ETH."],
+["What is a DEX?","A decentralized exchange where you swap tokens from your wallet","A bank","A mining pool","A type of coin","DEX stands for decentralized exchange."],
+["What does an AMM use to set prices?","A formula based on the amounts in the pool","A vote of the SEC","A judge","A bank teller","AMMs use pool formulas."],
+["Who are liquidity providers?","People who add tokens to a pool and earn a share of fees","Validators","Miners","Banks","Providers deposit into pools."],
+["What is slippage?","The most price movement you will accept between clicking and the swap finishing","A fee refund","A wallet bug","A type of NFT","Slippage is a tolerance setting."],
+["What is over-collateralization?","Locking up more value than you borrow","Borrowing without limits","Burning collateral","Lending for free","Borrowers lock up more than they borrow."],
+["What is a liquidation?","An automatic sale of collateral when its value drops too far","A new token launch","A fee","A validator reward","Liquidation protects lenders."],
+["What happens when you press Approve on a token?","A contract is allowed to spend up to an amount of that token from your wallet","Your tokens are burned","Your wallet is deleted","Your ETH is sent away","Approvals give permission."],
+["Why is an unlimited approval risky?","If the contract is hacked or a scam, your tokens can be drained","It deletes your seed phrase","It slows the network","It burns ETH","Unlimited approvals raise the risk."],
+["What are two habits that protect you from approval risks?","Read approval screens and revoke approvals you no longer use","Ignore every approval","Share your seed phrase","Approve everything","These are the lesson's habits."],
+["Do ERC token standards work on the other EVM networks in this course?","Yes, because they run the same kind of code","No, only on Ethereum","Only on Bitcoin","Only on Base","The EVM makes them portable."],
+["Which details change from network to network?","The fee token, speed, security design and who runs it","The EVM code rules entirely","Nothing","The alphabet","The lesson names these differences."]
+]
+});
+
+SECTIONS.push({
+n:4,
+title:"Why So Many Networks: Layer 2s, Rollups and Bridges",
+sub:"The scaling problem, what a rollup is, optimistic versus ZK, blobs, sidechains and what EVM-compatible really means.",
+lesson:`
+<h3>The crowded highway problem</h3>
+<p>Picture one highway into a big city. When traffic is light, you glide through. At rush hour, everyone is stuck, and the toll goes up. Ethereum's base layer, often called <b>layer 1</b> or <b>L1</b>, is like that highway. It is secure and trusted, but it has limited room. Fees rise when many people want in.</p>
+<p>The answer was not just to widen the one highway. It was to build more roads that connect to it. Those extra roads are the reason there are so many networks in this course.</p>
+
+<h3>Three kinds of networks</h3>
+<p>It helps to sort the networks into three groups.</p>
+<p><b>Layer 1s (L1s)</b> are independent blockchains with their own validators and their own security. Ethereum is one. So are BNB Chain and Avalanche's C-Chain. If an independent L1 has a problem, Ethereum is not there to back it up.</p>
+<p><b>Layer 2s (L2s)</b> run on their own but post their records back to Ethereum and rely on Ethereum for security. Base, Arbitrum One, OP Mainnet and Robinhood Chain are all L2s. The goal is to get cheaper and faster transactions while keeping Ethereum's safety as the backstop.</p>
+<p><b>Sidechains</b> are separate blockchains with their own security that are linked by a bridge. The XRPL EVM Sidechain is one example. A sidechain does not inherit the security of the chain it connects to.</p>
+
+<h3>How a rollup works</h3>
+<p>The most common kind of L2 is a <b>rollup</b>. A rollup collects hundreds or thousands of user transactions, runs them on its own fast system, then "rolls them up" into a compressed bundle and posts that bundle to Ethereum. The cost of one Ethereum posting is shared by everyone in the bundle, so each person pays much less.</p>
+<p>Someone has to put the transactions in order. That job belongs to a computer called the <b>sequencer</b>. Most rollups today have one main sequencer, run by the team that built the network. That is fast and simple, but it is also a point of centralization. If the sequencer goes offline, normal use stops, though rollups have escape routes that let users get their funds out through Ethereum.</p>
+
+<h3>Optimistic versus ZK rollups</h3>
+<p>How does Ethereum know that the bundle is honest? There are two main approaches.</p>
+<p>An <b>optimistic rollup</b> assumes the bundle is honest unless someone proves otherwise. Anyone can submit a <b>fraud proof</b> during a challenge window, usually about seven days. Arbitrum One and OP Mainnet use this approach. A side effect is that withdrawing your funds back to Ethereum through the official bridge normally takes about seven days. Fast third-party bridges can speed this up for a fee.</p>
+<p>A <b>ZK rollup</b> attaches a mathematical proof, called a <b>validity proof</b>, that the bundle is correct. No long waiting period is needed. ZK rollups are more technically complex, and this approach is growing. Some networks are working to add ZK proofs to their designs.</p>
+
+<h3>Blobs: why L2 fees dropped</h3>
+<p>Rollups must post their data to Ethereum so that anyone can check it. Before March 2024, that data was stored in the expensive part of Ethereum. The Dencun upgrade added <b>blobs</b>, a cheaper type of temporary data space built for rollups. Fees on L2s fell sharply. The Fusaka upgrade in December 2025 expanded blob capacity again. When you pay on an L2, your fee has two parts: the small cost to run your transaction, and your share of the cost of posting data to Ethereum.</p>
+
+<h3>How safe is an L2? The stages</h3>
+<p>A group called L2BEAT rates rollups by "stages." <b>Stage 0</b> means training wheels are still heavy. <b>Stage 1</b> means the rollup has a working proof system and users can leave without the operator's permission, though a security council can step in for emergencies. <b>Stage 2</b> means the code is in charge and the council's power is limited to provable bugs. As of the reports I found, Arbitrum One, OP Mainnet and Base were rated Stage 1. Ratings change, so check L2BEAT yourself.</p>
+
+<h3>What does EVM-compatible mean for you?</h3>
+<p>Every network in this course can run Ethereum-style programs, so your wallet address works on all of them. But each one is its own network with its own <b>chain ID</b>, its own fee token and its own copy of every token. The same address on two networks holds different balances. Switching networks in your wallet is like switching to a different bank branch that happens to use the same account number.</p>
+
+<h3>Bridges</h3>
+<p>A <b>bridge</b> moves value between networks. Usually it locks your asset on one network and creates a matching asset on the other. A bridge is only as safe as its design and code. Bridges have been some of the biggest targets for hackers in crypto. Section 8 and 9 cover how to use them carefully.</p>
+`,
+q:[
+["What is the main reason for extra networks like L2s?","The base layer has limited room and fees rise when it is busy","Ethereum was shut down","Banks required it","To stop smart contracts","The crowded highway problem."],
+["What is an independent L1?","A blockchain with its own validators and its own security","A network that inherits Ethereum's security","A wallet","A bridge","L1s secure themselves."],
+["Which of these is an L2 in this course?","Base","BNB Chain","Avalanche C-Chain","Bitcoin","Base is an L2."],
+["Which is an independent L1 in this course?","BNB Chain","Arbitrum One","Base","Robinhood Chain","BNB Chain is its own L1."],
+["What is a sidechain?","A separate chain with its own security, linked by a bridge","A layer 2 that inherits Ethereum's security","A type of wallet","A stablecoin","Sidechains do not inherit security."],
+["What does a rollup do?","Bundles many transactions and posts compressed data to Ethereum","Mines Bitcoin","Prints ETH","Replaces validators","Rollups bundle and post."],
+["What is a sequencer?","A computer that puts transactions in order","A validator on Ethereum","A bridge guard","A type of token","The sequencer orders transactions."],
+["What is a centralization concern with most L2s today?","They often have one main sequencer run by the team","They have no fees","They never post to Ethereum","They have no users","One sequencer is a point of centralization."],
+["How does an optimistic rollup check honesty?","It assumes bundles are honest unless someone proves fraud during a challenge window","It uses mining","It uses a vote by banks","It does no checks","Fraud proofs."],
+["About how long is the typical challenge window for withdrawals on optimistic rollups?","About seven days","About one second","About one year","About one hour","The lesson says about seven days."],
+["Which two networks in the lesson use optimistic rollups?","Arbitrum One and OP Mainnet","Bitcoin and Litecoin","BNB Chain and Avalanche","Ethereum and Solana","The lesson names them."],
+["What does a ZK rollup attach to each bundle?","A mathematical validity proof","A fraud notice","A paper form","A password","Validity proofs."],
+["What did the Dencun upgrade add that lowered L2 fees?","Blobs","Mining","Proof of work","A new coin","Blobs are cheaper data space."],
+["When did Dencun go live?","March 2024","July 2015","September 2022","October 2026","The lesson says March 2024."],
+["Which upgrade in December 2025 expanded blob capacity again?","Fusaka","The Merge","Pectra","Glamsterdam","Fusaka expanded blobs."],
+["What are the two parts of an L2 fee?","The cost to run your transaction and your share of posting data to Ethereum","A tax and a tip to the SEC","A burn and a mine","A bridge fee and a validator salary","The lesson names both."],
+["What does Stage 1 mean in L2BEAT's framework?","A working proof system and users can exit without the operator, with a council able to step in","The code is in full control with no council","No proof system","The chain is closed","Stage 1 as described."],
+["Does the same address hold the same balance on different EVM networks?","No, each network keeps its own balances","Yes, always","Only for Bitcoin","Only on weekends","Balances are per network."]
+]
+});
+
+SECTIONS.push({
+n:5,
+title:"Base and Optimism",
+sub:"Coinbase's L2, the OP Stack and the Superchain idea, and why Base is changing its foundation.",
+lesson:`
+<h3>Meet Optimism</h3>
+<p><b>Optimism</b> is an L2 network and a group of builders who created a software kit called the <b>OP Stack</b>. The main network is called <b>OP Mainnet</b>. It is an optimistic rollup, which means it uses the fraud-proof model from Section 4. It launched publicly in 2021. A major upgrade called Bedrock arrived in mid-2023, and in June 2024 its permissionless fault proofs went live on OP Mainnet, a step toward a more trustless design.</p>
+<p>Optimism's big idea was the <b>Superchain</b>: many networks built from the same OP Stack kit that share standards and work together, so moving between them can be smooth. The token <b>OP</b> is used for governance, meaning voting on the project's decisions. Gas on OP Mainnet is paid in ETH, not OP. The chain ID of OP Mainnet is 10.</p>
+
+<h3>Meet Base</h3>
+<p><b>Base</b> is an L2 incubated by Coinbase, the large US crypto exchange. It launched in August 2023, built on the OP Stack. Gas is paid in ETH. Its chain ID is 8453. Because Coinbase can send its huge base of users to Base, the network grew very fast, and many reports describe it as the largest Ethereum L2 by activity. Coinbase has said it treats Base as an open platform for builders.</p>
+<p>What makes Base popular? It is easy for newcomers to reach, since Coinbase customers can move funds to it, and it is cheap to use. It hosts apps for trading, payments, social features, creator tools, and tokens of every quality, from serious projects to jokes to scams. Because it is so easy to launch tokens there, you must be extra careful about what you buy.</p>
+<p>Base has not launched its own network token as of the reports I found. Leaders have said they are exploring one. Be very careful with any "Base token" you see advertised, since scammers love this kind of rumor.</p>
+
+<h3>A big change: Base is leaving the OP Stack</h3>
+<p>On February 18, 2026, the Base team announced that it would move to its own "unified" software stack run by Base itself, and step away from the Optimism Superchain. They said this would let them ship upgrades faster, with more frequent network upgrades. Reports also said the plan included swapping the fraud-proof design for a different proof approach using trusted hardware or ZK proofs, and that Optimism would be removed from Base's security council.</p>
+<p>The news mattered because Base was by far the largest network in the Superchain, and the Superchain's shared revenue model had depended on it. The OP token fell in price after the announcement. What it means for the Superchain is a debate. Supporters of the move say focused teams ship faster. Critics say it weakens the idea of shared networks. For you as a user, the key point is that these networks are businesses and projects that change direction, so their designs and their risks change too.</p>
+<p>Because details of the transition keep evolving, check Base's official blog and L2BEAT for the current status.</p>
+
+<h3>How Optimism and Base compare</h3>
+<p>Both are optimistic rollups at heart, pay gas in ETH and are EVM-compatible. OP Mainnet is the original and governed by the Optimism community. Base is run by Coinbase's team and is much bigger by usage. The difference to remember: one is a community-governed network that wants many chains to join, and the other is a company-backed network focused on its own growth.</p>
+
+<h3>Using them as a beginner</h3>
+<p>To use either, add the network to your wallet or let the wallet add it for you. Bring in a little ETH to pay gas, and send a small test amount first. If you move funds through the official bridge from Ethereum, deposits are fairly quick, but withdrawals through the official bridge take about a week. Remember that your balance on Base is separate from your balance on Optimism and on Ethereum.</p>
+`,
+q:[
+["What is the OP Stack?","A software kit for building L2 networks created by the Optimism builders","A type of token","A wallet","A stablecoin","The OP Stack is the kit."],
+["What type of rollup is OP Mainnet?","An optimistic rollup","A ZK rollup","A sidechain","A mining pool","OP Mainnet is optimistic."],
+["What did the Superchain idea mean?","Many networks built from the same kit that share standards and work together","A single giant bank","A new coin","A faster Bitcoin","The Superchain is a family of OP Stack chains."],
+["What is the OP token used for?","Governance, meaning voting on decisions","Paying gas on OP Mainnet","Mining","Staking in Ethereum","Gas on OP Mainnet is paid in ETH."],
+["What is the chain ID of OP Mainnet in the lesson?","10","1","8453","56","The lesson says 10."],
+["Who incubated Base?","Coinbase","Binance","Robinhood","The SEC","Base is Coinbase's L2."],
+["When did Base launch?","August 2023","December 2017","July 2015","June 2012","The lesson says August 2023."],
+["What is the chain ID of Base in the lesson?","8453","10","56","42161","The lesson says 8453."],
+["What token pays gas on Base?","ETH","BASE","OP","BNB","Gas is paid in ETH."],
+["What is a warning about Base tokens in the lesson?","Because tokens are easy to launch, be careful, and watch for fake rumors of a Base token","All Base tokens are safe","Base tokens are guaranteed by Coinbase","Base has no tokens","Scammers use rumors."],
+["Had Base launched its own network token, per the lesson?","Not as of the reports found; leaders said they were exploring one","Yes, years ago","No, and they banned it forever","Yes, it is called OP","The lesson hedges on that."],
+["What did Base announce on February 18, 2026?","A move to its own unified stack, stepping away from the Optimism Superchain","It would shut down","It would become a Bitcoin layer","It would merge with Arbitrum","The announcement is in the lesson."],
+["What reason did Base give for the change?","Faster upgrades and a smoother setup","To avoid fees","To end its token","To close to users","The lesson gives that reason."],
+["Why did the news matter to the Superchain?","Base was by far its largest network","Base was the smallest network","Base was the only validator","Base ended ETH","Base was the largest."],
+["How is the lesson's advice on such changes summed up?","These networks are projects that change direction, so their designs and risks change too","Networks never change","Only ETH changes","Always trust the first design","The lesson's takeaway."],
+["How do Base and OP Mainnet differ, per the lesson?","One is community-governed with many chains; the other is company-backed and focused on its own growth","They are identical in every way","One is Bitcoin","One has no fees","The lesson compares them."],
+["How long do withdrawals through the official bridge to Ethereum typically take on these optimistic rollups?","About a week","About a second","About a month","They are instant","The challenge window."],
+["Is your balance on Base shared with your balance on Optimism?","No, each network has its own balance","Yes, always","Only on weekends","Only for ETH","Balances are separate."]
+]
+});
+
+SECTIONS.push({
+n:6,
+title:"Arbitrum and Robinhood Chain",
+sub:"Arbitrum One, Nitro, BoLD, Stylus and Orbit chains, and how Robinhood built its own chain for tokenized stocks.",
+lesson:`
+<h3>Meet Arbitrum</h3>
+<p><b>Arbitrum</b> is a family of Ethereum L2 networks built by a company called Offchain Labs. The main network, <b>Arbitrum One</b>, launched in 2021 and became one of the busiest places for DeFi. Like OP Mainnet, it is an optimistic rollup, so withdrawals to Ethereum through the official bridge take about a week. Gas is paid in ETH. Its chain ID is 42161.</p>
+<p>Arbitrum has its own token, <b>ARB</b>, launched in March 2023 along with the <b>Arbitrum DAO</b>, a community group that votes on decisions. ARB is used for governance. It is not the gas token.</p>
+
+<h3>The Arbitrum toolkit</h3>
+<p>A few names to know. <b>Nitro</b> is the main software engine that runs Arbitrum chains. <b>BoLD</b> is a newer dispute system, short for Bounded Liquidity Delay, that lets anyone challenge a bad state, which means no special permission is needed to act as a watchdog. BoLD helped Arbitrum One reach Stage 1 in the L2BEAT framework, which you learned in Section 4. <b>Stylus</b> lets developers write smart contracts in languages other than Solidity, such as Rust, and run them alongside normal EVM contracts.</p>
+<p>The most important one for this section is <b>Orbit</b>. Orbit is a kit that lets anyone launch their own custom chain built with Arbitrum technology. Companies use it to get a chain tuned for their needs, with their own rules, while using tried and tested software. There are dozens of Orbit chains today. A chain that uses Orbit can choose to settle to Ethereum, which makes it an L2 like Robinhood Chain, or to settle to Arbitrum One. When a large Orbit chain pays a share of its revenue back to the Arbitrum community, that is called a licence fee.</p>
+
+<h3>Why Robinhood built a chain</h3>
+<p>Robinhood is a large US brokerage app that serves millions of customers. A traditional stock market is closed at night and on weekends. A blockchain never closes. Robinhood saw a chance to offer <b>tokenized stocks</b>, tokens that track the price of a real share, so people could trade around the clock. In June 2025 it launched an early version of these Stock Tokens on Arbitrum One for customers in Europe. It then built its own dedicated chain.</p>
+
+<h3>Robinhood Chain: the facts</h3>
+<p><b>Robinhood Chain</b> is an Ethereum L2 built using Arbitrum Orbit and running the Nitro engine. Its public test network launched in February 2026, and the main network went live on <b>July 1, 2026</b>, at a Robinhood event in London. Gas is paid in ETH. Reports say Robinhood has not announced a native token for the chain. Its chain ID is 4663 on mainnet and 46630 on the test network. Launch partners and integrations reported at the time included Alchemy, Chainlink price feeds, custody providers such as BitGo and Fireblocks, and apps such as Uniswap for trading, Morpho for lending, and the Paxos-issued stablecoin <b>USDG</b>.</p>
+<p>Robinhood's Stock Tokens are ERC-20 tokens. A Stock Token gives you price exposure to a share. It is not the same as owning the share itself, and it does not come with voting rights. Availability depends on where you live, and Robinhood has said the product reaches customers in more than 120 countries. Eligibility rules are different from country to country, and some regions are excluded, so read the official terms before you do anything.</p>
+
+<h3>The honest limits</h3>
+<p>At launch, a single sequencer, run by or for Robinhood, orders the transactions. That is normal for a young L2, but it means the chain is more centralized than the word "permissionless" might suggest. The chain is built for tokenized finance, so many of its biggest assets are issued by one company, and holding them means trusting that issuer. Adoption numbers in the first days of any new chain should be treated with caution, since they change fast and are measured in different ways.</p>
+
+<h3>Arbitrum vs. Base vs. Robinhood Chain</h3>
+<p>All three are Ethereum L2s that pay gas in ETH. Arbitrum One is a general DeFi hub with a community DAO. Base is tied to Coinbase and consumer apps. Robinhood Chain is a company-run chain focused on tokenized stocks and real-world assets. The first two are places many apps share. The third is more like a branded financial district.</p>
+`,
+q:[
+["Who built Arbitrum?","Offchain Labs","Coinbase","Robinhood","The SEC","Offchain Labs built Arbitrum."],
+["What type of rollup is Arbitrum One?","An optimistic rollup","A ZK rollup","A sidechain","A mining pool","Arbitrum One is optimistic."],
+["What is the chain ID of Arbitrum One in the lesson?","42161","8453","10","4663","The lesson says 42161."],
+["What is the ARB token used for?","Governance, not gas","Paying gas on Arbitrum","Mining","Proof of work","ARB is a governance token."],
+["What is the Arbitrum DAO?","A community group that votes on decisions","A bank","A mining pool","A stablecoin","The DAO votes on decisions."],
+["What is Nitro?","The software engine that runs Arbitrum chains","A stablecoin","A wallet","A bridge","Nitro is the engine."],
+["What does BoLD allow?","Anyone to challenge a bad state without special permission","Only the team to challenge","Mining on Arbitrum","Free tokens","BoLD is permissionless disputes."],
+["What does Stylus let developers do?","Write smart contracts in languages like Rust alongside normal EVM contracts","Mine ETH","Print stablecoins","Close the network","Stylus adds other languages."],
+["What is Orbit?","A kit that lets anyone launch a custom chain with Arbitrum technology","A wallet","A stablecoin","A token standard","Orbit builds custom chains."],
+["Where did Robinhood first launch Stock Tokens in June 2025?","On Arbitrum One for customers in Europe","On Bitcoin","On Base","On BNB Chain","The lesson says Arbitrum One."],
+["When did Robinhood Chain's mainnet go live?","July 1, 2026","June 2012","February 2026","July 2015","The lesson says July 1, 2026."],
+["When did Robinhood Chain's public test network launch?","February 2026","July 2026","December 2017","March 2024","Testnet was February 2026."],
+["What pays gas on Robinhood Chain?","ETH","A Robinhood token","ARB","BNB","Gas is paid in ETH."],
+["What is the mainnet chain ID of Robinhood Chain, per the lesson?","4663","46630","42161","56","Mainnet is 4663; 46630 is the testnet."],
+["Which stablecoin did launch reports mention on Robinhood Chain?","USDG","RLUSD","Dai only","None","USDG, issued by Paxos."],
+["What does a Stock Token give you?","Price exposure to a share, without voting rights","Full legal ownership and votes","A bank account","Free shares","Exposure, not ownership."],
+["What honest limit does the lesson name about the chain at launch?","A single sequencer run by or for Robinhood orders transactions","It had thousands of independent sequencers","It had no users","It was a Bitcoin chain","Single sequencer."],
+["How do Arbitrum One, Base and Robinhood Chain relate?","All are Ethereum L2s that pay gas in ETH","All are independent L1s","All are Bitcoin sidechains","All pay gas in BNB","The lesson's comparison."]
+]
+});
+
+SECTIONS.push({
+n:7,
+title:"BNB Chain and Avalanche",
+sub:"Two independent EVM Layer 1s: how they get speed and low fees, and what you give up.",
+lesson:`
+<h3>These two are different from the L2s</h3>
+<p>In Sections 5 and 6, every network was an Ethereum layer 2. Now we turn to two networks that are <b>independent layer 1s</b>. Each has its own validators, its own coin and its own security. They are EVM-compatible, so your 0x address and your wallet work on them. But they do not settle back to Ethereum. If something goes wrong there, Ethereum cannot rescue it.</p>
+
+<h3>BNB Chain</h3>
+<p><b>BNB Chain</b> is a blockchain created by Binance, one of the largest crypto exchanges. Its main smart contract network is called <b>BNB Smart Chain</b>, or <b>BSC</b>, which launched in 2020. The coin is <b>BNB</b>, which pays the gas. Its chain ID is 56.</p>
+<p>BSC is known for being fast and cheap. It uses a design called <b>proof of staked authority</b>. A small, limited set of validators take turns producing blocks, and they stake BNB. Fewer validators means quicker agreement, but it also means the network is more centralized than Ethereum, which has a very large number of validators. People who value speed and low fees often accept that trade. People who value maximum decentralization often do not.</p>
+<p>BSC has kept getting faster. In January 2026 it activated an upgrade called <b>Fermi</b> on January 14, which cut the block time from 0.75 seconds to 0.45 seconds and aimed for transaction finality of about one second. BNB Chain also operates other pieces, such as an L2 called opBNB, but BSC is where most people start.</p>
+<p>BSC has a huge number of users, a large DeFi scene, and a very active token scene, including many low-quality or scam tokens. PancakeSwap is a well-known exchange there. The same rule applies as always: check every token's contract address and be careful with anything that promises quick profits.</p>
+
+<h3>Avalanche</h3>
+<p><b>Avalanche</b> is a network built by a company called Ava Labs. It launched in 2020. The coin is <b>AVAX</b>, which pays gas on its main EVM chain. Avalanche is really a network of networks. Its three original built-in chains each had a job. The <b>X-Chain</b> was for creating and moving assets. The <b>P-Chain</b> coordinates validators and the network's custom chains. The <b>C-Chain</b> is the one that runs smart contracts and is EVM-compatible. When people say "Avalanche DeFi," they usually mean the C-Chain, whose chain ID is 43114.</p>
+<p>Avalanche is known for fast finality, often about a second or two, through a consensus method where validators repeatedly sample each other until the network agrees. It has many validators, and it requires them to stake AVAX.</p>
+
+<h3>Avalanche9000 and custom chains</h3>
+<p>In December 2024, Avalanche shipped a large upgrade called <b>Avalanche9000</b>, also known as the Etna upgrade. It had two headline changes. One proposal, <b>ACP-77</b>, made it much cheaper to launch your own chain, now called an <b>Avalanche L1</b>. Before, someone starting a custom chain, then called a subnet, needed validators who each locked up a large stake. Now validators pay a small ongoing fee instead. The other, <b>ACP-125</b>, lowered the minimum fee on the C-Chain, from 25 nAVAX to 1 nAVAX, a reduction of 96 percent. The team said launching an L1 became about 99.9 percent cheaper.</p>
+<p>The idea is that businesses, games and institutions can run their own tailored Avalanche L1s, with their own rules and fee tokens, and still talk to other Avalanche chains through built-in messaging. This is similar in spirit to Arbitrum Orbit chains, but there is a key difference: an Avalanche L1 has its own validators and does not inherit Ethereum's security, while an Orbit L2 settles to Ethereum.</p>
+
+<h3>Comparing the two</h3>
+<p>BNB Chain leans on Binance's reach and a small set of validators for speed and low fees. Avalanche leans on a larger validator set, quick finality, and the ability to spin up many custom chains. Both pay gas in their own coin, not ETH. That means you need BNB for BSC and AVAX for Avalanche's C-Chain, or your transactions will not go through.</p>
+
+<h3>A balanced view</h3>
+<p>Supporters of independent L1s say they can tune everything for speed and cost, without waiting on Ethereum's pace. Critics say you must trust a smaller group of validators or a single company's influence, and that liquidity is spread over many places. Neither side is simply right. Your job as a learner is to know what each network is built for, and where the trade-offs are.</p>
+`,
+q:[
+["What is an independent layer 1?","A chain with its own validators and its own security","A chain that settles to Ethereum","A type of wallet","A bridge","L1s secure themselves."],
+["Who created BNB Chain?","Binance","Coinbase","Robinhood","Offchain Labs","Binance created BNB Chain."],
+["What is the gas token on BSC?","BNB","ETH","AVAX","ARB","BNB pays gas on BSC."],
+["What is the chain ID of BNB Smart Chain in the lesson?","56","1","43114","8453","The lesson says 56."],
+["What design does BSC use?","Proof of staked authority with a limited set of validators","Proof of work","Pure ZK rollup","Optimistic rollup","BSC uses proof of staked authority."],
+["What is the trade-off of having fewer validators?","Faster agreement but more centralization","Slower and cheaper","No trade-off","More Bitcoin","Speed versus decentralization."],
+["What did the Fermi upgrade do on January 14, 2026?","Cut block time from 0.75 to 0.45 seconds","Cancelled BNB","Turned BSC into an L2","Added mining","Fermi lowered block time."],
+["Which exchange is named as a well-known app on BSC?","PancakeSwap","Uniswap only","Coinbase","Robinhood","PancakeSwap is named."],
+["Who built Avalanche?","Ava Labs","Binance","Offchain Labs","Coinbase","Ava Labs built Avalanche."],
+["What pays gas on the Avalanche C-Chain?","AVAX","ETH","BNB","OP","AVAX pays gas."],
+["What is the C-Chain's job?","It runs smart contracts and is EVM-compatible","It coordinates validators","It moves Bitcoin","It stores NFTs only","The C-Chain is the EVM chain."],
+["What does the P-Chain do?","Coordinates validators and the network's custom chains","Runs memecoins","Replaces ETH","Burns BNB","The P-Chain coordinates."],
+["What is the chain ID of the Avalanche C-Chain in the lesson?","43114","56","10","42161","The lesson says 43114."],
+["When did Avalanche9000 (Etna) ship?","December 2024","July 2015","March 2023","July 2026","The lesson says December 2024."],
+["What did ACP-77 change?","It made launching your own Avalanche L1 much cheaper","It banned custom chains","It created ETH","It ended AVAX","ACP-77 lowered L1 costs."],
+["What did ACP-125 do to the C-Chain minimum fee?","Lowered it from 25 nAVAX to 1 nAVAX","Doubled it","Made it free forever","Raised it to 100 nAVAX","A 96 percent reduction."],
+["What key difference separates an Avalanche L1 from an Orbit L2?","An Avalanche L1 has its own validators and does not inherit Ethereum's security","They are identical","An Orbit chain has no fees","An Avalanche L1 settles to Ethereum","The lesson draws this distinction."],
+["What do you need to pay gas on BSC and on Avalanche's C-Chain?","BNB for BSC and AVAX for Avalanche's C-Chain","ETH for both","Only USDC","Nothing","Each pays gas in its own coin."]
+]
+});
+
+SECTIONS.push({
+n:8,
+title:"Using Many Networks: Wallets, Gas Tokens and Bridges",
+sub:"One address, many networks. Adding networks, matching gas tokens, bridging carefully and choosing the right chain for the job.",
+lesson:`
+<h3>One address, many networks</h3>
+<p>This is the single most useful fact of the EVM world. Your wallet produces one address that starts with 0x, and that same address works on Ethereum, Base, Arbitrum, Optimism, BNB Chain, Avalanche's C-Chain and Robinhood Chain. Your private keys are the same too. But the balances are separate. You can hold 5 ETH on Ethereum and zero on Base, with the same address.</p>
+<p>Think of your address as a mailbox number that exists in seven different cities. What is in the box depends on which city you are in. Your wallet's network selector is the way you choose the city.</p>
+
+<h3>Adding a network</h3>
+<p>Many wallets already list the popular networks. When one is missing, you add it with four pieces of information: the <b>network name</b>, the <b>chain ID</b>, the <b>RPC address</b> (the doorway your wallet uses to talk to the network), and the <b>currency symbol</b>. A block explorer link is optional. Get these only from the network's official documentation, never from a random link or message. A fake RPC can show you false balances.</p>
+<p>Here are the chain IDs you have met: Ethereum is 1. OP Mainnet is 10. BNB Smart Chain is 56. Robinhood Chain is 4663. Base is 8453. Arbitrum One is 42161. The Avalanche C-Chain is 43114. If your wallet shows a different ID for a network you think you are on, stop and check.</p>
+
+<h3>The gas token rule</h3>
+<p>Every transaction needs the network's gas token in your wallet on that network. Here is the list:</p>
+<p>Ethereum, Base, Arbitrum One, OP Mainnet and Robinhood Chain all use <b>ETH</b> for gas. BNB Smart Chain uses <b>BNB</b>. The Avalanche C-Chain uses <b>AVAX</b>. A very common beginner problem is sending tokens to yourself on a new network and finding you cannot move them, because there is no gas token to pay with. Always bring a small amount of the gas token first.</p>
+
+<h3>The same token, many versions</h3>
+<p>USDC exists on many of these networks, but each one is a separate token with its own contract address. Some are issued directly by the stablecoin company on that network, called <b>native</b>. Others are <b>bridged</b> versions, which are claims created by a bridge. A bridged version can carry extra risk, and the same name can hide two different tokens, like "USDC" and "USDC.e." Check which one an app expects, and do not mix them up.</p>
+
+<h3>How bridging works, step by step</h3>
+<p>A bridge locks or burns an asset on one network and releases or creates a matching asset on another. Using a bridge safely goes like this:</p>
+<p>First, use the official bridge for the network when you can. Many have one listed on their own website. Second, double-check the destination network and the address, since a mistake can lose funds. Third, send a small test amount first and wait until it arrives. Fourth, remember that moving from an L2 to Ethereum using an official optimistic rollup bridge can take about a week, while moving into an L2 is much faster. Fifth, expect fees on both sides.</p>
+<p>Third-party bridges and aggregators can be faster and cheaper, because they front the funds and collect a fee, but they add trust in another company's code. Some of the largest hacks in crypto history were bridge hacks. Keep amounts small until you trust a route.</p>
+
+<h3>Block explorers: your receipts</h3>
+<p>Each network has a block explorer, a website where you can look up any address, transaction or token. Etherscan is the best-known, and similar explorers exist for other networks, such as BaseScan, Arbiscan, OP Mainnet's explorer, BscScan and Avalanche's explorers. Robinhood Chain launched with a Blockscout explorer. Use explorers to confirm a transaction, check a token's contract address and see an address's approvals.</p>
+
+<h3>Choosing a network for the job</h3>
+<p>There is no best network, only a best fit. Ethereum itself suits large, long-term value and the deepest set of apps. Base suits consumer apps and Coinbase-connected activity. Arbitrum One suits DeFi. OP Mainnet suits the Superchain ecosystem. Robinhood Chain suits tokenized stocks and real-world assets. BNB Chain suits low-cost, high-activity trading. Avalanche suits custom chains and fast finality. Whatever you pick, check the fee token, the liquidity for the asset you need, the exit path, and who runs the network.</p>
+
+<h3>Test networks</h3>
+<p>Every major network has a <b>testnet</b>, where tokens are free and have no value. Practice there first. Learn how to switch networks, send, swap and approve with fake money before you use real money.</p>
+`,
+q:[
+["What is true about your 0x address across EVM networks?","The same address works on all of them, but balances are separate","Each network needs a different address","Your balance is shared across all","Only Ethereum accepts it","One address, separate balances."],
+["Which four items do you need to add a network to a wallet?","Name, chain ID, RPC address and currency symbol","Seed phrase, password, PIN and email","Price, volume, rank and logo","Only a name","The lesson lists four items."],
+["Where should you get network details when adding one?","The network's official documentation","A random link in chat","A pop-up ad","A stranger","Official docs only."],
+["What is an RPC address?","The doorway your wallet uses to talk to the network","A type of token","A fee","A validator","RPC is the doorway."],
+["What is Ethereum's chain ID?","1","10","56","8453","Ethereum is 1."],
+["What is the chain ID of Base?","8453","42161","43114","10","Base is 8453."],
+["What is the chain ID of Arbitrum One?","42161","8453","56","1","Arbitrum One is 42161."],
+["What is the chain ID of BNB Smart Chain?","56","10","4663","43114","BSC is 56."],
+["Which networks use ETH for gas?","Ethereum, Base, Arbitrum One, OP Mainnet and Robinhood Chain","Only Ethereum","BSC and Avalanche","None","The lesson lists them."],
+["What pays gas on BNB Smart Chain?","BNB","ETH","AVAX","USDC","BNB pays gas."],
+["What pays gas on the Avalanche C-Chain?","AVAX","ETH","BNB","ARB","AVAX pays gas."],
+["Why is it a problem to arrive on a new network with only tokens and no gas token?","You cannot pay to move them","They vanish","They double","The wallet closes","No gas, no transactions."],
+["What is a native stablecoin version?","One issued directly by the stablecoin company on that network","A copy made by a bridge","A fake token","A burn","Native means issued directly."],
+["What can a bridged token carry?","Extra risk from the bridge","No risk ever","A guaranteed refund","Free gas","Bridged tokens depend on the bridge."],
+["What should you do first when using a bridge?","Use the official bridge when you can and send a small test amount","Send everything at once","Skip checking the network","Share your seed phrase","The lesson's steps."],
+["Roughly how long can an official optimistic rollup bridge withdrawal to Ethereum take?","About a week","About a second","About a year","It cannot happen","Challenge window."],
+["What is a block explorer?","A website where you can look up addresses, transactions and tokens","A mining rig","A wallet","A bridge","Explorers are your receipts."],
+["What is a testnet?","A practice network with free tokens that have no value","A real money network","A bank","A stablecoin","Practice with fake money."]
+]
+});
+
+SECTIONS.push({
+n:9,
+title:"Safety, Scams and Smart Risk Management",
+sub:"Approvals, fake tokens, address poisoning, bridge and chain risk, and a simple routine that keeps you safer.",
+lesson:`
+<h3>The rule of the road</h3>
+<p>On these networks, a transaction you sign is final. No bank can reverse it. No help desk can pull it back. This gives you freedom, and it also puts the responsibility on you. Safety is not a one-time setting. It is a set of habits.</p>
+
+<h3>Protect your keys</h3>
+<p>Your recovery phrase, usually 12 or 24 ordinary words, controls everything. Anyone who has it controls your wallet on every network in this course at once. Never type it into a website, a form, a chat or a "support" window. Never share it with anyone who contacts you. Real support teams never ask for it. Write it on paper, store it safely, and keep a backup in a separate place. For larger amounts, a hardware wallet keeps your keys offline and signs inside the device. Keep a small amount in a convenient wallet for daily use and the rest in more careful storage.</p>
+
+<h3>Approvals: the quiet danger</h3>
+<p>In Section 3 you learned that an approval lets a contract spend a token from your wallet. This is the doorway used by many wallet drainers. A fake site asks you to connect your wallet and sign something that looks harmless. In reality, you are approving a malicious contract to take your tokens. Some signatures do not even look like a transaction. They are messages that give permission for later.</p>
+<p>To stay safe, read what you are signing. Be suspicious of any request to approve a token you did not expect, or to sign something with words you do not understand. Use a separate wallet for trying new apps, and keep little in it. Review your approvals from time to time with a tool or your block explorer, and revoke the ones you do not need. Revoking costs a small gas fee, and it is worth it.</p>
+
+<h3>Common scams</h3>
+<p><b>Fake tokens and airdrops.</b> A token you never asked for shows up in your wallet, with a website that tells you to claim something. Do not touch it. <b>Address poisoning.</b> A scammer sends you a tiny transaction from an address that looks nearly the same as one you use, hoping you copy it from your history later. Always check the full address, not just the first and last few letters. <b>Phishing sites.</b> A copy of a real site with a slightly different web address. Use bookmarks. <b>Fake support.</b> A private message offering help. <b>Giveaways.</b> "Send 1 ETH and get 2 back." This never happens. <b>Rug pulls.</b> A project builds hype, takes money, and then the creators drain the pool or sell their holdings. Cheap networks make launching tokens easy, so these are common on every network in this course. <b>Fake bridges and fake networks.</b> A bridge link or RPC address from a stranger.</p>
+<p>A simple rule: if it is urgent, secret, or too good to be true, stop.</p>
+
+<h3>Network and smart contract risk</h3>
+<p>Even honest projects carry risks. A smart contract can have a bug, even after an audit. An audit is a review, not a guarantee. A bridge can be hacked. A stablecoin can lose its peg. An L2's sequencer can go offline, and while rollups have escape routes, they may be slow. An independent L1 such as BNB Chain or Avalanche depends on its own validators with no Ethereum safety net. A company-run chain such as Robinhood Chain depends on one company's choices. A Stock Token depends on its issuer. None of these risks mean you should never use the network, but they mean you should size your exposure with care and never put in more than you can afford to lose.</p>
+
+<h3>Rules and taxes</h3>
+<p>Rules about crypto vary by country and change over time. In the United States, the tax authorities generally treat crypto as property, and swaps, sales and some earnings can be taxable events. Keep records of what you do on each network, since you will have activity in several places. Check current rules where you live, and speak to a qualified tax professional. This course is education, not financial or tax advice.</p>
+
+<h3>A simple routine</h3>
+<p>Before every new action, ask five questions. Am I on the right network? Is the address or contract the official one? What exactly am I approving or signing? Can I afford to lose this amount? What is my way out if something goes wrong? Start small, use testnets to practice, and keep learning.</p>
+
+<h3>Where to go next</h3>
+<p>You now know how Ethereum works, why so many EVM networks exist, how Base, Optimism, Arbitrum, Robinhood Chain, BNB Chain and Avalanche differ, and how to move between them with care. Try the bonus gas calculator, practice on a testnet, and then take the final exam.</p>
+`,
+q:[
+["Can a signed transaction be reversed by a bank or help desk?","No","Yes, within 24 hours","Yes, by any exchange","Yes, by Coinbase only","Signed transactions are final."],
+["What does your recovery phrase control?","Your wallet on every network that uses the same keys","Only one network","Only your email","Nothing","One phrase, many networks."],
+["Who should you share your recovery phrase with?","No one","Support staff who message you","Anyone who says they work at a wallet company","Your friends","Never share it."],
+["What does a hardware wallet do?","Keeps your keys offline and signs transactions inside the device","Mines ETH","Sets gas prices","Replaces validators","Hardware wallets keep keys offline."],
+["Why are approvals a quiet danger?","A malicious approval lets a contract take your tokens","They delete your phone","They burn ETH","They raise gas","Drainers use approvals."],
+["What is a good habit for trying new apps?","Use a separate wallet with little in it","Use your main wallet with everything in it","Share your seed phrase","Approve everything","Separate wallet."],
+["How can you check and remove approvals you no longer need?","Review them with a tool or block explorer and revoke","Delete your wallet","Ignore them","Ask a stranger","Revoke approvals."],
+["What is a fake airdrop?","A token you never asked for with a site telling you to claim something","A free upgrade from Ethereum","A bank gift","A staking reward","Do not touch it."],
+["What is address poisoning?","A scammer sends a tiny transaction from a near-identical address, hoping you copy it later","A hack of the EVM","A type of NFT","A validator reward","Check the full address."],
+["How can you avoid phishing sites?","Use bookmarks and check web addresses","Click every link in chat","Trust any search ad","Enter your phrase quickly","Bookmarks."],
+["What is a rug pull?","Creators of a project drain the pool or sell off holdings after building hype","A new upgrade","A bridge fee","A stablecoin burn","Rug pulls are exit scams."],
+["Why are scams common on cheap networks?","Launching tokens is easy and costs little","Cheap networks have no users","Validators approve scams","They are illegal there","Low cost helps scammers."],
+["Is a smart contract audit a guarantee?","No, it is a review, not a guarantee","Yes, it guarantees no bugs","Yes, it guarantees profit","Only for Base","Audits are not guarantees."],
+["What is a risk of independent L1s such as BNB Chain and Avalanche?","They depend on their own validators with no Ethereum safety net","They inherit Ethereum security","They have no fees","They are illegal","Own security."],
+["What does a Stock Token on Robinhood Chain depend on?","Its issuer","A Bitcoin miner","Ethereum validators only","Nothing","Issuer risk."],
+["How are crypto swaps and sales generally treated for US tax, per the lesson?","As property, which can create taxable events","As tax-free always","As a gift always","As a loan","Check current rules."],
+["What is the lesson's simple rule about urgent, secret or too-good-to-be-true offers?","Stop","Act fast","Send more","Share your phrase","The lesson's rule."]
+]
+});
+
+FINAL=[
+["A friend says Ethereum and Bitcoin are the same thing. Which statement best corrects them?","Bitcoin was built as hard-to-change digital money, while Ethereum was built as a shared computer that runs smart contracts","Ethereum is a faster Bitcoin","Bitcoin runs smart contracts and Ethereum does not","They are both run by Coinbase","Section 1 separates their jobs."],
+["What does an address starting with 0x tell you?","It is an Ethereum-style address that works across EVM networks","It is a Bitcoin address","It is a bank account","It is a password","0x addresses are EVM addresses."],
+["What does EVM-compatible mean?","A network can run programs written for Ethereum","Ethereum owns the network","The network has no fees","It uses Bitcoin","Compatibility means the same code runs."],
+["Which event moved Ethereum to proof of stake?","The Merge, on September 15, 2022","The Dencun upgrade","The Fusaka upgrade","The Pectra upgrade","The Merge ended mining."],
+["Why would a validator lose part of its stake?","It cheated, which is called slashing","It earned rewards","It used too little gas","It joined a testnet","Slashing punishes cheating."],
+["A simple transfer uses 21,000 gas at 10 gwei. What is the fee in ETH?","0.00021 ETH","0.021 ETH","21 ETH","0.0000021 ETH","21,000 × 10 gwei = 0.00021 ETH."],
+["What happens to the base fee under EIP-1559?","It is burned","It is paid to validators","It is paid to Vitalik","It is refunded","The base fee is burned."],
+["About how long does it take for an Ethereum block to be finalized?","About 13 minutes","About 1 second","About one week","About one year","Finality takes about two epochs."],
+["Which upgrade added blobs, lowering fees for L2 networks?","Dencun in March 2024","The Merge","Glamsterdam","Pectra","Dencun added blobs."],
+["What is the status of Glamsterdam, per the course?","In testing, with a Sepolia test fork scheduled for Oct 6, 2026 and no firm mainnet date in the reports found","Already live since 2022","Cancelled","A stablecoin","The course hedges the latest reports."],
+["A token calls itself USDC and uses the right logo. What really identifies the real one?","Its contract address from the issuer's official site","Its logo","Its name","The number of holders","Tokens are identified by contract address."],
+["Which standard is behind most NFTs?","ERC-721","ERC-20","Proof of work","EIP-1559","ERC-721 is for one-of-a-kind items."],
+["You press Approve on a token and choose unlimited. What risk did you take on?","If that contract is hacked or malicious, your tokens could be drained","Your seed phrase is deleted","Gas is refunded","Ethereum is paused","Unlimited approvals raise the risk."],
+["What does an AMM use to set prices?","A formula based on the amounts of two tokens in a pool","A vote of banks","A judge","A mining puzzle","AMMs use pool formulas."],
+["What is over-collateralization in DeFi lending?","Locking up more value than you borrow","Borrowing with no collateral","Burning collateral","Sending ETH to a bank","Borrowers lock up more than they borrow."],
+["Which type of network inherits Ethereum's security?","A layer 2 rollup","An independent L1","A sidechain","A separate exchange","L2s post data to Ethereum."],
+["Which of these is an independent L1?","BNB Smart Chain","Base","Arbitrum One","Robinhood Chain","BNB Smart Chain has its own validators."],
+["What does a sequencer do?","Puts transactions in order on a rollup","Mines Bitcoin","Stakes ETH","Issues stablecoins","Sequencers order transactions."],
+["Why does an official optimistic rollup withdrawal to Ethereum take about a week?","It waits out a fraud-proof challenge window","The bridge is closed on weekends","Validators sleep","It needs Bitcoin confirmations","The challenge window is about seven days."],
+["What does a ZK rollup attach to each bundle?","A mathematical validity proof","A fraud notice","A bank stamp","A tip","Validity proofs."],
+["What are the two parts of an L2 fee?","The cost to run your transaction plus your share of posting data to Ethereum","A tax and a refund","A burn and a tip only","A bridge fee and a mining fee","The lesson names both."],
+["What does L2BEAT Stage 1 mean?","A working proof system and users can exit without the operator, with a council able to step in for emergencies","The code is fully in control","No proof system","The chain is closed","Stage 1 as described."],
+["Who incubated Base, and when did it launch?","Coinbase, in August 2023","Binance, in 2020","Robinhood, in 2026","Offchain Labs, in 2021","Base is Coinbase's L2."],
+["What did Base announce on February 18, 2026?","A move to its own unified stack, stepping away from the Optimism Superchain","It would shut down","It would switch to Bitcoin","It would merge with BNB Chain","The announcement is in Section 5."],
+["What is the OP token used for?","Governance, with gas paid in ETH","Paying gas on OP Mainnet","Mining","Staking validators","OP is a governance token."],
+["What is Orbit?","A kit for launching custom chains with Arbitrum technology","A wallet","A stablecoin","A bridge","Orbit builds custom chains."],
+["What is BoLD?","Arbitrum's dispute system that lets anyone challenge a bad state","A stablecoin","A wallet","A token standard","BoLD is permissionless disputes."],
+["When did Robinhood Chain's mainnet go live?","July 1, 2026","February 2026","June 2025","July 2015","Mainnet launched July 1, 2026."],
+["What pays gas on Robinhood Chain?","ETH","A Robinhood token","BNB","AVAX","Gas is paid in ETH."],
+["What does a Robinhood Stock Token give you?","Price exposure to a share, without voting rights","Full ownership and votes","A bank account","Free shares","Exposure, not ownership."],
+["What honest limit applies to Robinhood Chain at launch?","One sequencer run by or for Robinhood orders transactions","It has thousands of independent sequencers","It has no users","It is a Bitcoin chain","Single sequencer."],
+["What pays gas on BNB Smart Chain?","BNB","ETH","AVAX","OP","BNB pays gas."],
+["What does BSC trade away to get speed?","More centralization, since a limited set of validators produce blocks","Nothing","All of its fees","Its EVM","Fewer validators, more speed."],
+["What did the Fermi upgrade do on January 14, 2026?","Cut BSC block time from 0.75 to 0.45 seconds","Cancelled BNB","Turned BSC into an L2","Added mining","Fermi lowered block time."],
+["What did ACP-77 do for Avalanche?","Made launching your own Avalanche L1 much cheaper","Banned custom chains","Created ETH","Ended AVAX","ACP-77 lowered L1 costs."],
+["What is the key difference between an Avalanche L1 and an Orbit L2?","An Avalanche L1 has its own validators and does not inherit Ethereum's security","They are identical","An Orbit chain has no fees","An Avalanche L1 settles to Ethereum","The course draws this distinction."],
+["Which pairing of network and gas token is correct?","Avalanche C-Chain and AVAX","BNB Smart Chain and ETH","Base and BNB","Arbitrum One and AVAX","The C-Chain uses AVAX."],
+["Which chain ID matches Arbitrum One?","42161","8453","56","43114","Arbitrum One is 42161."],
+["You have tokens on a new network but no gas token. What happens?","You cannot pay to move them","They double","They vanish","Gas is free","No gas token, no transactions."],
+["What is the safest first step when using a bridge?","Use the official bridge when possible and send a small test amount first","Send everything at once","Share your seed phrase","Skip checking the network","Small test first."],
+["You receive a token you never asked for, with a site telling you to claim a reward. What should you do?","Do not touch it","Connect your wallet and sign","Send ETH to claim","Share your phrase","Fake airdrops are a scam."],
+["A scammer sends you a tiny transaction from an address that looks almost like one you use. What is this?","Address poisoning","A staking reward","A bridge fee","An airdrop from Ethereum","Check the full address."],
+["Is a smart contract audit a guarantee of safety?","No, it is a review, not a guarantee","Yes, always","Yes, for Base only","Yes, for stablecoins","Audits are not guarantees."],
+["What is the lesson's simple routine before any new action?","Check the network, the official address, what you sign, how much you can lose, and your way out","Click quickly","Share your phrase","Approve everything","Five questions."]
+]
+;
+
+</script>
+
+<script>
+/* ============ SETTINGS ============ */
+var W3F_KEY="cbde23f6-f617-4b16-953f-7b0aab0e9f58";   // Block Wall Street Web3Forms key (reports go to blockwallstreet638@gmail.com)
+var PASS=70;
+var SKIP=/[?&]skip=1/.test(location.search);           // owner preview: add ?skip=1 to the web address to skip the reading timer
+var STORE="bws_eth_evm_v1";
+var COURSE="Ethereum & EVM Networks";
+var PARTNER="Block Wall Street Academy · Chicago";
+/* ---- ACCESS GATE (set these two after you deploy the Worker; leave WORKER_URL empty to run the course open) ---- */
+var WORKER_URL="https://bws-access-eth.blockwallstreet638.workers.dev";                                   // e.g. "https://bws-access.YOURNAME.workers.dev"
+var PAY_URL="ethereum-evm-payment-BWSSite.html";    // the payment page file/address
+var CODE_KEY="bws_eth_code";var ACCESS_CODE="";
+
+/* ============ STATE ============ */
+var S=load();
+function blank(){return {name:"",email:"",started:null,seconds:0,secs:{},final:{best:0,first:null,attempts:0,passed:false},done:null,sent:false,cert:null}}
+function load(){try{var r=localStorage.getItem(STORE);if(r){var o=JSON.parse(r);if(o&&o.secs)return o}}catch(e){}return blank()}
+function save(){try{localStorage.setItem(STORE,JSON.stringify(S))}catch(e){}}
+function sec(n){if(!S.secs[n])S.secs[n]={best:0,first:null,attempts:0,passed:false,time:0,read:false,reread:false};return S.secs[n]}
+
+/* ============ HELPERS ============ */
+var $=function(s,r){return (r||document).querySelector(s)};
+var app=$("#app");
+function esc(t){return String(t).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
+function shuffle(a){a=a.slice();for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t}return a}
+function words(h){var d=document.createElement("div");d.innerHTML=h;return (d.textContent||"").trim().split(/\s+/).length}
+function minSecs(n){var w=words(SECTIONS[n-1].lesson);return Math.round(w/300*60)}
+function mins(s){return Math.max(1,Math.round(s/60))}
+function letter(p){return p>=90?"A":p>=80?"B":p>=70?"C":"—"}
+function passedCount(){var c=0;SECTIONS.forEach(function(s){if(sec(s.n).passed)c++});return c}
+function unlocked(n){return n===1||sec(n-1).passed}
+function sectionAvg(){var t=0;SECTIONS.forEach(function(s){t+=sec(s.n).best});return Math.round(t/SECTIONS.length)}
+function overall(){return Math.round(sectionAvg()*0.5+S.final.best*0.5)}
+function fmtDate(d){return new Date(d).toLocaleDateString("en-US",{year:"numeric",month:"long",day:"numeric"})}
+function fmtDur(s){var h=Math.floor(s/3600),m=Math.round((s%3600)/60);return (h?h+"h ":"")+m+"m"}
+function progress(){var total=SECTIONS.length+1;var done=passedCount()+(S.final.passed?1:0);var p=Math.round(done/total*100);$("#pfill").style.width=p+"%";$("#ptxt").textContent=p+"%"}
+var view="welcome";
+
+/* ============ AUDIO (read aloud) ============ */
+var TTS={ok:("speechSynthesis" in window),voices:[],voice:null,rate:0.95,units:[],idx:0,state:"stop",token:0,armed:false,done:false};
+var PRON=[[/\bEVM\b/g,"E V M"],[/\bETH\b/g,"ether"],[/\bWETH\b/g,"wrapped ether"],[/\bL1s\b/g,"L 1s"],[/\bL2s\b/g,"L 2s"],[/\bL1\b/g,"L 1"],[/\bL2\b/g,"L 2"],[/\bEOA\b/g,"E O A"],[/\bERC-(\d+)/g,"E R C $1"],[/\bEIP-(\d+)/g,"E I P $1"],[/\bACP-(\d+)/g,"A C P $1"],[/\bDeFi\b/g,"dee fi"],[/\bDEX\b/g,"decks"],[/\bAMM\b/g,"A M M"],[/\bNFTs\b/g,"N F Ts"],[/\bNFT\b/g,"N F T"],[/\bDAO\b/g,"dow"],[/\bZK\b/g,"Z K"],[/\bBSC\b/g,"B S C"],[/\bBNB\b/g,"B N B"],[/\bAVAX\b/g,"ay vax"],[/\bARB\b/g,"arb"],[/\bOP\b/g,"O P"],[/\bUSDC\b/g,"U S D C"],[/\bUSDT\b/g,"U S D T"],[/\bUSDG\b/g,"U S D G"],[/\bRPC\b/g,"R P C"],[/\bSEC\b/g,"S E C"],[/\bgwei\b/g,"gway"],[/\b0x\b/g,"zero x"],[/\bnAVAX\b/g,"nano ay vax"],[/\bBoLD\b/g,"bold"],[/\bStylus\b/g,"sty-luss"],[/\bFusaka\b/g,"foo-sah-kah"],[/\bGlamsterdam\b/g,"glam-ster-dam"],[/\bPectra\b/g,"peck-truh"],[/\bDencun\b/g,"den-coon"],[/\bAxelar\b/g,"ax-eh-lar"],[/\bL2BEAT\b/g,"L 2 beat"],[/\bBTC\b/g,"bitcoin"],[/\bIRS\b/g,"I R S"]];
+function loadVoices(){
+  if(!TTS.ok)return;
+  var all=speechSynthesis.getVoices()||[];
+  TTS.voices=all.filter(function(v){return /^en/i.test(v.lang)});
+  var saved=null;try{saved=localStorage.getItem("bws_voice")}catch(e){}
+  var pick=null;
+  if(saved)pick=TTS.voices.find(function(v){return v.name===saved});
+  if(!pick){
+    var order=[/Aria|Jenny|Michelle|Emma|Ana\b|Sonia|Libby/i,/Zira|Samantha|Karen|Moira|Tessa|Serena|Google US English|Female/i];
+    for(var i=0;i<order.length&&!pick;i++){pick=TTS.voices.find(function(v){return order[i].test(v.name)})}
+  }
+  TTS.voice=pick||TTS.voices[0]||null;
+  var sel=$("#voiceSel");
+  if(sel){sel.innerHTML=TTS.voices.map(function(v){return '<option value="'+esc(v.name)+'"'+(TTS.voice&&v.name===TTS.voice.name?" selected":"")+'>'+esc(v.name)+'</option>'}).join("")}
+}
+if(TTS.ok){loadVoices();speechSynthesis.onvoiceschanged=loadVoices}
+function chunks(t){
+  var out=[],parts=t.match(/[^.!?]+[.!?]+["”')\]]*\s*|[^.!?]+$/g)||[t];var cur="";
+  parts.forEach(function(p){if((cur+p).length>170&&cur){out.push(cur);cur=p}else cur+=p});
+  if(cur.trim())out.push(cur);return out;
+}
+function say(i){
+  if(!TTS.ok)return;
+  speechSynthesis.cancel();TTS.token++;var my=TTS.token;TTS.idx=i;TTS.state="play";TTS.armed=true;ui();
+  speakUnit(my);
+}
+function speakUnit(my){
+  if(my!==TTS.token)return;
+  if(TTS.idx>=TTS.units.length){TTS.state="stop";TTS.idx=0;TTS.done=true;mark(null);ui();var s=SECTIONS[cur-1];if(s)checkGate(true);return}
+  var el=TTS.units[TTS.idx];mark(el);
+  var text=el.innerText.replace(/\s+/g," ");PRON.forEach(function(r){text=text.replace(r[0],r[1])});
+  var parts=chunks(text),k=0;
+  (function next(){
+    if(my!==TTS.token)return;
+    if(k>=parts.length){TTS.idx++;speakUnit(my);return}
+    var u=new SpeechSynthesisUtterance(parts[k++]);
+    if(TTS.voice)u.voice=TTS.voice;u.rate=TTS.rate;u.pitch=1.08;u.lang=(TTS.voice&&TTS.voice.lang)||"en-US";
+    u.onend=next;u.onerror=function(e){if(my===TTS.token&&e.error!=="interrupted"&&e.error!=="canceled")next()};
+    speechSynthesis.speak(u);
+  })();
+}
+function mark(el){var o=document.querySelector(".speaking");if(o)o.classList.remove("speaking");if(el){el.classList.add("speaking");el.scrollIntoView({block:"center",behavior:"smooth"})}}
+function stopSay(){if(!TTS.ok)return;TTS.token++;speechSynthesis.cancel();TTS.state="stop";TTS.idx=0;mark(null);ui()}
+function pauseSay(){if(!TTS.ok)return;TTS.token++;speechSynthesis.cancel();TTS.state="pause";ui()}
+function ui(){
+  var p=$("#aPlay");if(!p)return;
+  p.textContent=TTS.state==="play"?"⏸ Pause":(TTS.state==="pause"?"▶ Resume":"▶ Listen");
+}
+
+/* ============ VIEWS ============ */
+var cur=0;
+function go(v){stopSay();view=v;window.scrollTo(0,0);closeMenu()}
+function showWelcome(){
+  go("welcome");
+  var h='<div class="hero"><div class="eyebrow">Block Wall Street presents</div><h1>Ethereum &amp; <span>EVM Networks</span></h1><p class="small" style="font-size:19px;color:var(--text)">From the first smart contract to Base, Arbitrum, Optimism, BNB Chain, Avalanche and Robinhood Chain. 9 sections, a quiz after each one, a 44-question final exam and a certificate of completion.</p></div>';
+  h+='<div class="card"><h2>What you will get</h2><ul><li>Plan on about 2 hours at a normal pace, with lessons written in plain words that an 8th grader can follow.</li><li>A <b>Listen</b> button in every lesson that reads it out loud to you.</li><li>How Ethereum works, why so many EVM networks exist, how six of them differ, and how to stay safe moving between them.</li><li>Quizzes you cannot beat by skimming. You have to <b>read</b> or <b>listen</b> first. The lesson is hidden while you take the quiz.</li><li>You need <b>'+PASS+'%</b> on each quiz to move on.</li><li>Your grades and certificate are sent to Block Wall Street.</li><li>A bonus <b>Gas Fee Calculator</b> with an easy walk-through at the end.</li></ul></div>';
+  if(S.started){
+    h+='<div class="card"><h2>Welcome back, '+esc(S.name.split(" ")[0])+'</h2><p>Your progress is saved on this device.</p><button class="primary" onclick="showHome()">Continue the course</button> <button class="ghost" onclick="resetAll()">Start over as someone else</button></div>';
+  }else{
+    h+='<div class="card"><h2>Start here</h2><label for="nm">Your full name (this is exactly how it will print on your certificate)</label><input type="text" id="nm" autocomplete="name" placeholder="First and last name"><label for="em">Your email (optional, so we can reach you)</label><input type="email" id="em" autocomplete="email" placeholder="you@example.com"><p class="small">Check your spelling. You can fix it once more on the last screen before your certificate is made.</p><div id="nerr" class="small" style="color:var(--bad)"></div><button class="primary" onclick="begin()">Begin the course</button></div>';
+  }
+  h+='<p class="small" style="text-align:center">This course is education only. It is not financial, legal or tax advice.</p>';
+  app.innerHTML=h;
+}
+function begin(){
+  var n=$("#nm").value.trim().replace(/\s+/g," ");var e=$("#em").value.trim();
+  if(n.length<3||n.indexOf(" ")<0){$("#nerr").textContent="Please type your first and last name.";return}
+  S.name=n;S.email=e;S.started=Date.now();save();showHome();
+}
+function resetAll(){if(confirm("This erases saved progress on this device. Continue?")){try{localStorage.removeItem(STORE)}catch(e){}S=blank();showWelcome();progress()}}
+
+function showHome(){
+  go("home");progress();
+  var h='<div class="hero" style="padding-top:6px"><div class="eyebrow">Course map</div><h1 style="font-size:clamp(36px,7vw,60px)">Hello, <span>'+esc(S.name.split(" ")[0])+'</span></h1></div>';
+  h+='<div class="grid">';
+  SECTIONS.forEach(function(s){
+    var d=sec(s.n),ok=unlocked(s.n);
+    var tag=d.passed?'<span class="tag ok">'+d.best+'% · passed</span>':(ok?'<span class="tag">'+(d.attempts?'best '+d.best+'%':'ready')+'</span>':'<span class="tag lock">🔒 locked</span>');
+    h+='<div class="sec" '+(ok?'style="cursor:pointer" onclick="openSection('+s.n+')"':'')+'><div class="num">'+s.n+'</div><div class="meta"><b>'+esc(s.title)+'</b><span>'+esc(s.sub)+'</span><br><span>≈ '+Math.round(words(s.lesson)/150+s.q.length*0.3)+' min · '+s.q.length+'-question quiz</span></div>'+tag+'</div>';
+  });
+  var fin=passedCount()===SECTIONS.length;
+  h+='<div class="sec" '+(fin?'style="cursor:pointer;border-color:var(--gold)" onclick="startQuiz(\'final\')"':'')+'><div class="num">★</div><div class="meta"><b>Final Exam</b><span>44 questions covering the whole course. '+PASS+'% to pass.</span></div>'+(S.final.passed?'<span class="tag ok">'+S.final.best+'% · passed</span>':(fin?'<span class="tag">ready</span>':'<span class="tag lock">🔒 pass all 9 first</span>'))+'</div>';
+  var bon=passedCount()===SECTIONS.length;
+  h+='<div class="sec" '+(bon?'style="cursor:pointer" onclick="showBonus()"':'')+'><div class="num">$</div><div class="meta"><b>Bonus: Gas Fee Calculator</b><span>An easy walk-through plus a what-if tool that compares fees across networks.</span></div>'+(bon?'<span class="tag">open</span>':'<span class="tag lock">🔒 pass all 9 first</span>')+'</div>';
+  h+='</div>';
+  if(S.final.passed){h+='<div class="card"><h2>Your certificate</h2><button class="primary" onclick="showCert()">View my certificate</button></div>'}
+  app.innerHTML=h;buildDrawer();
+}
+function buildDrawer(){
+  var d=$("#drawer"),h='<div class="logo" style="margin-bottom:10px">COURSE MENU</div><div class="sec" onclick="showHome()"><div class="num">⌂</div><div class="meta"><b>Course map</b></div></div>';
+  SECTIONS.forEach(function(s){var ok=unlocked(s.n),x=sec(s.n);h+='<div class="sec" '+(ok?'onclick="openSection('+s.n+')"':'style="opacity:.5"')+'><div class="num">'+s.n+'</div><div class="meta"><b>'+esc(s.title)+'</b></div><span class="tag '+(x.passed?'ok':'')+'">'+(x.passed?x.best+'%':ok?'open':'🔒')+'</span></div>'});
+  h+='<div class="sec" '+(passedCount()===SECTIONS.length?'onclick="startQuiz(\'final\')"':'style="opacity:.5"')+'><div class="num">★</div><div class="meta"><b>Final Exam</b></div></div>';
+  h+='<div class="sec" '+(passedCount()===SECTIONS.length?'onclick="showBonus()"':'style="opacity:.5"')+'><div class="num">$</div><div class="meta"><b>Bonus: Gas Fee Calculator</b></div></div>';
+  d.innerHTML=h;
+}
+function openMenu(){buildDrawer();$("#drawer").classList.add("open");$("#veil").classList.add("open")}
+function closeMenu(){$("#drawer").classList.remove("open");$("#veil").classList.remove("open")}
+$("#menuBtn").onclick=function(){if(S.started)openMenu()};$("#veil").onclick=closeMenu;
+
+
+function audioHTML(){
+  var h='<div class="audio" id="audioBar">';
+  if(TTS.ok){h+='<button class="primary" id="aPlay">▶ Listen</button><button id="aPrev" title="Previous paragraph">⏮</button><button id="aNext" title="Next paragraph">⏭</button><button id="aStop">⏹</button><span class="lab">SPEED</span><select id="rate"><option value="0.8">Slow</option><option value="0.95" selected>Normal</option><option value="1.1">Fast</option><option value="1.3">Faster</option></select><span class="lab">VOICE</span><select id="voiceSel"></select>'}
+  else{h+='<span class="small">Your browser cannot read aloud. Try Microsoft Edge or Google Chrome.</span>'}
+  return h+'</div>';
+}
+function wireAudio(){
+  TTS.units=Array.prototype.slice.call(document.querySelectorAll("#lessonBody h3,#lessonBody p,#lessonBody li"));
+  if(TTS.ok){
+    loadVoices();
+    $("#aPlay").onclick=function(){if(TTS.state==="play")pauseSay();else say(TTS.idx)};
+    $("#aPrev").onclick=function(){say(Math.max(0,TTS.idx-1))};
+    $("#aNext").onclick=function(){say(Math.min(TTS.units.length-1,TTS.idx+1))};
+    $("#aStop").onclick=stopSay;
+    $("#rate").onchange=function(){TTS.rate=parseFloat(this.value);if(TTS.state==="play")say(TTS.idx)};
+    $("#voiceSel").onchange=function(){var nm=this.value;TTS.voice=TTS.voices.find(function(v){return v.name===nm});try{localStorage.setItem("bws_voice",nm)}catch(e){}if(TTS.state==="play")say(TTS.idx)};
+    $("#lessonBody").onclick=function(e){if(!TTS.armed)return;var el=e.target.closest("h3,p,li");var i=TTS.units.indexOf(el);if(i>=0)say(i)};
+  }
+}
+/* ----- lesson ----- */
+var bottomSeen=false,io=null;
+function openSection(n){
+  if(!unlocked(n))return;
+  cur=n;go("lesson");bottomSeen=false;TTS.done=false;TTS.armed=false;
+  var s=SECTIONS[n-1],d=sec(n);
+  var h='<div class="lessonhead"><div class="eyebrow">Section '+n+' of '+SECTIONS.length+'</div><h1>'+esc(s.title)+'</h1><div class="small">'+esc(s.sub)+'</div></div>';
+  h+=audioHTML();
+  h+='<div class="small" id="hint">Tip: press Listen, or tap any paragraph while the audio is on to start reading from there.</div>';
+  h+='<article id="lessonBody">'+s.lesson+'</article>';
+  h+='<div id="sentinel"></div><div class="gate"><div class="msg" id="gateMsg"></div><button class="primary" id="qBtn" disabled onclick="startQuiz('+n+')">Take the Section '+n+' quiz ('+s.q.length+' questions)</button><p class="small">The lesson is hidden during the quiz, so read or listen carefully first.</p></div>';
+  app.innerHTML=h;
+  wireAudio();
+  if(io)io.disconnect();
+  io=new IntersectionObserver(function(en){if(en[0].isIntersecting){bottomSeen=true;checkGate()}},{threshold:0.1});io.observe($("#sentinel"));
+  checkGate();
+}
+function need(n){var d=sec(n);var m=minSecs(n);if(d.reread)m=Math.round(m/2);return SKIP?0:m}
+function checkGate(audioDone){
+  if(view!=="lesson")return;
+  var n=cur,d=sec(n),m=need(n),left=Math.max(0,m-d.time);
+  if(audioDone===true&&TTS.done)bottomSeen=true;
+  var ok=(left===0&&(bottomSeen||SKIP))||d.read;
+  var b=$("#qBtn"),g=$("#gateMsg");if(!b)return;
+  b.disabled=!ok;
+  g.textContent=ok?"You are ready. Good luck!":(left>0?"Quiz unlocks after about "+Math.floor(left/60)+":"+("0"+(left%60)).slice(-2)+" of reading time"+(bottomSeen?"":" and when you reach the end of the lesson")+".":"Scroll to the end of the lesson (or let the audio finish) to unlock the quiz.");
+  if(ok&&!d.read){d.read=true;save()}
+}
+setInterval(function(){
+  if(document.hidden||!S.started)return;
+  if(view==="lesson"){var d=sec(cur);d.time++;S.seconds++;if(d.time%10===0)save();checkGate()}
+  else if(view==="quiz"){S.seconds++}
+},1000);
+window.addEventListener("beforeunload",save);
+
+/* ----- quiz ----- */
+var Qz=null;
+function buildItems(src){
+  return shuffle(src).map(function(r){
+    var opts=shuffle([0,1,2,3]).map(function(k){return {t:r[1+k],ok:k===0}});
+    return {q:r[0],opts:opts,why:r[5],pick:-1};
+  });
+}
+function startQuiz(which){
+  stopSay();
+  if(which==="final"){Qz={kind:"final",n:0,title:"Final Exam",items:buildItems(FINAL),i:0}}
+  else{var s=SECTIONS[which-1];cur=which;Qz={kind:"sec",n:which,title:"Section "+which+" Quiz",items:buildItems(s.q),i:0}}
+  go("quiz");renderQ();
+}
+function renderQ(){
+  var it=Qz.items[Qz.i],N=Qz.items.length,answered=Qz.items.filter(function(x){return x.pick>=0}).length;
+  var h='<div class="card"><div class="qhead"><span>'+esc(Qz.title)+'</span><span>Question '+(Qz.i+1)+' of '+N+'</span></div><div class="qbar"><i style="width:'+Math.round(answered/N*100)+'%"></i></div>';
+  h+='<div class="qtext">'+esc(it.q)+'</div>';
+  it.opts.forEach(function(o,k){h+='<button class="opt'+(it.pick===k?' sel':'')+'" onclick="pick('+k+')">'+String.fromCharCode(65+k)+'. '+esc(o.t)+'</button>'});
+  h+='<div class="nav"><button class="ghost" onclick="stepQ(-1)" '+(Qz.i===0?'disabled':'')+'>← Back</button>';
+  if(Qz.i<N-1)h+='<button class="primary" onclick="stepQ(1)">Next →</button>';
+  else h+='<button class="primary" onclick="finishQ()">Submit answers</button>';
+  h+='</div><div class="dots">';
+  Qz.items.forEach(function(x,k){h+='<i class="'+(x.pick>=0?'done ':'')+(k===Qz.i?'cur':'')+'" onclick="jumpQ('+k+')">'+(k+1)+'</i>'});
+  h+='</div><div class="small">'+answered+' of '+N+' answered. You can change an answer until you submit.</div>';
+  if(Qz.kind==="sec")h+='<div style="margin-top:12px"><button class="ghost" onclick="leaveQuiz()">Leave quiz and go back to the lesson</button></div>';
+  h+='</div>';app.innerHTML=h;
+}
+function pick(k){Qz.items[Qz.i].pick=k;renderQ()}
+function stepQ(d){Qz.i=Math.max(0,Math.min(Qz.items.length-1,Qz.i+d));renderQ();window.scrollTo(0,0)}
+function jumpQ(k){Qz.i=k;renderQ();window.scrollTo(0,0)}
+function leaveQuiz(){if(confirm("Leave this quiz? Your answers will not be saved.")){openSection(Qz.n)}}
+function finishQ(){
+  var un=Qz.items.filter(function(x){return x.pick<0}).length;
+  if(un&&!confirm(un+" question"+(un>1?"s are":" is")+" unanswered and will count as wrong. Submit anyway?"))return;
+  var N=Qz.items.length,c=0;Qz.items.forEach(function(x){if(x.pick>=0&&x.opts[x.pick].ok)c++});
+  var pct=Math.round(c/N*100),pass=pct>=PASS;
+  var d=Qz.kind==="final"?S.final:sec(Qz.n);
+  if(d.first===null||d.first===undefined)d.first=pct;
+  d.attempts++;if(pct>d.best)d.best=pct;
+  if(pass)d.passed=true;
+  if(!pass&&Qz.kind==="sec"){d.read=false;d.reread=true;d.time=0}
+  save();progress();showResult(c,N,pct,pass);
+}
+function showResult(c,N,pct,pass){
+  go("result");
+  var isFinal=Qz.kind==="final";
+  var h='<div class="card score '+(pass?'':'fail')+'"><div class="eyebrow">'+esc(Qz.title)+' result</div><div class="big">'+pct+'%</div><p><b>'+c+' of '+N+' correct</b> · '+(pass?'You passed!':'You need '+PASS+'% to pass.')+'</p>';
+  if(pass){
+    if(isFinal)h+='<button class="primary" onclick="showCert()">Continue to my certificate →</button>';
+    else if(Qz.n<SECTIONS.length)h+='<button class="primary" onclick="openSection('+(Qz.n+1)+')">Go to Section '+(Qz.n+1)+' →</button>';
+    else h+='<button class="primary" onclick="startQuiz(\'final\')">Section 9 done! Start the final exam →</button> <button onclick="showBonus()">Try the Calculator</button>';
+    h+=' <button class="ghost" onclick="showHome()">Course map</button>';
+  }else{
+    if(isFinal)h+='<p>Review the sections you found hardest, then try the exam again. The questions will be shuffled.</p><button class="primary" onclick="showHome()">Back to course map</button> <button class="ghost" onclick="startQuiz(\'final\')">Retake now</button>';
+    else h+='<p>Go back and read or listen to the lesson again, then retake the quiz. The questions and answers will be shuffled.</p><button class="primary" onclick="openSection('+Qz.n+')">Review the lesson</button>';
+  }
+  h+='</div><div class="card"><h2>Review</h2>';
+  Qz.items.forEach(function(x,k){
+    var right=x.pick>=0&&x.opts[x.pick].ok,good=x.opts.filter(function(o){return o.ok})[0].t;
+    h+='<div class="rev"><div class="q">'+(k+1)+'. '+esc(x.q)+'</div>';
+    if(right)h+='<div class="y">✔ '+esc(good)+'</div>';
+    else{h+='<div class="n">✘ Your answer: '+(x.pick>=0?esc(x.opts[x.pick].t):'(no answer)')+'</div><div class="y">✔ Correct: '+esc(good)+'</div><div class="why">'+esc(x.why)+'</div>'}
+    h+='</div>';
+  });
+  h+='</div>';app.innerHTML=h;
+}
+
+/* ----- certificate + report ----- */
+function certId(){
+  if(S.cert)return S.cert.id;
+  var base=S.name.toUpperCase()+"|"+new Date(S.done||Date.now()).toISOString().slice(0,10)+"|"+overall();
+  var h=5381;for(var i=0;i<base.length;i++){h=((h<<5)+h+base.charCodeAt(i))>>>0}
+  var dt=new Date(S.done||Date.now()),p=function(n){return ("0"+n).slice(-2)};
+  return "BWS-ETH-"+dt.getFullYear()+p(dt.getMonth()+1)+p(dt.getDate())+"-"+h.toString(16).toUpperCase().slice(0,6);
+}
+function showCert(){
+  go("cert");
+  if(!S.done){S.done=Date.now();save()}
+  var sent=S.sent;
+  var h='<div class="hero" style="padding-top:0"><div class="eyebrow">Congratulations</div><h1 style="font-size:clamp(38px,7vw,64px)">You <span>did it</span>, '+esc(S.name.split(" ")[0])+'</h1></div>';
+  h+='<div class="card"><h2>Your results</h2><p><b>Overall course grade: '+overall()+'% ('+letter(overall())+')</b><br><span class="small">Section quizzes average '+sectionAvg()+'% (counts 50%). Final exam '+S.final.best+'% (counts 50%).</span></p></div>';
+  if(!sent){
+    h+='<div class="card"><h2>Check your name</h2><p>This is exactly what will be printed on your certificate and sent to Block Wall Street with your grades.</p><input type="text" id="cn" value="'+esc(S.name)+'"><div class="small" id="cerr" style="color:var(--bad)"></div><br><button class="primary" id="sendBtn" onclick="finish()">Looks right. Make my certificate and send my report</button></div>';
+  }else{
+    h+=certBlock();
+  }
+  app.innerHTML=h;
+  if(sent){drawCert();if(!S.reportSent&&view==='cert'&&!window._sending){var st=$('#sendStatus');if(st&&!st.innerHTML)st.innerHTML='<div class="status warn">Your report has not been confirmed as sent. <button onclick="retrySend()">Send it now</button></div>'}}
+}
+function certBlock(){
+  return '<div id="sendStatus"></div><div class="card"><canvas id="cert" width="1600" height="1130"></canvas><div class="nav" style="justify-content:flex-start;flex-wrap:wrap"><button class="primary" onclick="dlCert()">⬇ Download certificate (PNG)</button><button onclick="printCert()">🖨 Print / save as PDF</button><button onclick="showBonus()">Calculator</button><button class="ghost" onclick="showHome()">Course map</button></div></div>';
+}
+function finish(){
+  var n=$("#cn").value.trim().replace(/\s+/g," ");
+  if(n.length<3||n.indexOf(" ")<0){$("#cerr").textContent="Please enter your first and last name.";return}
+  S.name=n;S.cert=null;S.cert={id:certId()};S.sent=true;S.reportSent=false;save();
+  showCert();
+  $("#sendStatus").innerHTML='<div class="status warn">Sending your report to Block Wall Street…</div>';
+  drawCert().then(function(){return sendReport()});
+}
+function report(){
+  var L=[];
+  L.push("BLOCK WALL STREET — ETHEREUM & EVM NETWORKS — COMPLETION REPORT");
+  L.push("");
+  L.push("Student name: "+S.name);
+  L.push("Student email: "+(S.email||"(not given)"));
+  L.push("Started: "+fmtDate(S.started)+"   Completed: "+fmtDate(S.done));
+  L.push("Active time in course: "+fmtDur(S.seconds));
+  L.push("Certificate ID: "+S.cert.id);
+  L.push("Access code used: "+(ACCESS_CODE||"(none)"));
+  L.push("");
+  L.push("OVERALL COURSE GRADE: "+overall()+"% ("+letter(overall())+")");
+  L.push("  = 50% section quiz average ("+sectionAvg()+"%) + 50% final exam ("+S.final.best+"%)");
+  L.push("");
+  L.push("SECTION QUIZ GRADES (best score | first attempt | attempts)");
+  SECTIONS.forEach(function(s){var d=sec(s.n);L.push("  "+(s.n<10?" ":"")+s.n+". "+s.title+" — "+d.best+"%  |  first "+d.first+"%  |  "+d.attempts+" attempt"+(d.attempts===1?"":"s"))});
+  L.push("");
+  L.push("FINAL EXAM (44 questions): "+S.final.best+"%  |  first "+S.final.first+"%  |  "+S.final.attempts+" attempt"+(S.final.attempts===1?"":"s"));
+  L.push("");
+  L.push("CERTIFICATE TEXT");
+  L.push("  CERTIFICATE OF COMPLETION");
+  L.push("  This certifies that "+S.name.toUpperCase());
+  L.push("  has successfully completed ETHEREUM & EVM NETWORKS");
+  L.push("  Overall grade "+overall()+"% ("+letter(overall())+") · Final exam "+S.final.best+"%");
+  L.push("  Date: "+fmtDate(S.done)+" · ID: "+S.cert.id);
+  L.push("  Block Wall Street · "+PARTNER);
+  return L.join("\n");
+}
+function sendReport(){
+  var subject="Ethereum & EVM Networks completed: "+S.name+" — "+overall()+"% ("+letter(overall())+") — "+S.cert.id;
+  function post(withFile,blob){
+    var fd=new FormData();
+    fd.append("access_key",W3F_KEY);fd.append("subject",subject);fd.append("from_name","BWS Bitcoin Course");
+    fd.append("student_name",S.name);if(/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(S.email))fd.append("email",S.email);
+    fd.append("overall_grade",overall()+"%");fd.append("certificate_id",S.cert.id);fd.append("message",report());
+    if(withFile&&blob)fd.append("attachment",blob,"Certificate-"+S.name.replace(/[^A-Za-z0-9]+/g,"_")+".png");
+    return fetch("https://api.web3forms.com/submit",{method:"POST",body:fd}).then(function(r){return r.json()});
+  }
+  return new Promise(function(res){$("#cert").toBlob(res,"image/png")}).then(function(blob){
+    return post(true,blob).then(function(j){if(j&&j.success)return j;return post(false)}).catch(function(){return post(false)});
+  }).then(function(j){
+    var el=$("#sendStatus");
+    if(j&&j.success){S.reportSent=true;save();el.innerHTML='<div class="status ok">✔ Your report and certificate details were sent to Block Wall Street.</div>'}
+    else el.innerHTML='<div class="status warn">We could not send the report. Check your internet, then <button onclick="retrySend()">try again</button></div>';
+  }).catch(function(){
+    $("#sendStatus").innerHTML='<div class="status warn">We could not send the report. Check your internet, then <button onclick="retrySend()">try again</button></div>';
+  });
+}
+function retrySend(){$("#sendStatus").innerHTML='<div class="status warn">Sending…</div>';sendReport()}
+
+function drawCert(){
+  var fontP=(document.fonts&&document.fonts.load)?Promise.all([document.fonts.load("120px 'Great Vibes'"),document.fonts.load("80px 'Bebas Neue'"),document.fonts.load("28px 'Barlow'")]).catch(function(){}):Promise.resolve();
+  return fontP.then(function(){
+    var c=$("#cert");if(!c)return;var x=c.getContext("2d"),W=c.width,H=c.height;
+    var g=x.createLinearGradient(0,0,W,H);g.addColorStop(0,"#0a1628");g.addColorStop(1,"#143059");x.fillStyle=g;x.fillRect(0,0,W,H);
+    x.strokeStyle="#f0b429";x.lineWidth=10;x.strokeRect(36,36,W-72,H-72);x.lineWidth=2;x.strokeRect(60,60,W-120,H-120);
+    [[60,60],[W-60,60],[60,H-60],[W-60,H-60]].forEach(function(p){x.fillStyle="#f0b429";x.beginPath();x.arc(p[0],p[1],12,0,7);x.fill()});
+    x.textAlign="center";x.fillStyle="#f0b429";
+    x.font="64px 'Bebas Neue',Impact,sans-serif";x.fillText("B L O C K   W A L L   S T R E E T",W/2,170);
+    x.fillStyle="#9fb2cf";x.font="26px 'DM Mono',monospace";x.fillText("EDUCATION  ·  COMMUNITY  ·  OWNERSHIP",W/2,212);
+    x.fillStyle="#ffffff";fit(x,"CERTIFICATE OF COMPLETION",W-260,108,"'Bebas Neue',Impact,sans-serif");x.fillText("CERTIFICATE OF COMPLETION",W/2,345);
+    x.fillStyle="#9fb2cf";x.font="32px 'Barlow',Arial,sans-serif";x.fillText("This certifies that",W/2,420);
+    var name=S.name,fs=130;x.font=fs+"px 'Great Vibes','Brush Script MT',cursive";while(x.measureText(name).width>W-300&&fs>50){fs-=6;x.font=fs+"px 'Great Vibes','Brush Script MT',cursive"}
+    x.fillStyle="#f0b429";x.fillText(name,W/2,555);
+    x.strokeStyle="#f0b429";x.lineWidth=2;x.beginPath();x.moveTo(300,585);x.lineTo(W-300,585);x.stroke();
+    x.fillStyle="#9fb2cf";x.font="32px 'Barlow',Arial,sans-serif";x.fillText("has successfully completed the course",W/2,650);
+    x.fillStyle="#ffffff";fit(x,"ETHEREUM & EVM NETWORKS",W-300,96,"'Bebas Neue',Impact,sans-serif");x.fillText("ETHEREUM & EVM NETWORKS",W/2,750);
+    x.fillStyle="#9fb2cf";x.font="28px 'Barlow',Arial,sans-serif";x.fillText("From Smart Contracts to Seven Networks  ·  9 Sections  ·  Final Exam",W/2,795);
+    x.fillStyle="#e9eef7";x.font="34px 'Barlow',Arial,sans-serif";x.fillText("Overall Grade: "+overall()+"% ("+letter(overall())+")     ·     Final Exam: "+S.final.best+"%",W/2,860);
+    x.fillStyle="#f0b429";x.font="30px 'Barlow',Arial,sans-serif";x.fillText(PARTNER,W/2,915);
+    // signature + date
+    x.strokeStyle="#9fb2cf";x.lineWidth=1.5;x.beginPath();x.moveTo(190,1005);x.lineTo(560,1005);x.moveTo(W-560,1005);x.lineTo(W-190,1005);x.stroke();
+    x.fillStyle="#9fb2cf";x.font="24px 'Barlow',Arial,sans-serif";x.fillText("Founder, Block Wall Street",375,1040);x.fillText("Date: "+fmtDate(S.done),W-375,1040);
+    x.font="22px 'DM Mono',monospace";x.fillText("Certificate ID: "+S.cert.id,W/2,1075);
+    // seal
+    var sx=W/2,sy=990;x.fillStyle="#f0b429";x.beginPath();x.arc(sx,sy,62,0,7);x.fill();x.fillStyle="#0a1628";x.beginPath();x.arc(sx,sy,52,0,7);x.fill();x.strokeStyle="#f0b429";x.lineWidth=2;x.beginPath();x.arc(sx,sy,44,0,7);x.stroke();
+    x.fillStyle="#f0b429";fit(x,"BWS",70,44,"'Bebas Neue',Impact,sans-serif");x.fillText("BWS",sx,sy+8);fit(x,"VERIFIED",64,13,"'DM Mono',monospace");x.fillText("VERIFIED",sx,sy+30);
+  });
+}
+function fit(x,text,maxW,size,fam){x.font=size+"px "+fam;while(x.measureText(text).width>maxW&&size>10){size-=2;x.font=size+"px "+fam}}
+function dlCert(){var a=document.createElement("a");a.download="Certificate-"+S.name.replace(/[^A-Za-z0-9]+/g,"_")+".png";a.href=$("#cert").toDataURL("image/png");a.click()}
+function printCert(){var w=window.open("","_blank");if(!w){alert("Please allow pop-ups to print.");return}w.document.write('<html><head><title>Certificate</title><style>@page{size:landscape;margin:0}body{margin:0}img{width:100%}</style></head><body><img src="'+$("#cert").toDataURL("image/png")+'"></body></html>');w.document.close();w.focus();setTimeout(function(){w.print()},400)}
+
+
+/* ============ BONUS: GAS FEE CALCULATOR ============ */
+var BONUS_TEXT='<div class="lessonhead"><div class="eyebrow">Bonus tool</div><h1>The Gas Fee Calculator</h1><div class="small">Turn gas units and gwei into dollars, and compare the networks side by side.</div></div>'+
+'<article id="lessonBody">'+
+'<h3>What is this tool?</h3>'+
+'<p>This page is a what-if machine for network fees. It uses the math from Section 2: fee equals gas units times the gas price. It then shows what that fee costs in dollars on each network from this course. It does not know live prices. You type them in, so you can test different stories.</p>'+
+'<h3>Step 1: pick an action</h3>'+
+'<p>Choose what you want to do. A simple ETH transfer uses 21,000 gas. A token transfer and a swap use more. The numbers in the menu are rough examples, because real swaps vary a lot from one app to another. You can also type your own number.</p>'+
+'<h3>Step 2: fill in the table</h3>'+
+'<p>Each row is a network. In the gas price column, type the price in gwei. On the real networks this number changes all the time, so look at a gas tracker or your wallet for a live value. The starting numbers are only examples. In the price column, type the dollar price of that network’s gas token. ETH pays gas on Ethereum, Base, Arbitrum, Optimism and Robinhood Chain. BNB pays on BNB Smart Chain. AVAX pays on Avalanche’s C-Chain.</p>'+
+'<h3>Step 3: do not forget the data fee</h3>'+
+'<p>Section 4 taught you that an L2 fee has two parts: running your transaction, and your share of posting data to Ethereum. The L2 rows have a box for that second part, in dollars. Leave it small, or raise it to see how the total changes. The independent L1 rows do not have this part.</p>'+
+'<h3>Step 4: read the result</h3>'+
+'<p>The tool shows the fee in the native token and in dollars for every row, and marks the cheapest. Try changing the ETH price or the gwei on Ethereum and notice that the L2 rows barely move. That is the point of a layer 2. Treat the output as a learning aid, not a quote.</p>'+
+'</article>';
+var GCH=[
+ ["Ethereum","ETH",1.5,3000,false,0],
+ ["Base","ETH",0.01,3000,true,0.01],
+ ["Arbitrum One","ETH",0.02,3000,true,0.01],
+ ["OP Mainnet","ETH",0.01,3000,true,0.01],
+ ["Robinhood Chain","ETH",0.02,3000,true,0.01],
+ ["BNB Smart Chain","BNB",0.1,600,false,0],
+ ["Avalanche C-Chain","AVAX",1,25,false,0]
+];
+function money(v){var a=Math.abs(v);return (v<0?"-":"")+"$"+(a>=100?Math.round(a).toLocaleString():a>=0.01?a.toFixed(2):a.toFixed(4))}
+function showBonus(){
+  go("bonus");TTS.armed=false;
+  var h=BONUS_TEXT.replace('<article id="lessonBody">',audioHTML()+'<div class="small" id="hint">Tip: press Listen to hear the walk-through read aloud.</div><article id="lessonBody">');
+  h+='<div class="card calc" id="calc"><h2>Gas fee comparison</h2>'+
+  '<label for="g_act">1. What are you doing?</label><select id="g_act"><option value="21000">Send ETH or a native coin (21,000 gas)</option><option value="65000">Send a token (about 65,000 gas)</option><option value="150000" selected>Swap tokens (about 150,000 gas)</option><option value="300000">Add to a liquidity pool (about 300,000 gas)</option></select>'+
+  '<label for="g_units">Or type your own gas units</label><input type="number" id="g_units" min="21000" step="1000" placeholder="leave empty to use the menu">'+
+  '<div style="overflow-x:auto;margin-top:12px"><table style="width:100%;border-collapse:collapse;font-size:15px"><thead><tr style="text-align:left;color:var(--muted)"><th style="padding:6px">Network</th><th>Gas price (gwei)</th><th>Token price ($)</th><th>L1 data fee ($)</th><th>Fee</th></tr></thead><tbody id="g_rows"></tbody></table></div>'+
+  '<div id="g_out"></div></div>'+
+  '<div class="nav"><button class="primary" onclick="showHome()">Back to course map</button>'+(S.final.passed?'<button onclick="showCert()">My certificate</button>':'')+'</div>';
+  app.innerHTML=h;wireAudio();
+  var rows="";
+  GCH.forEach(function(c,i){
+    rows+='<tr style="border-top:1px solid var(--line)"><td style="padding:6px"><b>'+c[0]+'</b><br><span class="small">gas: '+c[1]+(c[4]?' · L2':' · L1')+'</span></td>'+
+    '<td><input type="number" id="gw'+i+'" value="'+c[2]+'" min="0" step="0.01" style="width:100px"></td>'+
+    '<td><input type="number" id="gp'+i+'" value="'+c[3]+'" min="0" step="1" style="width:90px"></td>'+
+    '<td>'+(c[4]?'<input type="number" id="gd'+i+'" value="'+c[5]+'" min="0" step="0.01" style="width:80px">':'<span class="small">n/a</span>')+'</td>'+
+    '<td id="gf'+i+'"></td></tr>';
+  });
+  $("#g_rows").innerHTML=rows;
+  var ids=["g_act","g_units"];GCH.forEach(function(c,i){ids.push("gw"+i,"gp"+i);if(c[4])ids.push("gd"+i)});
+  ids.forEach(function(id){var e=$("#"+id);e.oninput=gcalc;e.onchange=gcalc});
+  gcalc();
+}
+function gcalc(){
+  var out=$("#g_out");if(!out)return;
+  var u=+$("#g_units").value||+$("#g_act").value||21000;u=Math.max(21000,u);
+  var res=GCH.map(function(c,i){
+    var gw=Math.max(0,+$("#gw"+i).value||0),px=Math.max(0,+$("#gp"+i).value||0),d=c[4]?Math.max(0,+$("#gd"+i).value||0):0;
+    var native=u*gw/1e9,usd=native*px+d;return {n:c[0],sym:c[1],native:native,usd:usd};
+  });
+  var min=Math.min.apply(null,res.map(function(r){return r.usd}));
+  res.forEach(function(r,i){
+    var cell=$("#gf"+i);
+    cell.innerHTML='<b style="color:'+(r.usd===min?'var(--good)':'#fff')+'">'+money(r.usd)+'</b><br><span class="small">'+r.native.toPrecision(3)+' '+r.sym+(r.usd===min?' · cheapest':'')+'</span>';
+  });
+  var eth=res[0],cheap=res.filter(function(r){return r.usd===min})[0];
+  var ratio=cheap.usd>0?eth.usd/cheap.usd:0;
+  out.innerHTML='<div class="callout"><p><b>In plain words:</b> This action uses '+u.toLocaleString()+' gas. At your numbers, it costs about '+money(eth.usd)+' on Ethereum and about '+money(cheap.usd)+' on '+cheap.n+', the cheapest row'+(ratio>1.5?', which is roughly '+Math.round(ratio).toLocaleString()+' times less':'')+'. Remember: gas prices change by the minute, an L2 adds a data fee, and the example numbers in the table are placeholders, not live data.</p></div><p class="small">What-if tool for learning only. Not a prediction and not financial advice.</p>';
+}
+
+
+/* ============ START ============ */
+progress();
+function gateScreen(msg,busy){
+  app.innerHTML='<div class="card" style="max-width:560px;margin:40px auto;text-align:center"><h1 style="margin-top:0">Ethereum &amp; EVM Networks</h1><p>Enter your personal access code to start the course.</p>'+
+  '<input id="gcode" placeholder="BWS-XXXX-XXXX-XXXX" autocomplete="off" style="width:100%;padding:12px;font-size:18px;text-align:center;letter-spacing:1px;border-radius:8px;border:1px solid #888;box-sizing:border-box">'+
+  '<p id="gmsg" style="min-height:22px;color:#f87171">'+(msg||"")+'</p><button class="btn" id="gbtn">'+(busy?"Checking...":"Unlock course")+'</button>'+
+  '<p style="margin-top:22px;font-size:14px">Don\'t have a code yet? <a href="'+PAY_URL+'">Get access here</a>.</p></div>';
+  var b=$("#gbtn");b.onclick=function(){tryCode($("#gcode").value)};
+  $("#gcode").onkeydown=function(e){if(e.key==="Enter")tryCode(this.value)};
+}
+function tryCode(c){
+  c=String(c||"").trim().toUpperCase();
+  if(!c){gateScreen("Please type your code.");return}
+  fetch(WORKER_URL+"/api/verify",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({code:c})})
+  .then(function(r){return r.json()}).then(function(j){
+    if(j&&j.ok){ACCESS_CODE=c;try{localStorage.setItem(CODE_KEY,c)}catch(e){} if(j.name&&!S.name){S.name=j.name;save()} showWelcome()}
+    else gateScreen((j&&j.error)||"That code did not work.");
+  }).catch(function(){
+    var cached="";try{cached=localStorage.getItem(CODE_KEY)||""}catch(e){}
+    if(cached&&cached===c){ACCESS_CODE=c;showWelcome()} else gateScreen("Could not reach the access server. Check your internet and try again.");
+  });
+}
+if(!WORKER_URL||SKIP){showWelcome()}
+else{var sc="";try{sc=localStorage.getItem(CODE_KEY)||""}catch(e){} if(sc){app.innerHTML='<p style="text-align:center;margin-top:60px">Checking your access...</p>';tryCode(sc)}else gateScreen("")}
+</script>
+</body>
+</html>
