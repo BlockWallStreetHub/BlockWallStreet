@@ -1,0 +1,399 @@
+/* ==========================================================================
+   BLOCK WALL STREET — COURSE ACCESS WORKER for XRP, XRPL & XRPL EVM  (name it bws-access-xrp; give it its OWN new KV namespace bound as BWS_ACCESS)
+   --------------------------------------------------------------------------
+   What it does
+     1. Verifies crypto payments from a pasted transaction hash:
+          Bitcoin, Solana, and any EVM chain listed in CHAINS below.
+     2. Creates and verifies Stripe card payments (Stripe Checkout).
+     3. Hands out one personal access code per verified payment and
+        remembers every payment so it can never be claimed twice.
+     4. Lets the course check that a code is real (and not revoked).
+     5. Lets YOU hand out or cancel codes by hand (Chime payments, refunds).
+
+   Settings that must be added in the Cloudflare dashboard (see Setup Guide):
+     KV namespace binding ........ BWS_ACCESS
+     Secret ...................... STRIPE_SECRET_KEY   (restricted Stripe key)
+     Secret ...................... ADMIN_TOKEN        (a long password you invent)
+     Variable .................... ALLOWED_ORIGINS    (your site, e.g. https://blockwallstreethub.github.io)
+     Variable .................... PAYMENT_PAGE_URL   (full address of the payment page)
+     Variable (optional) ......... SOL_RPC            (a private Solana RPC address, if the public one is busy)
+     Secret (optional) ........... KIT_API_KEY        (adds each buyer to Kit)
+     Variable (optional) ......... KIT_TAG_ID         (number of the Kit tag to put on buyers)
+     Variable (optional) ......... KIT_CODE_FIELD     (key of a Kit custom field that stores the buyer's code)
+     Variable (optional) ......... CHAINS_JSON        (extra EVM chains, see "ADDING MORE EVM CHAINS")
+   ========================================================================== */
+
+/* ----------------------------- EDIT THESE ------------------------------- */
+const CONFIG = {
+  COURSE_ID: "xrp-xrpl-evm",
+  COURSE_NAME: "XRP, XRPL & XRPL EVM",
+  PRICE_USD: 25,                                  // price of the course in US dollars
+
+  // Your receiving addresses (same ones used on your other payment pages)
+  ADDR: {
+    btc: "bc1qayrmw6xnljvfe4kk7k740tzh55smww3mx0u7e8",
+    evm: "0x5FC836a0518973D7FE20081F7b19EE207E6b324C",
+    sol: "HjUtHhcpLc9a5yAAAeGzTaidmgNh6CL3PNLE6TTLYXEV",
+  },
+
+  SALE_START: "2026-11-08T00:00:00Z",             // payments made before this time are rejected
+  MAX_TX_AGE_DAYS: 30,                            // payments older than this are rejected
+  NATIVE_GRACE: 0.05,                             // BTC/ETH/SOL etc: accept up to 5% under the price (price moves)
+  STABLE_GRACE: 0.01,                             // USDC/USDT: accept up to 1% under the price
+
+  BTC_CONFIRMATIONS: 6,                           // "full" Bitcoin confirmations
+  CLAIMS_PER_HOUR_PER_IP: 25,                     // simple abuse limit
+};
+
+/* ADDING MORE EVM CHAINS: each entry is  chainKey: {id, name, rpc, native, confirmations, tokens}
+   native = price symbol used to value the coin (ETH, POL, BNB, AVAX, XDAI). Use null to accept stablecoins only.
+   tokens = stablecoin contracts you accept on that chain (address lowercase, decimals).
+   ALWAYS double-check token contract addresses against Circle's and Tether's official lists before launch. */
+const CHAINS = {
+  ethereum: { id: 1,     name: "Ethereum",  rpc: "https://ethereum-rpc.publicnode.com",            native: "ETH",  confirmations: 12,  tokens: {
+      USDC: ["0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48", 6], USDT: ["0xdac17f958d2ee523a2206206994597c13d831ec7", 6] } },
+  base:     { id: 8453,  name: "Base",      rpc: "https://base-rpc.publicnode.com",                native: "ETH",  confirmations: 60,  tokens: {
+      USDC: ["0x833589fcd6edb6e08f4c7c32d4f71b54bda02913", 6] } },
+  arbitrum: { id: 42161, name: "Arbitrum",  rpc: "https://arbitrum-one-rpc.publicnode.com",        native: "ETH",  confirmations: 120, tokens: {
+      USDC: ["0xaf88d065e77c8cc2239327c5edb3a432268e5831", 6], USDT: ["0xfd086bc7cd5c481dcc9c85ebe478a1c0b69fcbb9", 6] } },
+  optimism: { id: 10,    name: "Optimism",  rpc: "https://optimism-rpc.publicnode.com",            native: "ETH",  confirmations: 60,  tokens: {
+      USDC: ["0x0b2c639c533813f4aa9d7837caf62653d097ff85", 6], USDT: ["0x94b008aa00579c1307b0ef2c499ad98a8ce58e58", 6] } },
+  polygon:  { id: 137,   name: "Polygon",   rpc: "https://polygon-bor-rpc.publicnode.com",         native: "POL",  confirmations: 128, tokens: {
+      USDC: ["0x3c499c542cef5e3811e1192ce70d8cc03d5c3359", 6], USDT: ["0xc2132d05d31c914a87c6611c10748aeb04b58e8f", 6] } },
+  bnb:      { id: 56,    name: "BNB Chain", rpc: "https://bsc-rpc.publicnode.com",                 native: "BNB",  confirmations: 15,  tokens: {
+      USDC: ["0x8ac76a51cc950d9822d68b83fe1ad97b32cd580d", 18], USDT: ["0x55d398326f99059ff775485246999027b3197955", 18] } },
+  avalanche:{ id: 43114, name: "Avalanche", rpc: "https://avalanche-c-chain-rpc.publicnode.com",   native: "AVAX", confirmations: 12,  tokens: {
+      USDC: ["0xb97ef9ef8734c71904d8002f8b6bc66dd9c48a6e", 6], USDT: ["0x9702230a8ea53601f5cd2dc00fdbc13d4df4a8c7", 6] } },
+  linea:    { id: 59144, name: "Linea",     rpc: "https://linea-rpc.publicnode.com",               native: "ETH",  confirmations: 60,  tokens: {} },
+  scroll:   { id: 534352,name: "Scroll",    rpc: "https://scroll-rpc.publicnode.com",              native: "ETH",  confirmations: 60,  tokens: {} },
+  gnosis:   { id: 100,   name: "Gnosis",    rpc: "https://gnosis-rpc.publicnode.com",              native: "XDAI", confirmations: 20,  tokens: {} },
+};
+
+const SOL_TOKENS = {  // mint address -> [symbol, decimals]
+  "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v": ["USDC", 6],
+  "Es9vMFrzaCERmJfrF4H2FYD4KCoNkY11McCe8BenwNYB": ["USDT", 6],
+};
+const SOL_RPC_DEFAULT = "https://api.mainnet-beta.solana.com";
+/* ------------------------------------------------------------------------ */
+
+const TRANSFER_TOPIC = "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef";
+const CG_IDS = { BTC: "bitcoin", ETH: "ethereum", SOL: "solana", POL: "polygon-ecosystem-token", BNB: "binancecoin", AVAX: "avalanche-2", XDAI: "xdai" };
+
+class HttpError extends Error { constructor(status, msg) { super(msg); this.status = status; } }
+
+/* ------------------------------ helpers --------------------------------- */
+function allChains(env) {
+  let c = { ...CHAINS };
+  if (env && env.CHAINS_JSON) { try { c = { ...c, ...JSON.parse(env.CHAINS_JSON) }; } catch (e) {} }
+  return c;
+}
+function corsHeaders(req, env) {
+  const origin = req.headers.get("Origin") || "";
+  const list = (env.ALLOWED_ORIGINS || "*").split(",").map(s => s.trim()).filter(Boolean);
+  const ok = list.includes("*") || list.includes(origin) || origin === "null" && list.includes("null");
+  return {
+    "Access-Control-Allow-Origin": ok ? (list.includes("*") ? "*" : origin) : (list[0] || "*"),
+    "Access-Control-Allow-Methods": "GET,POST,OPTIONS",
+    "Access-Control-Allow-Headers": "Content-Type, Authorization",
+    "Vary": "Origin",
+  };
+}
+function json(obj, status, req, env) {
+  return new Response(JSON.stringify(obj), { status: status || 200, headers: { "Content-Type": "application/json", ...corsHeaders(req, env) } });
+}
+function normEmail(e) { return String(e || "").trim().toLowerCase(); }
+function validEmail(e) { return /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(e); }
+function makeCode() {
+  const A = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789", b = new Uint8Array(12);
+  crypto.getRandomValues(b);
+  const s = Array.from(b, x => A[x % A.length]).join("");
+  return "BWS-" + s.slice(0, 4) + "-" + s.slice(4, 8) + "-" + s.slice(8, 12);
+}
+async function rateLimit(req, env) {
+  const ip = req.headers.get("CF-Connecting-IP") || "unknown";
+  const key = "rl:" + ip + ":" + new Date().toISOString().slice(0, 13);
+  const n = parseInt(await env.BWS_ACCESS.get(key) || "0", 10);
+  if (n >= CONFIG.CLAIMS_PER_HOUR_PER_IP) throw new HttpError(429, "Too many attempts. Please wait an hour and try again.");
+  await env.BWS_ACCESS.put(key, String(n + 1), { expirationTtl: 3700 });
+}
+async function getJson(url, ms) {
+  const c = new AbortController(), t = setTimeout(() => c.abort(), ms || 8000);
+  try { const r = await fetch(url, { signal: c.signal }); if (!r.ok) throw new Error("http " + r.status); return await r.json(); }
+  finally { clearTimeout(t); }
+}
+async function rpc(url, method, params) {
+  const c = new AbortController(), t = setTimeout(() => c.abort(), 9000);
+  try {
+    const r = await fetch(url, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ jsonrpc: "2.0", id: 1, method, params }), signal: c.signal });
+    if (!r.ok) throw new Error("rpc http " + r.status);
+    const j = await r.json();
+    if (j.error) throw new Error(j.error.message || "rpc error");
+    return j.result;
+  } finally { clearTimeout(t); }
+}
+async function usdPrice(sym) {
+  if (sym === "XDAI") return 1;
+  try { const j = await getJson("https://api.coinbase.com/v2/prices/" + sym + "-USD/spot", 6000); const p = parseFloat(j.data.amount); if (p > 0) return p; } catch (e) {}
+  try { const id = CG_IDS[sym]; const j = await getJson("https://api.coingecko.com/api/v3/simple/price?ids=" + id + "&vs_currencies=usd", 6000); const p = j[id].usd; if (p > 0) return p; } catch (e) {}
+  throw new HttpError(503, "Could not look up the current " + sym + " price. Please try again in a minute.");
+}
+function checkTime(tsSec) {
+  const ms = tsSec * 1000, now = Date.now();
+  if (ms < Date.parse(CONFIG.SALE_START)) throw new HttpError(422, "That payment was made before this course went on sale.");
+  if (now - ms > CONFIG.MAX_TX_AGE_DAYS * 86400000) throw new HttpError(422, "That payment is older than " + CONFIG.MAX_TX_AGE_DAYS + " days. Please contact Block Wall Street.");
+  if (ms > now + 10 * 60000) throw new HttpError(422, "That payment has a date in the future. Please contact Block Wall Street.");
+}
+function checkAmount(usd, stable) {
+  const need = CONFIG.PRICE_USD * (1 - (stable ? CONFIG.STABLE_GRACE : CONFIG.NATIVE_GRACE));
+  if (usd + 1e-9 < need) throw new HttpError(422, "That payment was worth about $" + usd.toFixed(2) + ". The course price is $" + CONFIG.PRICE_USD + ".");
+}
+const fmtUsd = n => "$" + Number(n).toFixed(2);
+
+/* --------------------------- Bitcoin verification ------------------------ */
+async function verifyBtc(env, hash) {
+  if (!/^[0-9a-fA-F]{64}$/.test(hash)) throw new HttpError(400, "That does not look like a Bitcoin transaction ID (64 letters and numbers).");
+  hash = hash.toLowerCase();
+  let tx, tip, lastErr;
+  for (const base of ["https://mempool.space/api", "https://blockstream.info/api"]) {
+    try {
+      tx = await getJson(base + "/tx/" + hash);
+      const r = await fetch(base + "/blocks/tip/height"); tip = parseInt(await r.text(), 10);
+      if (tx && tip > 0) break;
+    } catch (e) { lastErr = e; tx = null; }
+  }
+  if (!tx) throw new HttpError(404, "We could not find that Bitcoin transaction. Check the ID, or wait a minute and try again.");
+  if (!tx.status || !tx.status.confirmed) throw new HttpError(409, "That transaction is not confirmed yet. Please try again after it has " + CONFIG.BTC_CONFIRMATIONS + " confirmations.");
+  const conf = tip - tx.status.block_height + 1;
+  if (conf < CONFIG.BTC_CONFIRMATIONS) throw new HttpError(409, "That transaction has " + conf + " of " + CONFIG.BTC_CONFIRMATIONS + " confirmations. Please try again in a little while.");
+  let sats = 0;
+  for (const o of tx.vout || []) if (o.scriptpubkey_address === CONFIG.ADDR.btc) sats += o.value;
+  if (!sats) throw new HttpError(422, "That transaction did not pay the Block Wall Street Bitcoin address.");
+  checkTime(tx.status.block_time);
+  const price = await usdPrice("BTC"), usd = sats / 1e8 * price;
+  checkAmount(usd, false);
+  return { ref: hash, usd, when: tx.status.block_time, what: "Bitcoin", confirmations: conf };
+}
+
+/* ---------------------------- Solana verification ------------------------ */
+async function verifySol(env, hash) {
+  if (!/^[1-9A-HJ-NP-Za-km-z]{60,100}$/.test(hash)) throw new HttpError(400, "That does not look like a Solana transaction signature.");
+  const url = env.SOL_RPC || SOL_RPC_DEFAULT;
+  let tx;
+  try { tx = await rpc(url, "getTransaction", [hash, { encoding: "jsonParsed", commitment: "finalized", maxSupportedTransactionVersion: 0 }]); }
+  catch (e) { throw new HttpError(503, "Could not reach Solana right now. Please try again in a minute."); }
+  if (!tx) throw new HttpError(409, "We could not find that transaction as finalized yet. If you just sent it, wait a minute and try again.");
+  if (tx.meta && tx.meta.err) throw new HttpError(422, "That Solana transaction failed on the network.");
+  checkTime(tx.blockTime);
+  const addr = CONFIG.ADDR.sol, meta = tx.meta;
+  // stablecoin first
+  let stable = 0, tokName = "";
+  for (const post of meta.postTokenBalances || []) {
+    if (post.owner !== addr || !SOL_TOKENS[post.mint]) continue;
+    const pre = (meta.preTokenBalances || []).find(p => p.accountIndex === post.accountIndex && p.mint === post.mint);
+    const d = BigInt(post.uiTokenAmount.amount) - BigInt(pre ? pre.uiTokenAmount.amount : "0");
+    if (d > 0n) { stable += Number(d) / 10 ** SOL_TOKENS[post.mint][1]; tokName = SOL_TOKENS[post.mint][0]; }
+  }
+  if (stable > 0) { checkAmount(stable, true); return { ref: hash, usd: stable, when: tx.blockTime, what: "Solana " + tokName }; }
+  const keys = tx.transaction.message.accountKeys.map(k => k.pubkey || k);
+  const i = keys.indexOf(addr);
+  if (i < 0) throw new HttpError(422, "That transaction did not pay the Block Wall Street Solana address.");
+  const lam = meta.postBalances[i] - meta.preBalances[i];
+  if (lam <= 0) throw new HttpError(422, "That transaction did not send funds to the Block Wall Street Solana address.");
+  const price = await usdPrice("SOL"), usd = lam / 1e9 * price;
+  checkAmount(usd, false);
+  return { ref: hash, usd, when: tx.blockTime, what: "Solana (SOL)" };
+}
+
+/* ------------------------------ EVM verification ------------------------- */
+async function verifyEvm(env, chainKey, hash) {
+  const chains = allChains(env), ch = chains[chainKey];
+  if (!ch) throw new HttpError(400, "That network is not supported yet. Pick one from the list.");
+  if (!/^0x[0-9a-fA-F]{64}$/.test(hash)) throw new HttpError(400, "That does not look like an EVM transaction hash (starts with 0x, 66 characters).");
+  hash = hash.toLowerCase();
+  let tx, rc, latest, blk;
+  try {
+    [tx, rc] = await Promise.all([rpc(ch.rpc, "eth_getTransactionByHash", [hash]), rpc(ch.rpc, "eth_getTransactionReceipt", [hash])]);
+    if (tx && tx.blockNumber && rc) {
+      [latest, blk] = await Promise.all([rpc(ch.rpc, "eth_blockNumber", []), rpc(ch.rpc, "eth_getBlockByNumber", [tx.blockNumber, false])]);
+    }
+  } catch (e) { throw new HttpError(503, "Could not reach " + ch.name + " right now. Please try again in a minute."); }
+  if (!tx) throw new HttpError(404, "We could not find that transaction on " + ch.name + ". Check that you picked the right network.");
+  if (!tx.blockNumber || !rc) throw new HttpError(409, "That transaction is not confirmed yet. Please try again in a minute.");
+  if (rc.status !== "0x1") throw new HttpError(422, "That transaction failed on the network.");
+  const conf = parseInt(latest, 16) - parseInt(tx.blockNumber, 16) + 1;
+  if (conf < ch.confirmations) throw new HttpError(409, "That transaction has " + conf + " of " + ch.confirmations + " confirmations on " + ch.name + ". Please try again in a little while.");
+  checkTime(parseInt(blk.timestamp, 16));
+  const me = CONFIG.ADDR.evm.toLowerCase();
+  // stablecoin transfers
+  let stable = 0, tokName = "";
+  for (const lg of rc.logs || []) {
+    if (!lg.topics || lg.topics[0] !== TRANSFER_TOPIC || lg.topics.length < 3) continue;
+    if (("0x" + lg.topics[2].slice(26)).toLowerCase() !== me) continue;
+    for (const [sym, [contract, dec]] of Object.entries(ch.tokens || {})) {
+      if (lg.address.toLowerCase() === contract) { stable += Number(BigInt(lg.data) / 10n ** BigInt(Math.max(0, dec - 6))) / 1e6; tokName = sym; }
+    }
+  }
+  if (stable > 0) { checkAmount(stable, true); return { ref: chainKey + ":" + hash, usd: stable, when: parseInt(blk.timestamp, 16), what: ch.name + " " + tokName, confirmations: conf }; }
+  // native coin
+  if (tx.to && tx.to.toLowerCase() === me && BigInt(tx.value) > 0n) {
+    if (!ch.native) throw new HttpError(422, "On " + ch.name + " we only accept USDC or USDT.");
+    const price = await usdPrice(ch.native), usd = Number(BigInt(tx.value) / 10n ** 12n) / 1e6 * price;
+    checkAmount(usd, false);
+    return { ref: chainKey + ":" + hash, usd, when: parseInt(blk.timestamp, 16), what: ch.name + " (" + ch.native + ")", confirmations: conf };
+  }
+  throw new HttpError(422, "That transaction did not pay the Block Wall Street address with a supported coin. We accept the chain's main coin and USDC/USDT where listed.");
+}
+
+/* ------------------------------ Stripe ----------------------------------- */
+async function stripe(env, path, method, params) {
+  if (!env.STRIPE_SECRET_KEY) throw new HttpError(500, "Card payments are not set up yet.");
+  const r = await fetch("https://api.stripe.com/v1/" + path, {
+    method, headers: { "Authorization": "Bearer " + env.STRIPE_SECRET_KEY, "Content-Type": "application/x-www-form-urlencoded" },
+    body: method === "POST" ? new URLSearchParams(params).toString() : undefined,
+  });
+  const j = await r.json();
+  if (!r.ok) throw new HttpError(502, "Stripe said: " + ((j.error && j.error.message) || "error"));
+  return j;
+}
+async function stripeCreate(env, body) {
+  const page = env.PAYMENT_PAGE_URL;
+  if (!page) throw new HttpError(500, "PAYMENT_PAGE_URL is not set.");
+  const p = {
+    mode: "payment",
+    "line_items[0][price_data][currency]": "usd",
+    "line_items[0][price_data][unit_amount]": String(Math.round(CONFIG.PRICE_USD * 100)),
+    "line_items[0][price_data][product_data][name]": CONFIG.COURSE_NAME + " (online course)",
+    "line_items[0][quantity]": "1",
+    success_url: page + (page.includes("?") ? "&" : "?") + "session_id={CHECKOUT_SESSION_ID}",
+    cancel_url: page,
+    "metadata[course]": CONFIG.COURSE_ID,
+  };
+  const em = normEmail(body.email);
+  if (validEmail(em)) p.customer_email = em;
+  if (body.name) p["metadata[name]"] = String(body.name).slice(0, 80);
+  const s = await stripe(env, "checkout/sessions", "POST", p);
+  return { url: s.url };
+}
+async function stripeVerify(env, sessionId) {
+  if (!/^cs_(live|test)_[A-Za-z0-9]+$/.test(sessionId || "")) throw new HttpError(400, "That payment reference is not valid.");
+  const s = await stripe(env, "checkout/sessions/" + sessionId, "GET");
+  if (s.payment_status !== "paid") throw new HttpError(402, "That card payment has not been completed.");
+  if (!s.metadata || s.metadata.course !== CONFIG.COURSE_ID) throw new HttpError(422, "That payment is for a different product.");
+  if ((s.amount_total || 0) < Math.round(CONFIG.PRICE_USD * 100 * (1 - CONFIG.STABLE_GRACE))) throw new HttpError(422, "That payment is less than the course price.");
+  const email = normEmail(s.customer_details && s.customer_details.email || s.customer_email);
+  const name = (s.customer_details && s.customer_details.name) || (s.metadata && s.metadata.name) || "";
+  return { ref: s.id, email, name, usd: s.amount_total / 100, when: s.created, what: "Card (Stripe)" };
+}
+
+/* ------------------------------ Kit (email list) -------------------------- */
+/* Adds each buyer to Kit and tags them. Never blocks or breaks a sale: if Kit is down or not set up, it is skipped.
+   Needs secret KIT_API_KEY and variable KIT_TAG_ID. Optional variable KIT_CODE_FIELD = the key of a Kit custom field
+   (for example access_code) so you can email the code in a Kit automation. */
+let CTX = null;
+async function kitAdd(env, rec) {
+  if (!env.KIT_API_KEY) return;
+  const h = { "Content-Type": "application/json", "X-Kit-Api-Key": env.KIT_API_KEY };
+  const body = { email_address: rec.email, first_name: String(rec.name || "").split(" ")[0] || undefined };
+  if (env.KIT_CODE_FIELD) body.fields = { [env.KIT_CODE_FIELD]: rec.code };
+  const r = await fetch("https://api.kit.com/v4/subscribers", { method: "POST", headers: h, body: JSON.stringify(body) });
+  if (!r.ok) return;
+  if (env.KIT_TAG_ID) await fetch("https://api.kit.com/v4/tags/" + env.KIT_TAG_ID + "/subscribers", { method: "POST", headers: h, body: JSON.stringify({ email_address: rec.email }) });
+}
+function kitLater(env, rec) {
+  const p = kitAdd(env, rec).catch(() => {});
+  if (CTX && CTX.waitUntil) CTX.waitUntil(p);
+}
+
+/* ------------------------------ codes ------------------------------------ */
+async function issue(env, { method, ref, email, name, what, usd }) {
+  const key = "claim:" + ref;
+  const ex = await env.BWS_ACCESS.get(key, "json");
+  if (ex) {
+    if (ex.email === email) return { code: ex.code, repeat: true };
+    throw new HttpError(409, "That payment has already been claimed by a different email address. If this is your payment, contact Block Wall Street.");
+  }
+  const code = makeCode();
+  const rec = { code, name: name || "", email, method, ref, what: what || "", usd: usd || 0, created: new Date().toISOString(), revoked: false };
+  await env.BWS_ACCESS.put("code:" + code, JSON.stringify(rec));
+  await env.BWS_ACCESS.put(key, JSON.stringify({ code, email }));
+  kitLater(env, rec);
+  return { code, repeat: false };
+}
+
+/* ------------------------------ router ----------------------------------- */
+export default {
+  async fetch(req, env, ctx) {
+    CTX = ctx || null;
+    if (req.method === "OPTIONS") return new Response(null, { status: 204, headers: corsHeaders(req, env) });
+    const url = new URL(req.url), path = url.pathname.replace(/\/+$/, "");
+    try {
+      if (path === "/api/health") return json({ ok: true, price: CONFIG.PRICE_USD, chains: Object.keys(allChains(env)).map(k => ({ key: k, name: allChains(env)[k].name })) }, 200, req, env);
+      if (req.method !== "POST") throw new HttpError(404, "Not found");
+      let body = {};
+      try { body = await req.json(); } catch (e) { throw new HttpError(400, "Bad request"); }
+
+      if (path === "/api/verify") {                       // the course asks: is this code real?
+        const code = String(body.code || "").trim().toUpperCase();
+        if (!/^BWS-[A-Z2-9]{4}-[A-Z2-9]{4}-[A-Z2-9]{4}$/.test(code)) return json({ ok: false, error: "That code is not in the right format." }, 200, req, env);
+        const rec = await env.BWS_ACCESS.get("code:" + code, "json");
+        if (!rec || rec.revoked) return json({ ok: false, error: "That code is not valid." }, 200, req, env);
+        return json({ ok: true, name: rec.name || "" }, 200, req, env);
+      }
+
+      if (path === "/api/stripe-session") { await rateLimit(req, env); return json(await stripeCreate(env, body), 200, req, env); }
+
+      if (path === "/api/stripe-claim") {
+        await rateLimit(req, env);
+        const v = await stripeVerify(env, String(body.session_id || ""));
+        if (!validEmail(v.email)) throw new HttpError(422, "Stripe did not give us an email for that payment.");
+        const r = await issue(env, { method: "stripe", ref: "stripe:" + v.ref, email: v.email, name: v.name, what: v.what, usd: v.usd });
+        return json({ ok: true, code: r.code, email: v.email, name: v.name, method: v.what, usd: v.usd }, 200, req, env);
+      }
+
+      if (path === "/api/crypto-claim") {
+        await rateLimit(req, env);
+        const email = normEmail(body.email), name = String(body.name || "").trim().slice(0, 80), hash = String(body.hash || "").trim();
+        if (!validEmail(email)) throw new HttpError(400, "Please enter a valid email address.");
+        if (name.length < 3) throw new HttpError(400, "Please enter your full name.");
+        let v;
+        if (body.network === "btc") v = await verifyBtc(env, hash);
+        else if (body.network === "sol") v = await verifySol(env, hash);
+        else if (body.network === "evm") v = await verifyEvm(env, String(body.chain || ""), hash);
+        else throw new HttpError(400, "Pick a network.");
+        const r = await issue(env, { method: body.network, ref: body.network + ":" + v.ref, email, name, what: v.what, usd: v.usd });
+        return json({ ok: true, code: r.code, repeat: r.repeat, email, name, method: v.what, usd: v.usd, paid: fmtUsd(v.usd), when: new Date(v.when * 1000).toISOString() }, 200, req, env);
+      }
+
+      // ---- admin (needs your ADMIN_TOKEN) ----
+      if (path.startsWith("/api/admin/")) {
+        const auth = req.headers.get("Authorization") || "";
+        if (!env.ADMIN_TOKEN || auth !== "Bearer " + env.ADMIN_TOKEN) throw new HttpError(401, "Wrong admin token.");
+        if (path === "/api/admin/issue") {                // hand out a code (Chime, comp, etc.)
+          const email = normEmail(body.email), name = String(body.name || "").trim();
+          if (!validEmail(email)) throw new HttpError(400, "Enter a valid email.");
+          const code = makeCode();
+          const rec = { code, name, email, method: "manual", ref: body.note || "manual", what: body.note || "Manual", usd: 0, created: new Date().toISOString(), revoked: false };
+          await env.BWS_ACCESS.put("code:" + code, JSON.stringify(rec));
+          kitLater(env, rec);
+          return json({ ok: true, code }, 200, req, env);
+        }
+        if (path === "/api/admin/revoke") {
+          const code = String(body.code || "").trim().toUpperCase();
+          const rec = await env.BWS_ACCESS.get("code:" + code, "json");
+          if (!rec) throw new HttpError(404, "No such code.");
+          rec.revoked = true; await env.BWS_ACCESS.put("code:" + code, JSON.stringify(rec));
+          return json({ ok: true, revoked: code }, 200, req, env);
+        }
+        if (path === "/api/admin/lookup") {
+          const code = String(body.code || "").trim().toUpperCase();
+          const rec = await env.BWS_ACCESS.get("code:" + code, "json");
+          return json({ ok: !!rec, record: rec || null }, 200, req, env);
+        }
+      }
+      throw new HttpError(404, "Not found");
+    } catch (e) {
+      const status = e instanceof HttpError ? e.status : 500;
+      return json({ ok: false, error: e instanceof HttpError ? e.message : "Something went wrong. Please try again." }, status, req, env);
+    }
+  },
+};

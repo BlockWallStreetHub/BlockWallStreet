@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<link rel="icon" type="image/png" href="bws-favicon.png"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Get Access — XRP, XRPL &amp; XRPL EVM | Block Wall Street</title>
+<style>
+:root{--bg:#0b0d12;--card:#141821;--line:#2a3140;--gold:#f0b23a;--text:#e8eaf0;--mut:#9aa3b5;--ok:#4ade80;--bad:#f87171}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:17px/1.55 system-ui,Segoe UI,Arial,sans-serif}
+.w{max-width:680px;margin:0 auto;padding:28px 16px 60px}h1{font-size:30px;margin:0 0 4px;color:var(--gold)}h2{margin:0 0 8px;font-size:21px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px;margin:16px 0}
+.tabs{display:flex;gap:8px;flex-wrap:wrap}.tab{flex:1;min-width:120px;padding:12px;border-radius:10px;border:1px solid var(--line);background:transparent;color:var(--text);font-weight:700;font-size:16px;cursor:pointer}
+.tab.on{border-color:var(--gold);color:var(--gold)}
+label{display:block;margin:12px 0 4px;font-weight:600;font-size:15px}input,select{width:100%;padding:11px;border-radius:8px;border:1px solid var(--line);background:#0e1219;color:var(--text);font-size:16px}
+.btn{margin-top:16px;width:100%;padding:13px;border-radius:10px;border:0;background:var(--gold);color:#111;font-weight:800;font-size:17px;cursor:pointer}.btn:disabled{opacity:.5}
+.addr{word-break:break-all;background:#0e1219;border:1px dashed var(--line);border-radius:8px;padding:10px;font-family:Consolas,monospace;font-size:14px;margin:6px 0}
+.msg{margin-top:12px;min-height:22px}.bad{color:var(--bad)}.ok{color:var(--ok)}.mut{color:var(--mut);font-size:14px}
+.code{font:800 28px Consolas,monospace;letter-spacing:2px;color:var(--gold);text-align:center;padding:16px;background:#0e1219;border-radius:10px;margin:12px 0;word-break:break-all}
+a{color:var(--gold)}.hide{display:none}
+.sitebar{background:#060d1f;border-bottom:1px solid #26385f;font:600 13px/1 Barlow,system-ui,sans-serif}.sitebar .wrap{max-width:1180px;margin:0 auto;display:flex;gap:22px;flex-wrap:wrap;align-items:center;padding:13px 22px}.sitebar a{color:#f0c75e;text-decoration:none}.sitebar a:hover{text-decoration:underline}.sitebar .sp{flex:1}
+</style></head><body>
+<div class="sitebar"><div class="wrap"><a href="index.html">&larr; Block Wall Street Academy</a><span class="sp"></span><a href="tools-BWSSite.html">More tools</a><a href="consultations-BWSSite.html">Book a session</a></div></div><div class="w">
+<h1>XRP, XRPL &amp; XRPL EVM</h1>
+<div class="mut">Block Wall Street &nbsp;•&nbsp; Education, Community, Ownership</div>
+<div class="card" id="price"><h2>Course price: $<span id="amt">25</span></h2><div class="mut">Pay once. You get a personal access code, instantly for card and crypto. Keep your code safe: it is yours alone.</div></div>
+
+<div id="done" class="card hide"><h2 class="ok">Payment confirmed!</h2><p>Here is your personal access code. <b>Save it now</b> (screenshot it or copy it).</p><div class="code" id="codeOut"></div>
+<button class="btn" id="copyBtn">Copy code</button><p class="msg"><a id="goCourse" href="#">Open the course</a> and type your code when asked.</p></div>
+
+<div id="pay">
+<div class="tabs"><button class="tab on" data-t="card">Card</button><button class="tab" data-t="btc">Bitcoin</button><button class="tab" data-t="evm">Ethereum &amp; EVM</button><button class="tab" data-t="sol">Solana</button></div>
+
+<div class="card" id="p-card"><h2>Pay by card</h2><div class="mut">Secure checkout by Stripe. You come right back here with your code.</div>
+<label>Your full name</label><input id="cName" autocomplete="name"><label>Email</label><input id="cEmail" type="email" autocomplete="email">
+<button class="btn" id="cardBtn">Pay $<span class="amt2">25</span> by card</button><div class="msg" id="cardMsg"></div></div>
+
+<div class="card hide" id="p-crypto"><h2 id="cTitle"></h2>
+<ol style="padding-left:20px;margin:0"><li>Send <b>$<span class="amt2">25</span></b> worth to this address:</li></ol><div class="addr" id="cAddr"></div><button class="tab" id="cpAddr" style="margin-bottom:6px">Copy address</button>
+<div class="mut" id="cNote"></div>
+<ol start="2" style="padding-left:20px"><li>Wait until your wallet shows the payment as done. The system needs <span id="cConf"></span> before it accepts it.</li><li>Copy the <b>transaction ID</b> (also called "hash") from your wallet and paste it below.</li></ol>
+<div id="chainRow" class="hide"><label>Which network did you use?</label><select id="chain"></select></div>
+<label>Your full name (shown on your certificate)</label><input id="xName" autocomplete="name"><label>Email</label><input id="xEmail" type="email" autocomplete="email">
+<label>Transaction ID</label><input id="xHash" placeholder="paste it here" autocomplete="off" spellcheck="false">
+<button class="btn" id="verBtn">Verify my payment</button><div class="msg" id="xMsg"></div>
+<div class="mut">Only payments sent after the course went on sale, within 30 days, to the address above and worth at least the price are accepted. Each payment can unlock one code.</div></div>
+
+</div>
+<p class="mut">Questions? Email blockwallstreet638@gmail.com</p>
+</div>
+<script>
+/* ===== SETTINGS ===== */
+var WORKER_URL="https://bws-access-xrp.blockwallstreet638.workers.dev";                                   // your Worker address, e.g. https://bws-access.YOURNAME.workers.dev
+var COURSE_URL="xrp-xrpl-xrpl-evm-BWSSite.html";  // where the course file lives
+var PRICE=25;                                        // must match PRICE_USD in the Worker
+var W3F_KEY="cbde23f6-f617-4b16-953f-7b0aab0e9f58";
+var ADDR={btc:"bc1qayrmw6xnljvfe4kk7k740tzh55smww3mx0u7e8",evm:"0x5FC836a0518973D7FE20081F7b19EE207E6b324C",sol:"HjUtHhcpLc9a5yAAAeGzTaidmgNh6CL3PNLE6TTLYXEV"};
+var CHAINS=[["ethereum","Ethereum","USDC, USDT, or ETH","12 confirmations"],["base","Base","USDC or ETH","60 confirmations"],["arbitrum","Arbitrum","USDC, USDT, or ETH","120 confirmations"],["optimism","Optimism","USDC, USDT, or ETH","60 confirmations"],["polygon","Polygon","USDC, USDT, or POL","128 confirmations"],["bnb","BNB Chain","USDC, USDT, or BNB","15 confirmations"],["avalanche","Avalanche","USDC, USDT, or AVAX","12 confirmations"],["linea","Linea","ETH","60 confirmations"],["scroll","Scroll","ETH","60 confirmations"],["gnosis","Gnosis","xDAI","20 confirmations"]];
+/* ===================== */
+var $=function(s){return document.querySelector(s)},tab="card";
+document.getElementById("amt").textContent=PRICE;[].forEach.call(document.querySelectorAll(".amt2"),function(e){e.textContent=PRICE});
+$("#goCourse").href=COURSE_URL;
+CHAINS.forEach(function(c){var o=document.createElement("option");o.value=c[0];o.textContent=c[1]+" ("+c[2]+")";$("#chain").appendChild(o)});
+function show(t){tab=t;[].forEach.call(document.querySelectorAll(".tab[data-t]"),function(b){b.classList.toggle("on",b.dataset.t===t)});
+ $("#p-card").classList.toggle("hide",t!=="card");
+ var cr=t==="btc"||t==="evm"||t==="sol";$("#p-crypto").classList.toggle("hide",!cr);
+ if(cr){$("#cTitle").textContent={btc:"Pay with Bitcoin",evm:"Pay with Ethereum or any EVM network",sol:"Pay with Solana"}[t];
+  $("#cAddr").textContent=ADDR[t];$("#chainRow").classList.toggle("hide",t!=="evm");
+  $("#cConf").textContent=t==="btc"?"6 confirmations":t==="sol"?"the payment to be finalized":"enough confirmations (shown in the list)";
+  $("#cNote").textContent=t==="btc"?"Bitcoin only. Do not send other coins to this address.":t==="sol"?"Accepted: SOL, USDC, or USDT on Solana.":"Use the SAME address on every EVM network. Pick the network you used below. Coins not in the list may be lost.";$("#xMsg").textContent=""}}
+[].forEach.call(document.querySelectorAll(".tab[data-t]"),function(b){b.onclick=function(){show(b.dataset.t)}});show("card");
+$("#cpAddr").onclick=function(){navigator.clipboard&&navigator.clipboard.writeText(ADDR[tab]);this.textContent="Copied!";var s=this;setTimeout(function(){s.textContent="Copy address"},1500)};
+function say(id,t,c){var e=$(id);e.textContent=t;e.className="msg "+(c||"")}
+function ok(email){return /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)}
+function api(p,b){if(!WORKER_URL)return Promise.reject(new Error("The access server is not connected yet."));
+ return fetch(WORKER_URL+p,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(b)}).then(function(r){return r.json().then(function(j){if(!j.ok&&!j.url)throw new Error(j.error||"Error");return j})})}
+function success(j){$("#pay").classList.add("hide");$("#price").classList.add("hide");$("#done").classList.remove("hide");$("#codeOut").textContent=j.code;
+ try{localStorage.setItem("bws_btc_code",j.code)}catch(e){}
+ $("#copyBtn").onclick=function(){navigator.clipboard&&navigator.clipboard.writeText(j.code);this.textContent="Copied!"};
+ var fd=new FormData();fd.append("access_key",W3F_KEY);fd.append("subject","New course purchase: "+(j.name||"")+" ("+(j.method||"")+")");fd.append("from_name","BWS Course Sales");
+ fd.append("message","Name: "+(j.name||"")+"\nEmail: "+j.email+"\nMethod: "+(j.method||"")+"\nAmount: $"+Number(j.usd||0).toFixed(2)+"\nAccess code: "+j.code);
+ try{fetch("https://api.web3forms.com/submit",{method:"POST",body:fd})}catch(e){}}
+$("#cardBtn").onclick=function(){var n=$("#cName").value.trim(),e=$("#cEmail").value.trim();
+ if(n.length<3||!ok(e))return say("#cardMsg","Please enter your full name and a valid email.","bad");
+ this.disabled=true;say("#cardMsg","Opening secure checkout...");var b=this;
+ api("/api/stripe-session",{name:n,email:e}).then(function(j){location.href=j.url}).catch(function(x){b.disabled=false;say("#cardMsg",x.message,"bad")})};
+$("#verBtn").onclick=function(){var n=$("#xName").value.trim(),e=$("#xEmail").value.trim(),h=$("#xHash").value.trim();
+ if(n.length<3||!ok(e)||!h)return say("#xMsg","Please fill in your name, email and transaction ID.","bad");
+ this.disabled=true;say("#xMsg","Checking the blockchain... this can take up to 20 seconds.");var b=this;
+ api("/api/crypto-claim",{network:tab,chain:$("#chain").value,hash:h,name:n,email:e}).then(success).catch(function(x){b.disabled=false;say("#xMsg",x.message,"bad")})};
+(function(){var m=location.search.match(/session_id=(cs_[A-Za-z0-9_]+)/);if(!m)return;
+ $("#pay").classList.add("hide");$("#price").classList.add("hide");$("#done").classList.remove("hide");$("#codeOut").textContent="Confirming your payment...";
+ api("/api/stripe-claim",{session_id:m[1]}).then(success).catch(function(x){$("#done").classList.add("hide");$("#pay").classList.remove("hide");$("#price").classList.remove("hide");say("#cardMsg",x.message,"bad")})})();
+</script></body></html>
