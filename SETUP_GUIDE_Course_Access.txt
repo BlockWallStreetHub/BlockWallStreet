@@ -1,0 +1,69 @@
+BLOCK WALL STREET — COURSE ACCESS SETUP (about 30 minutes, one time)
+
+FILES
+  bws-access-worker.js ................ the server brain (goes on Cloudflare)
+  Bitcoin_For_Beginners_Payment.html .. the page buyers use to pay and get a code
+  Bitcoin_For_Beginners_Course.html ... the course (asks for the code)
+  BWS_Admin_Private.html .............. YOUR private page: make/cancel codes (never upload publicly)
+
+STEP 1 — Cloudflare Worker
+  1. dash.cloudflare.com > Workers & Pages > Create > Worker. Name it bws-access. Deploy.
+  2. Click Edit code. Delete everything, paste ALL of bws-access-worker.js. Deploy.
+  3. Copy your Worker address (looks like https://bws-access.YOURNAME.workers.dev).
+
+STEP 2 — Storage (KV)
+  1. Workers & Pages > KV > Create namespace. Name: BWS_ACCESS.
+  2. Your Worker > Settings > Bindings > Add > KV namespace. Variable name: BWS_ACCESS (exactly). Pick the namespace.
+
+STEP 3 — Secrets and variables (Worker > Settings > Variables and Secrets)
+  Secret   ADMIN_TOKEN ........ invent a long password (you use it in the admin page)
+  Secret   STRIPE_SECRET_KEY .. a Stripe RESTRICTED key (Stripe > Developers > API keys > Create restricted key >
+                                 give only "Checkout Sessions: Write" and nothing else). Use a test key (rk_test_) first.
+  Text     ALLOWED_ORIGINS .... https://blockwallstreethub.github.io   (your site address, no slash at the end)
+  Text     PAYMENT_PAGE_URL ... full web address of the uploaded payment page
+  Text     SOL_RPC (optional) . a private Solana RPC address if the free public one gets busy (e.g. a free Helius key)
+
+STEP 4 — Connect the pages
+  - Payment page: set WORKER_URL (near the bottom, "SETTINGS") to your Worker address. Check PRICE matches.
+  - Course file: set WORKER_URL near the top of the script. Leave PAY_URL pointing at the payment page.
+  - Admin page: just type the Worker address and token into it when you use it.
+  - In the Worker file set PRICE_USD and SALE_START (payments before this date are rejected) before deploying.
+
+STEP 5 — Upload
+  Put the payment page and course on your site (GitHub Pages). Keep the admin page on your own computer.
+
+STEP 6 — TEST BEFORE SELLING
+  - Stripe test mode: pay with card 4242 4242 4242 4242, any future date, any CVC. You should land back with a code.
+  - Make a code in the admin page; type it into the course. Cancel it; confirm the course now refuses it.
+  - Do one tiny real crypto test only after changing PRICE_USD temporarily, or trust the mocked tests and watch your first real sale.
+  - Then switch to your live Stripe restricted key.
+
+KIT (EMAIL LIST) — optional but recommended
+  Every buyer is added to Kit automatically and tagged. A Kit problem never blocks a sale.
+  1. In Kit create a tag, e.g. "Bitcoin Course Buyer". Open it and note its number in the web address (.../tags/12345).
+  2. In Kit create a custom field with key access_code (Subscribers > Custom fields).
+  3. In Kit > Settings > Developer, create an API key (v4).
+  4. In the Worker add: secret KIT_API_KEY = that key; variables KIT_TAG_ID = the tag number, KIT_CODE_FIELD = access_code
+  5. In Kit build an Automation: trigger "tag added" = your tag, action = send an email that says
+     "Your access code is {{ subscriber.access_code }}" with the course link. Buyers then get the code by email even if they close the page.
+
+NOTIFICATIONS
+  Every successful signup (card or crypto) emails blockwallstreet638@gmail.com through Web3Forms with name, email, method, amount and the access code.
+  Chime is no longer offered. The admin page can still create a code by hand for anyone you choose to let in.
+
+WHAT IS CHECKED FOR CRYPTO
+  Right address, coin/network, worth at least the price (5% leeway for price swings; 1% for USDC/USDT),
+  sent after SALE_START and within 30 days, full confirmations (BTC 6, EVM per-chain list, Solana finalized),
+  transaction succeeded, each payment used once and bound to the first email that claims it.
+
+PLEASE CHECK BEFORE LAUNCH
+  1. Stablecoin contract addresses and the public RPC addresses in the CHAINS list were written from memory.
+     Compare each against Circle's and Tether's official address pages and test each chain you advertise.
+  2. "All EVM chains" = every chain in the CHAINS list. Add more (e.g. Robinhood Chain) by pasting an entry
+     into the list or the CHAINS_JSON variable once you have its official RPC address and token contracts.
+  3. Someone who sees YOUR incoming transaction on a public explorer could try to claim it first by pasting its hash
+     with their own name/email. It is a real, if unlikely, risk. Lower it by asking buyers to also put their email in
+     the memo where possible, and by checking sales emails against the report you get. Revoke any code in the admin page.
+  4. Static sites cannot truly hide content. The code check protects the course file's front door; someone technical
+     could still read the page source. For hard protection, host the lessons on the Worker (ask me and I can do that).
+  5. Price swings: the dollar value is judged at claim time, not payment time.

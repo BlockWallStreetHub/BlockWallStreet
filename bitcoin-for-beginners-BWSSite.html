@@ -1,0 +1,1494 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="icon" type="image/png" href="bws-favicon.png">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bitcoin for Beginners | Block Wall Street</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;500;600;700&family=DM+Mono:wght@400;500&family=Great+Vibes&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#0a1628;--navy2:#0f2038;--panel:#13294a;--line:#25416b;--gold:#f0b429;--gold2:#d4a017;--text:#e9eef7;--muted:#9fb2cf;--good:#3ecf8e;--bad:#ff6b6b;--r:14px}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:radial-gradient(1200px 600px at 80% -10%,#16315c 0%,var(--navy) 55%) fixed;color:var(--text);font-family:'Barlow',system-ui,Segoe UI,Arial,sans-serif;font-size:19px;line-height:1.7}
+a{color:var(--gold)}
+header.top{position:sticky;top:0;z-index:50;background:rgba(10,22,40,.96);border-bottom:1px solid var(--line);display:flex;align-items:center;gap:14px;padding:10px 18px}
+.logo{font-family:'Bebas Neue',Impact,sans-serif;letter-spacing:2px;font-size:26px;color:var(--gold);line-height:1;white-space:nowrap}
+.logo small{display:block;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:1.5px;color:var(--muted)}
+.pbar{flex:1;height:10px;background:var(--navy2);border:1px solid var(--line);border-radius:99px;overflow:hidden}
+.pbar>i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--gold2),var(--gold));transition:width .5s}
+.pct{font-family:'DM Mono',monospace;font-size:13px;color:var(--muted);min-width:44px;text-align:right}
+button,.btn{font-family:'Barlow',sans-serif;font-weight:700;font-size:17px;cursor:pointer;border-radius:10px;border:1px solid var(--gold2);background:transparent;color:var(--gold);padding:10px 18px;transition:.15s}
+button:hover{background:rgba(240,180,41,.12)}
+button.primary{background:var(--gold);color:#1b1300;border-color:var(--gold)}
+button.primary:hover{background:#ffc94d}
+button:disabled{opacity:.45;cursor:not-allowed}
+button.ghost{border-color:var(--line);color:var(--text)}
+main{max-width:860px;margin:0 auto;padding:26px 18px 120px}
+.hero{text-align:center;padding:28px 10px 6px}
+.hero h1{font-family:'Bebas Neue',Impact,sans-serif;font-weight:400;font-size:clamp(46px,9vw,84px);line-height:.95;margin:6px 0;color:#fff;letter-spacing:2px}
+.hero h1 span{color:var(--gold)}
+.eyebrow{font-family:'DM Mono',monospace;color:var(--gold);letter-spacing:3px;font-size:13px;text-transform:uppercase}
+.card{background:linear-gradient(180deg,var(--panel),var(--navy2));border:1px solid var(--line);border-radius:var(--r);padding:22px;margin:18px 0}
+.card h2{font-family:'Bebas Neue',Impact,sans-serif;font-weight:400;letter-spacing:1.5px;font-size:30px;margin:0 0 8px;color:var(--gold)}
+label{display:block;font-weight:600;margin:14px 0 6px}
+input[type=text],input[type=email]{width:100%;padding:14px;border-radius:10px;border:1px solid var(--line);background:#0b1a31;color:#fff;font-size:19px;font-family:inherit}
+input:focus{outline:2px solid var(--gold2)}
+.small{font-size:15px;color:var(--muted);line-height:1.5}
+.grid{display:grid;gap:12px}
+.sec{display:flex;gap:14px;align-items:center;background:var(--navy2);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+.sec .num{font-family:'Bebas Neue',sans-serif;font-size:38px;color:var(--gold);width:46px;text-align:center;line-height:1}
+.sec .meta{flex:1}
+.sec .meta b{display:block;line-height:1.25}
+.sec .meta span{font-size:14px;color:var(--muted)}
+.tag{font-family:'DM Mono',monospace;font-size:12px;padding:3px 9px;border-radius:99px;border:1px solid var(--line);color:var(--muted);white-space:nowrap}
+.tag.ok{border-color:var(--good);color:var(--good)}
+.tag.lock{opacity:.7}
+.lessonhead{border-bottom:1px solid var(--line);padding-bottom:10px;margin-bottom:6px}
+.lessonhead h1{font-family:'Bebas Neue',Impact,sans-serif;font-weight:400;font-size:clamp(34px,6vw,52px);line-height:1.02;margin:4px 0;color:#fff;letter-spacing:1px}
+#lessonBody h3{font-family:'Bebas Neue',Impact,sans-serif;font-weight:400;color:var(--gold);font-size:31px;letter-spacing:1px;margin:34px 0 4px}
+#lessonBody p,#lessonBody li{margin:.7em 0}
+#lessonBody ul,#lessonBody ol{padding-left:1.3em}
+#lessonBody b{color:#fff}
+.callout{background:rgba(240,180,41,.09);border-left:5px solid var(--gold);border-radius:8px;padding:6px 18px;margin:24px 0}
+.callout.paper{background:rgba(62,207,142,.08);border-left-color:var(--good)}
+.speaking{background:rgba(240,180,41,.20);box-shadow:0 0 0 6px rgba(240,180,41,.20);border-radius:6px}
+.audio{position:sticky;top:60px;z-index:40;background:rgba(15,32,56,.98);border:1px solid var(--line);border-radius:12px;padding:10px 12px;display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:12px 0}
+.audio button{padding:8px 14px;font-size:16px}
+.audio select{background:#0b1a31;color:#fff;border:1px solid var(--line);border-radius:8px;padding:7px;font-family:inherit;font-size:15px;max-width:210px}
+.audio .lab{font-family:'DM Mono',monospace;font-size:12px;color:var(--muted)}
+.gate{text-align:center;margin-top:34px}
+.gate .msg{font-family:'DM Mono',monospace;font-size:14px;color:var(--muted);margin-bottom:10px}
+.qhead{display:flex;justify-content:space-between;align-items:center;font-family:'DM Mono',monospace;font-size:14px;color:var(--muted)}
+.qbar{height:8px;background:var(--navy2);border-radius:99px;margin:8px 0 18px;overflow:hidden;border:1px solid var(--line)}
+.qbar>i{display:block;height:100%;background:var(--gold);width:0}
+.qtext{font-size:23px;font-weight:600;line-height:1.45;margin:6px 0 18px}
+.opt{display:block;width:100%;text-align:left;margin:10px 0;padding:15px 16px;background:var(--navy2);border:1px solid var(--line);color:var(--text);font-weight:500;font-size:19px;border-radius:12px;line-height:1.45}
+.opt:hover{border-color:var(--gold2);background:#12294b}
+.opt.sel{border-color:var(--gold);background:rgba(240,180,41,.16);box-shadow:inset 0 0 0 1px var(--gold)}
+.dots{display:flex;flex-wrap:wrap;gap:6px;margin:18px 0}
+.dots i{width:26px;height:26px;border-radius:7px;border:1px solid var(--line);font:500 12px 'DM Mono',monospace;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--muted);font-style:normal}
+.dots i.done{background:rgba(240,180,41,.22);color:#fff;border-color:var(--gold2)}
+.dots i.cur{outline:2px solid #fff}
+.nav{display:flex;justify-content:space-between;gap:10px;margin-top:20px}
+.score{text-align:center}
+.score .big{font-family:'Bebas Neue',sans-serif;font-size:96px;line-height:1;color:var(--gold)}
+.score.fail .big{color:var(--bad)}
+.rev{border-top:1px solid var(--line);padding:14px 0}
+.rev .q{font-weight:600}
+.rev .y{color:var(--good)} .rev .n{color:var(--bad)}
+.rev .why{font-size:16px;color:var(--muted)}
+canvas#cert{width:100%;height:auto;border:2px solid var(--gold2);border-radius:10px;background:#000}
+.drawer{position:fixed;inset:0 auto 0 0;width:min(380px,92vw);background:var(--navy);border-right:1px solid var(--line);transform:translateX(-102%);transition:.25s;z-index:80;padding:16px;overflow:auto}
+.drawer.open{transform:none}
+.veil{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:70;display:none}
+.veil.open{display:block}
+.drawer .sec{margin:8px 0;cursor:pointer;padding:10px 12px}
+.drawer .sec .num{font-size:30px;width:36px}
+.hide{display:none!important}
+.status{padding:12px 14px;border-radius:10px;margin:12px 0;font-size:16px}
+.status.ok{background:rgba(62,207,142,.12);border:1px solid var(--good)}
+.status.warn{background:rgba(255,107,107,.1);border:1px solid var(--bad)}
+
+.calc label{margin:10px 0 4px;font-size:17px}
+.calc input[type=number]{width:100%;padding:12px;border-radius:10px;border:1px solid var(--line);background:#0b1a31;color:#fff;font-size:19px;font-family:inherit}
+.calc select{width:100%;padding:12px;border-radius:10px;border:1px solid var(--line);background:#0b1a31;color:#fff;font-size:19px;font-family:inherit}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media (max-width:560px){.row2{grid-template-columns:1fr}}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:6px 0}
+.chip{padding:9px 14px;font-size:16px;border-radius:99px}
+.chip.on{background:var(--gold);color:#1b1300}
+.res{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin:14px 0}
+.res div{background:var(--navy2);border:1px solid var(--line);border-radius:12px;padding:12px 14px}
+.res small{display:block;font-family:'DM Mono',monospace;font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:1px}
+.res b{font-size:25px;color:#fff}
+.res b.up{color:var(--good)} .res b.dn{color:var(--bad)}
+.stepcard h3{margin-top:26px!important}
+@media (max-width:560px){body{font-size:18px}.logo small{display:none}.pct{display:none}}
+@media print{body{background:#fff}header,.audio,.nav,button{display:none}}
+.sitebar{background:#060d1f;border-bottom:1px solid #26385f;font:600 13px/1 Barlow,system-ui,sans-serif}.sitebar .wrap{max-width:1180px;margin:0 auto;display:flex;gap:22px;flex-wrap:wrap;align-items:center;padding:13px 22px}.sitebar a{color:#f0c75e;text-decoration:none}.sitebar a:hover{text-decoration:underline}.sitebar .sp{flex:1}
+</style>
+</head>
+<body>
+<div class="sitebar"><div class="wrap"><a href="index.html">&larr; Block Wall Street Academy</a><span class="sp"></span><a href="tools-BWSSite.html">More tools</a><a href="consultations-BWSSite.html">Book a session</a></div></div>
+<header class="top">
+  <button class="ghost" id="menuBtn" aria-label="Open course menu">☰ Menu</button>
+  <div class="logo">BLOCK WALL STREET<small>BITCOIN FOR BEGINNERS</small></div>
+  <div class="pbar"><i id="pfill"></i></div>
+  <div class="pct" id="ptxt">0%</div>
+</header>
+<div class="veil" id="veil"></div>
+<aside class="drawer" id="drawer"></aside>
+<main id="app"></main>
+
+<script>
+/* ============ COURSE DATA ============ */
+var SECTIONS=[];var FINAL=[];
+SECTIONS.push({
+n:1,
+title:"Money: Where It Came From and Why It Breaks",
+sub:"Barter, gold, banks, inflation and the 2008 crisis. The story that sets up Bitcoin.",
+lesson:`
+<h3>What is money, really?</h3>
+<p>Money is a tool. It is not magic and it is not the same thing as wealth. Money is a tool that lets millions of people who have never met trade with each other. A good tool does three jobs. First, it is a <b>medium of exchange</b>, which means you can swap it for things you want. Second, it is a <b>store of value</b>, which means it should still be worth something next month or next year. Third, it is a <b>unit of account</b>, which means we use it to put prices on things so we can compare them.</p>
+<p>Keep those three jobs in your head. Later in this course, when we ask whether Bitcoin is good money, we will check it against these same three jobs.</p>
+
+<h3>Life before money: barter</h3>
+<p>Long ago, people traded goods directly. This is called <b>barter</b>. Imagine you are a farmer with extra corn, and you need new shoes. The shoemaker does not want corn today. The shoemaker wants a haircut. So you must find a barber who wants corn, get a haircut ticket, trade the ticket to the shoemaker, and finally get your shoes. Barter only works when two people happen to want exactly what the other has. Economists call this problem the <b>double coincidence of wants</b>. It is slow, and it is a headache.</p>
+<p>The fix was to pick one item that everyone would accept, then trade everything else for that item first. That item became money.</p>
+
+<h3>The six traits of good money</h3>
+<p>Over thousands of years people tried salt, seashells, beads, cattle and metals. Some worked better than others. Here are the traits that separate good money from bad money:</p>
+<ul>
+<li><b>Durable.</b> It does not rot, rust or break. Fresh fruit fails this test.</li>
+<li><b>Portable.</b> You can carry it. A herd of cattle fails this test.</li>
+<li><b>Divisible.</b> You can split it for small purchases. A cow is hard to split into change.</li>
+<li><b>Scarce.</b> It is hard to make more of it. If anyone can make it easily, it becomes worthless. Think about it: if seashells washed up on every beach by the truckload, they would be a bad money.</li>
+<li><b>Uniform.</b> One unit is the same as any other unit. Money with this trait is called <b>fungible</b>. One gold coin of the same weight and purity equals another.</li>
+<li><b>Accepted.</b> Other people will take it too.</li>
+</ul>
+<p>Gold scored well on most of these traits, which is why many civilizations used it. Gold is durable, can be cut and melted into coins, and is hard to find and dig up. That last part is what keeps it scarce.</p>
+
+<h3>A strange example: the stone money of Yap</h3>
+<p>On the island of Yap in the Pacific, people used giant stone discs called <b>rai stones</b> as money. Some were taller than a person and far too heavy to carry. So when a stone was traded, it stayed where it was. The whole community simply remembered who owned it now. In other words, the island ran on a shared memory of who owns what, which is a <b>ledger</b>. Remember that word. A ledger is a record of who owns what, and it is at the heart of Bitcoin.</p>
+
+<h3>Gold, paper receipts and the birth of banks</h3>
+<p>Carrying gold around is risky because thieves love it. So people stored their gold with a goldsmith who had a strong vault. The goldsmith handed back a paper receipt. Soon people realized they could just trade the receipts instead of hauling the gold. Receipts became money.</p>
+<p>Then the goldsmith noticed something. Almost nobody came to pick up their gold on any given day. So the goldsmith could write extra receipts, lend them out, and charge interest, even though the vault did not hold enough gold to cover all of them. This practice is called <b>fractional reserve banking</b>. It works fine until everyone shows up at once to get their gold. When that happens it is called a <b>bank run</b>, and the bank may not have enough to pay everybody.</p>
+
+<h3>The gold link is cut: fiat money</h3>
+<p>For a long time, governments promised that their paper dollars could be traded in for gold. This was the gold standard. On <b>August 15, 1971</b>, U.S. President Richard Nixon ended the promise to swap dollars for gold. After that, the dollar became <b>fiat money</b>. The word fiat comes from a Latin word meaning “let it be done.” Fiat money has value because the government says so and because people trust it and use it to pay taxes, not because it can be traded for a metal.</p>
+<p>Fiat money is flexible. A central bank, like the U.S. Federal Reserve, can create more of it when it wants to. That flexibility can help in emergencies. It also creates a danger.</p>
+
+<h3>Inflation: when your money shrinks</h3>
+<p><b>Inflation</b> means prices go up over time, which also means each dollar buys less than before. When the amount of money in a country grows faster than the amount of real goods, prices rise. A small amount, around 2 percent a year, is the Federal Reserve’s target in the United States. Over many years even small inflation adds up, and your savings slowly lose buying power.</p>
+<p>When inflation goes wild, it is called <b>hyperinflation</b>. In Germany in 1923, prices climbed so fast that people carried money in wheelbarrows and workers rushed to spend wages before they lost value. Venezuela and Zimbabwe have suffered similar disasters in recent decades. People in those countries searched for ways to protect their savings, such as foreign currency and gold.</p>
+
+<h3>Today’s money is a number in someone else’s computer</h3>
+<p>When you check your bank balance, you are not looking at coins in a box. You are looking at a number in the bank’s computer. You trust the bank to keep that number correct. Banks can also freeze accounts, delay payments, add fees, or close an account. International transfers can take days and cost a lot. The World Bank reported in 2021 that around 1.4 billion adults in the world still had no bank account at all. They are called <b>unbanked</b>.</p>
+
+<h3>Why this matters for community wealth</h3>
+<p>Communities that control their own financial tools can build wealth that lasts. The Greenwood district in Tulsa, Oklahoma, known as Black Wall Street, was a thriving Black business district in the early 1900s with banks, shops and professionals who kept dollars circulating inside the community. On May 31 and June 1, 1921, a white mob attacked and destroyed it. Decades later, practices like redlining kept banks from lending fairly in many Black neighborhoods. The lesson many people draw is simple: if others control the doors to the money system, they can close those doors. That is part of why Block Wall Street teaches about tools like Bitcoin.</p>
+
+<h3>The 2008 crisis: the final push</h3>
+<p>In the mid-2000s, many banks made risky home loans, bundled them into complicated investments, and sold them around the world. When homeowners could not repay, the whole structure collapsed. The big investment bank Lehman Brothers failed on <b>September 15, 2008</b>. Governments stepped in. In the United States, Congress approved up to <b>$700 billion</b> in October 2008 to rescue the financial system. Many ordinary people asked a fair question: why do we have to depend on middlemen who gamble with our money, and then get rescued when they lose?</p>
+
+<h3>The digital copy problem</h3>
+<p>Here is a puzzle that stumped computer scientists for years. Anything digital can be copied. If you email a photo to a friend, you both have the photo. Now imagine money was just a computer file. You could copy the file and spend it twice. This is called the <b>double-spending problem</b>. Before Bitcoin, the only fix was a trusted referee, like a bank, that kept the official ledger and checked every payment. Could computers do the referee’s job without a boss in charge? That question leads us straight into the next section.</p>
+
+<div class="callout"><p><b>Key takeaways.</b> Money does three jobs: exchange, store of value and unit of account. Good money is durable, portable, divisible, scarce, uniform and accepted. Fiat money replaced the gold link in 1971, and inflation slowly shrinks savings. Most money today relies on trusted middlemen. Digital files can be copied, which creates the double-spending problem.</p></div>
+`,
+q:[
+["In the story of the farmer, the shoemaker and the barber, what problem is being shown?","The double coincidence of wants: each person must happen to want what the other has","Inflation: prices are rising too fast to trade","Double spending: the same coin is used twice","Fractional reserve: more receipts were written than goods exist","The farmer needed three people to agree at once because none of them wanted what the farmer had. That is the double coincidence of wants."],
+["Why did the lesson say fresh fruit would make poor money?","It fails the durability test because it rots","It is too scarce","It cannot be accepted by anyone","It is too hard to carry long distances","Money has to last. Fruit rots, so it is not durable."],
+["A herd of cattle was used in the lesson as an example of something that fails which two traits most obviously?","Portable and divisible","Scarce and accepted","Uniform and accepted","Durable and scarce","Cattle are hard to carry across distances and you cannot easily split one into small change."],
+["If seashells washed up on every beach by the truckload, which trait of good money would they lose first?","Scarcity","Durability","Portability","Divisibility","When anyone can get more of the item cheaply, it becomes worthless as money."],
+["What does it mean for money to be “fungible”?","Any one unit is equal to any other unit of the same kind","It can be broken into small pieces","It is made by a government","It is stored in a vault","Fungible means interchangeable, like two gold coins of the same weight and purity."],
+["On the island of Yap, why did a giant rai stone usually stay in place after it was traded?","It was too heavy to move, so the community remembered the new owner","The government forbade moving the stones","Stones lost their value when they were moved","The stones were buried underground for safety","Ownership was tracked by shared memory, which is an early form of a ledger."],
+["The lesson used the Yap stones to introduce which important word?","Ledger","Mining","Inflation","Wallet","A ledger is a record of who owns what. It is at the heart of Bitcoin."],
+["According to the lesson, how did the goldsmith’s receipts become money?","People found it easier to trade the paper receipts than to haul the gold","The king ordered everyone to accept them","They were printed with a picture of gold","Goldsmiths gave them away free","Receipts were lighter and safer to carry and everyone trusted that the gold was in the vault."],
+["What did the goldsmith notice that led to fractional reserve banking?","Few people came to withdraw their gold on any one day","Thieves never targeted the vault","Gold was getting cheaper","Customers wanted coins instead of paper","Because most gold stayed in the vault, the goldsmith could lend out extra receipts."],
+["What is a bank run?","Many customers demand their money at once and the bank cannot cover everyone","A bank moves its money to a faster computer","A bank raises interest on loans","A bank closes on weekends","The reserve is only a fraction of what is owed, so a rush of withdrawals can break it."],
+["What happened on August 15, 1971 according to the lesson?","The U.S. stopped promising to swap dollars for gold","The Federal Reserve was created","Germany suffered hyperinflation","Lehman Brothers collapsed","This ended the dollar’s link to gold and made it fiat money."],
+["The word “fiat” comes from a Latin word meaning what?","“Let it be done”","“Backed by gold”","“Paper money”","“Trust me”","Fiat money has value because a government decrees it and people accept it."],
+["Which statement about fiat money is supported by the lesson?","A central bank can create more of it when it chooses","Every dollar can be traded for gold on demand","It is scarce because of mining","It cannot lose buying power","The flexibility to create more money can help in emergencies but it also creates the danger of inflation."],
+["What inflation target does the lesson attribute to the U.S. Federal Reserve?","Around 2 percent per year","Zero percent","Around 10 percent per year","Around 25 percent per year","A small amount of inflation is the goal, but over many years even that shrinks savings."],
+["What is the best description of inflation?","Prices rise over time so each dollar buys less","Banks charge higher fees","A currency is exchanged for gold","The government collects more taxes","Inflation is the loss of buying power."],
+["Which example from the lesson illustrates hyperinflation?","Germany in 1923, with money carried in wheelbarrows","The Yap stone economy","The goldsmith’s vault","The 2021 World Bank unbanked survey","Prices rose so quickly that workers rushed to spend wages before they lost value."],
+["The lesson says a bank balance is best understood as what?","A number in the bank’s computer that you trust the bank to keep correct","Physical cash in a private box with your name on it","A promise from the government to give you gold","A coin stored in a vault","Your balance is a record kept by a middleman."],
+["About how many adults did the World Bank report as unbanked in 2021 according to the lesson?","Around 1.4 billion","Around 14 million","Around 140 thousand","Around 7 billion","Roughly 1.4 billion adults had no account."],
+["What lesson do many people draw from the history of Greenwood and redlining, as described in the lesson?","If others control access to the money system, they can shut people out","Banks always treat every neighborhood fairly","Gold should never be used as money","Only governments should invent new money","Control over financial tools matters for community wealth."],
+["What event on September 15, 2008 is mentioned in the lesson?","Lehman Brothers failed","The U.S. left the gold standard","Bitcoin was invented","Congress approved a stimulus check","Lehman’s failure was a key moment in the 2008 financial crisis."],
+["What question did many ordinary people ask after the 2008 rescue, according to the lesson?","Why depend on middlemen who gamble with our money and then get rescued?","Why does gold cost so much?","Why is the dollar not a physical coin?","Why can’t banks open on weekends?","This frustration set the mood for a new kind of money."],
+["Why is the double-spending problem hard for digital money?","Digital files can be copied, so someone could spend the same file twice","Computers cannot store numbers","Digital money is too heavy","Banks refuse to hold it","Anything digital can be copied, which breaks the idea of money unless a referee checks it."],
+["Before Bitcoin, what was the only fix for double spending described in the lesson?","A trusted referee, such as a bank, keeping the official ledger","Printing the digital money on paper","Making coins out of gold","Forbidding people from copying files","A central middleman checked every payment."]
+]
+});
+
+SECTIONS.push({
+n:2,
+title:"The Dreamers: Cryptography and the Road to Digital Cash",
+sub:"Public keys, hashes, the Cypherpunks, and the failed attempts that came before Bitcoin.",
+lesson:`
+<h3>Bitcoin did not come out of nowhere</h3>
+<p>Many people think Bitcoin appeared like a bolt of lightning. In truth, it was built from ideas that smart people had worked on for more than thirty years. Some of those ideas worked. Many of the projects failed. Satoshi Nakamoto, the mysterious creator of Bitcoin, studied those failures and put the best pieces together. To understand Bitcoin, we need to meet the pieces.</p>
+
+<h3>Tool one: encryption and public keys</h3>
+<p><b>Cryptography</b> is the science of keeping information secret and proving it is real. For most of history, to send a secret message, you and your friend both needed the same secret code. But how do you share that code safely in the first place? That puzzle was solved in the 1970s. In 1976, Whitfield Diffie and Martin Hellman described a new idea, and in 1977 Ron Rivest, Adi Shamir and Leonard Adleman built a system called <b>RSA</b>. It is called <b>public-key cryptography</b>.</p>
+<p>Here is the idea. You make a pair of keys that are mathematically linked. One is your <b>public key</b>, which you can hand out to anyone. The other is your <b>private key</b>, which you never share. Think of a mailbox with a slot in the front. Anyone can drop a letter in the slot, which is like the public key. But only you hold the key that opens the box, which is like the private key.</p>
+<p>The same idea works backward to make a <b>digital signature</b>. You use your private key to sign a message. Anyone can use your public key to check that the signature is real. They can tell it could only have been made by the owner of that private key, and that the message was not changed. Bitcoin uses signatures for every single payment.</p>
+
+<h3>Tool two: the hash, a digital fingerprint</h3>
+<p>A <b>hash function</b> is a recipe that takes any amount of data and turns it into a short, fixed-size string of letters and numbers called a <b>hash</b>. Think of it as a fingerprint for data. Three rules make hashes powerful. First, the same input always gives the same fingerprint. Second, change even one tiny thing, like one letter, and the fingerprint becomes totally different. Third, it only goes one way: you cannot work backward from the fingerprint to the original data. Bitcoin uses a hash function called SHA-256.</p>
+
+<h3>Tool three: the timestamp chain</h3>
+<p>In 1991, two researchers named Stuart Haber and W. Scott Stornetta published a method to prove a digital document existed at a certain time, without trusting a single company. They linked timestamps together in a chain, so that changing an old record would break every record after it. Another earlier idea, from 1979, was the <b>Merkle tree</b> by Ralph Merkle, a way to bundle many pieces of data into one fingerprint. Both ideas later appear inside Bitcoin.</p>
+
+<h3>David Chaum and DigiCash</h3>
+<p>In the 1980s, a computer scientist named <b>David Chaum</b> worried that digital payments would let companies and governments watch everything people buy. He invented a technique called <b>blind signatures</b> that let a bank approve a digital coin without knowing who was spending it. In 1989 he founded a company called <b>DigiCash</b> and built an electronic cash system called ecash. Some banks tested it, including Mark Twain Bank in St. Louis. But DigiCash had a big weakness: it depended on one company running the central system. Banks were slow to adopt it, and DigiCash went bankrupt in 1998. When the company died, the money died with it.</p>
+
+<h3>The Cypherpunks</h3>
+<p>In 1992, a small group met in the San Francisco Bay Area. Its founders included Eric Hughes, Tim May and John Gilmore. They started a mailing list for people who believed strong cryptography could protect personal freedom in the digital age. They called themselves <b>Cypherpunks</b>. Their motto was “Cypherpunks write code,” meaning they did not just argue, they built software. In 1993, Eric Hughes wrote “A Cypherpunk’s Manifesto,” which argued that privacy is necessary for an open society in the electronic age.</p>
+<p>Back then, the U.S. government treated strong encryption almost like a weapon and limited its export. In 1991, Phil Zimmermann released a free email encryption program called <b>PGP</b>, and later faced a government investigation for it. These fights are sometimes called the “crypto wars.” Many future Bitcoin figures were on the Cypherpunk list, including Hal Finney, Adam Back, Nick Szabo and Wei Dai.</p>
+
+<h3>E-gold: a warning</h3>
+<p>In 1996, a business called <b>e-gold</b> launched. Customers could hold digital money backed by real gold, and it grew to millions of accounts. But everything ran through one company. In 2008, e-gold’s owners pleaded guilty to charges related to money laundering and running an unlicensed money transmitting business, and the service wound down. The lesson, again: a central company is a single target.</p>
+
+<h3>Hashcash: making work count</h3>
+<p>In 1997, British cryptographer <b>Adam Back</b> proposed <b>Hashcash</b> as a way to fight email spam. The idea: before your email is accepted, your computer must do a small amount of work, like solving a puzzle that takes a moment. A normal person would barely notice. A spammer sending millions of messages would need huge amounts of computing power. This idea is called <b>proof of work</b>. It is work that is hard to do but very easy for others to check. Bitcoin uses the same principle to secure its network.</p>
+
+<h3>b-money and bit gold</h3>
+<p>In 1998, a Cypherpunk named <b>Wei Dai</b> described <b>b-money</b>, a plan where everyone in a network keeps their own record of who owns what, and new money is created by doing computing work. The same year, <b>Nick Szabo</b> designed <b>bit gold</b>, which also used puzzles. Each solved puzzle became part of a chain, and each new puzzle built on the last. He wrote about it more widely in 2005. Both ideas were brilliant sketches. But neither explained how strangers on a network could agree on one version of the truth when some of them might lie.</p>
+
+<h3>Hal Finney and RPOW</h3>
+<p>In 2004, <b>Hal Finney</b>, a respected Cypherpunk and programmer, built a system called <b>RPOW</b>, short for Reusable Proof of Work. It turned proof-of-work tokens into something that could be passed from person to person. But it still relied on a single trusted server to stop double spending. Finney would later become the first person besides Satoshi to run Bitcoin.</p>
+
+<h3>The puzzle that was still missing</h3>
+<p>By the mid-2000s the pieces were on the table: public keys, signatures, hashes, timestamp chains, and proof of work. What was missing was a way for thousands of strangers, who do not trust each other, to agree on a single shared ledger without a boss. There was also a trick that attackers could use called a <b>Sybil attack</b>, where one person pretends to be thousands of people to outvote everyone else. A system based on one-person-one-vote would be easy to cheat. In 2008, a document arrived that solved these problems all at once. That is the subject of the next section.</p>
+
+<div class="callout"><p><b>Key takeaways.</b> Public-key cryptography gives us signatures. Hashes give us digital fingerprints. Haber and Stornetta gave us chained timestamps. Chaum’s DigiCash and e-gold showed that a central company is a weak point. Hashcash gave us proof of work. b-money, bit gold and RPOW came close but needed a trusted server or could not stop fake identities.</p></div>
+`,
+q:[
+["A friend claims, “Satoshi invented every part of Bitcoin from scratch.” Which reply best matches the lesson?","Bitcoin combined older ideas such as public keys, hashes, timestamp chains and proof of work","That is correct, nothing like it existed before","Bitcoin was copied entirely from DigiCash","Bitcoin was copied entirely from e-gold","The lesson says Satoshi studied earlier failures and assembled the best pieces."],
+["In the mailbox picture, what does the slot in the front of the box stand for?","The public key, which anyone can use","The private key","The hash","The digital signature","Anyone can drop in a letter through the slot, just as anyone can use your public key."],
+["Who described public-key ideas in 1976 and who built RSA in 1977, as the lesson tells it?","Diffie and Hellman in 1976; Rivest, Shamir and Adleman in 1977","Chaum in 1976; Back in 1977","Haber and Stornetta in 1976; Merkle in 1977","Finney in 1976; Szabo in 1977","The lesson names Diffie and Hellman first, then the RSA trio."],
+["You sign a message with your private key. Who can check that the signature is real?","Anyone who has your public key","Only you","Only a bank","Only someone who knows your private key","The signature can be checked by the public key without revealing the private key."],
+["Which is NOT one of the three rules of a hash given in the lesson?","You can reverse it to recover the original data","The same input always gives the same output","A tiny change in the input gives a very different output","It turns data of any size into a short fixed-size output","Hashes are one-way, so reversing them is not possible."],
+["Which hash function does the lesson say Bitcoin uses?","SHA-256","RSA","PGP","Hashcash","SHA-256 is the specific hash recipe used by Bitcoin."],
+["If you change a single letter in a long document, what happens to its hash?","It becomes completely different","It changes by only one character","It stays the same","It becomes shorter","Small changes cause a totally different fingerprint."],
+["What did Haber and Stornetta’s 1991 work offer that Bitcoin later used?","Timestamps chained together so that changing an old record breaks the later ones","A way to hide who spends money","A free email program","A method to fight spam","Their chain of timestamps is an ancestor of the blockchain."],
+["Which tool from 1979 bundles many pieces of data into one fingerprint?","The Merkle tree","Blind signatures","Hashcash","RPOW","Ralph Merkle’s tree was described in the lesson as a way to bundle data into a single fingerprint."],
+["What was David Chaum especially worried about when he started his work?","Companies and governments being able to watch what people buy","Banks closing on weekends","Cash being too heavy","Gold running out","He wanted private digital payments."],
+["What did Chaum’s blind signatures let a bank do?","Approve a digital coin without knowing who was spending it","Print paper money faster","Mine gold","Send email faster","Blind signatures protect the spender’s privacy."],
+["DigiCash went bankrupt in 1998. What was the lesson’s main takeaway about why this mattered?","The system depended on one company, so when it died the money died","Digital cash can never work","The internet was too fast","Banks adopted it too quickly","A central point of failure is a recurring theme."],
+["Which statement about the Cypherpunks is accurate according to the lesson?","They began with a mailing list in 1992 and believed strong cryptography could protect freedom","They were employees of the Federal Reserve","They formed in 2009 after Bitcoin launched","They opposed all use of cryptography","They met in the San Francisco Bay Area in 1992 and shared a mailing list."],
+["What does the Cypherpunk motto “Cypherpunks write code” mean?","They believed in building software, not just arguing","They only wrote poetry","They wanted to ban programmers","They worked for banks","The motto stresses action through code."],
+["Who wrote “A Cypherpunk’s Manifesto” in 1993?","Eric Hughes","Adam Back","Wei Dai","Phil Zimmermann","The lesson credits Eric Hughes."],
+["Why was Phil Zimmermann’s PGP a big deal in the “crypto wars”?","It gave ordinary people strong email encryption at a time the government limited it","It was the first digital currency","It created Bitcoin mining","It copied DigiCash","PGP made strong encryption freely available and triggered a government investigation."],
+["What happened to e-gold according to the lesson?","Its owners pleaded guilty to related charges in 2008 and the service wound down","It was merged with Bitcoin","It grew into the largest bank","It was invented by Hal Finney","The lesson uses e-gold as a warning about central companies."],
+["What was Adam Back’s Hashcash designed to fight?","Email spam","Bank runs","Inflation","Double spending","It made sending huge volumes of email expensive in computing work."],
+["Which statement best defines “proof of work”?","Work that is hard to do but easy for others to check","A receipt from a goldsmith","A government decree","A password that expires","This pattern secures Bitcoin."],
+["How did b-money (1998) propose to create new money?","By doing computing work","By a central bank decision","By digging up gold","By voting at a bank","Wei Dai proposed work-based creation with each person keeping a ledger."],
+["What did Nick Szabo’s bit gold design do with puzzle solutions?","Each solved puzzle became part of a chain and the next puzzle built on it","Each solution was thrown away","They were sent to a bank","They were used to print coins","Chained puzzle solutions resemble Bitcoin’s later chain of blocks."],
+["What weakness did Hal Finney’s RPOW (2004) still have?","It relied on a single trusted server","It could not be signed","It was too slow to run","It used paper","The need for a trusted server meant it did not fully solve the problem."],
+["What is a Sybil attack?","One person pretends to be many people to outvote everyone","A hash that is reversed","A bank run","Sending an email without a stamp","If a system counts one vote per identity, fake identities break it."]
+]
+});
+
+SECTIONS.push({
+n:3,
+title:"Satoshi and the White Paper (2008–2009)",
+sub:"The email that started it all, a walk through all 12 parts of the white paper, and the first blocks.",
+lesson:`
+<div class="callout paper"><p><b>Read the original.</b> The Bitcoin white paper is only nine pages long. It is free and the license lets anyone share it. Open it in a new tab and follow along as you go through this section. The official link is <a href="https://bitcoin.org/bitcoin.pdf" target="_blank" rel="noopener">bitcoin.org/bitcoin.pdf</a>. A copy for this course is also saved as <a href="bitcoin-whitepaper.pdf" target="_blank" rel="noopener">bitcoin-whitepaper.pdf</a> (it opens if the PDF file sits in the same folder as this course).</p></div>
+
+<h3>The world in 2008</h3>
+<p>By the autumn of 2008, the financial world was shaking. Lehman Brothers had failed in September, banks were being rescued, and trust in the money system was low. In that moment, on <b>October 31, 2008</b>, someone using the name <b>Satoshi Nakamoto</b> sent an email to a small cryptography mailing list. The message said Satoshi had been working on a new electronic cash system that was fully peer-to-peer, with no trusted third party. It included a link to a short paper titled <b>“Bitcoin: A Peer-to-Peer Electronic Cash System.”</b></p>
+<p><b>Peer-to-peer</b> means the computers talk directly to each other as equals, without a boss computer in the middle. Think of friends passing notes around a classroom instead of everyone going through the teacher.</p>
+<p>The reaction was mixed. Some list members were curious. Others raised hard questions about whether the design could grow big enough. It was not an instant sensation. It was a quiet start.</p>
+
+<h3>A walk through the white paper, part by part</h3>
+<p>The paper has 12 short parts. Here is each part in plain language.</p>
+<ul>
+<li><b>1. Introduction.</b> Online payments rely on trusted middlemen like banks. That causes fees, delays, and the possibility of reversals and fraud. Satoshi proposes a system based on cryptographic proof instead of trust.</li>
+<li><b>2. Transactions.</b> A coin is a chain of digital signatures. Each owner signs a message passing the coin to the next owner. The problem is that the receiver cannot be sure the previous owner did not spend the same coin somewhere else.</li>
+<li><b>3. Timestamp server.</b> Take a batch of transactions, hash it, and publish the hash widely. Each timestamp includes the one before it, forming a chain.</li>
+<li><b>4. Proof of work.</b> To add a batch to the chain, a computer must find a special number so that the batch’s hash begins with a required number of zeros. It takes lots of tries to find but one quick try to check. Changing an old batch would mean redoing all the work after it. The paper calls this “one-CPU-one-vote,” and the longest chain is the one with the most work behind it.</li>
+<li><b>5. Network.</b> New transactions are broadcast to everyone. Computers called nodes collect them into a block, work on the proof of work, and when one finds it, it shares the block. Other nodes accept it if every transaction is valid and then build the next block on top of it.</li>
+<li><b>6. Incentive.</b> The first transaction in each block creates brand new coins for whoever found the block. Later, transaction fees can also pay them. This gets coins into circulation without a central bank and gives people a reason to play fair.</li>
+<li><b>7. Reclaiming disk space.</b> Old transactions that are buried deep can be dropped to save space while keeping the block fingerprints, using a Merkle tree. The paper estimates that block headers alone would take about 4.2 megabytes of storage per year.</li>
+<li><b>8. Simplified payment verification.</b> A person can check that a payment is in the chain by keeping only the block headers, not the whole history.</li>
+<li><b>9. Combining and splitting value.</b> A transaction can have many inputs and outputs, like paying with several bills and getting change back.</li>
+<li><b>10. Privacy.</b> Everyone can see transactions, but names are not attached. Public keys act like anonymous labels, and using a new key pair for each transaction helps keep identities private.</li>
+<li><b>11. Calculations.</b> This part uses math to show how hard it is for an attacker to rewrite history. The chance falls fast with every extra block. In the paper’s table, an attacker with 10 percent of the computing power has less than a 0.1 percent chance after the payment is 5 blocks deep. With 30 percent of the power, it takes 24 blocks to get below 0.1 percent.</li>
+<li><b>12. Conclusion.</b> The system works without trust, as long as honest nodes control most of the computing power.</li>
+</ul>
+<p>A fun fact: the word “blockchain” never appears in the white paper. Satoshi wrote about a “chain of blocks” and a “proof-of-work chain.” The one-word term came later.</p>
+
+<h3>The Genesis Block: January 3, 2009</h3>
+<p>On <b>January 3, 2009</b>, Satoshi mined the very first block, called the <b>Genesis Block</b> or block 0. The reward was 50 bitcoins, though that first reward cannot be spent. Satoshi buried a message inside this block, a newspaper headline from that day’s London <i>Times</i>: “Chancellor on brink of second bailout for banks.” It was a timestamp that proved the block could not have been made before that date. It was also a pointed reminder of why Bitcoin was invented.</p>
+<p>The Bitcoin software was released to the public around January 8, 2009. At first, only a few people ran it.</p>
+
+<h3>The first payment</h3>
+<p>Hal Finney, the Cypherpunk you met last section, downloaded the software and posted the simple words “Running bitcoin” on January 11, 2009. The next day, January 12, Satoshi sent Hal <b>10 bitcoins</b> in block 170. That was the first Bitcoin payment between two people.</p>
+
+<h3>Who is Satoshi?</h3>
+<p>Nobody knows. The name sounds Japanese, and an online profile once claimed Satoshi was a man born in 1975 living in Japan, but nothing has been proven. Satoshi wrote in excellent English, and the code and messages do not settle the question. Many people have been named as possible Satoshi, and many have denied it. In March 2024, a UK High Court ruled that Craig Wright, who had publicly claimed to be Satoshi, was not. Researchers estimate that Satoshi mined roughly one million bitcoins in the early days. Those coins have never been moved.</p>
+<p>Satoshi stayed active in 2009 and 2010. Then, in April 2011, Satoshi sent a final private email saying they had moved on to other things. A developer named Gavin Andresen became the lead for a time and the project passed to a growing group of volunteers.</p>
+<p>Many fans like the fact that Bitcoin has no founder in charge. Nobody can call Satoshi to change the rules.</p>
+
+<div class="callout"><p><b>Key takeaways.</b> Satoshi announced Bitcoin on October 31, 2008. The white paper has 12 parts and nine pages. The Genesis Block was mined January 3, 2009, with a newspaper headline inside. The first person-to-person payment was 10 bitcoins to Hal Finney on January 12, 2009. Satoshi vanished in 2011 and has never been proven to be any one person.</p></div>
+`,
+q:[
+["On what date did Satoshi announce the Bitcoin paper to the cryptography mailing list?","October 31, 2008","January 3, 2009","September 15, 2008","April 2011","The lesson dates the announcement October 31, 2008."],
+["Why does the lesson compare peer-to-peer to friends passing notes in a classroom?","The computers pass information among equals instead of through a boss in the middle","Each friend works for a bank","Notes are always private","Passing notes is slow and costly","Peer-to-peer means no central referee."],
+["According to the lesson, how did the first reaction on the mailing list go?","Mixed, with some curiosity and some tough questions about scale","Everyone instantly adopted Bitcoin","Everyone laughed at it and ignored it","Banks demanded to buy it","It was a quiet start, not an instant sensation."],
+["The white paper is described as how long?","Nine pages","About 90 pages","One page","About 300 pages","The lesson calls it a short, nine-page paper."],
+["In white paper part 2, what is the main unsolved worry about a chain of signatures?","The receiver cannot be sure the earlier owner did not spend the coin elsewhere","The signatures are too long","The coin might rust","The paper is too short","This is the double-spending problem again."],
+["What does the timestamp server in part 3 do?","Hashes a batch of data and publishes it, with each timestamp including the one before","Prints dollar bills","Locks wallets","Counts electricity use","Each timestamp links to the previous, forming a chain."],
+["In part 4, how hard is it to find the special number compared with checking it?","Many tries to find it, one quick try to check it","One try to find and many to check","Equally hard both ways","Impossible to find","Work is costly to do and cheap to verify."],
+["What does the phrase “one-CPU-one-vote” express?","Voting power comes from computing work, not from identities","Each person gets exactly one account","Only one computer is allowed on the network","A vote is cast by email","Using work blocks the Sybil attack of fake identities."],
+["Which chain does the network treat as the correct one, per part 4?","The longest chain, meaning the one with the most work behind it","The oldest chain","The chain with the fewest transactions","The chain approved by a bank","The chain with the greatest accumulated work wins."],
+["In part 5, what must happen before other nodes accept a new block?","All transactions inside it must be valid","The block must be approved by Satoshi","The block must be printed","Every node must send a fee","Nodes check the transactions and then build on the block."],
+["What two things does part 6 say reward a block creator?","New coins and, later, transaction fees","Gold and silver","Loans and interest","Medals and trophies","The first transaction in each block creates new coins, and fees can also pay them."],
+["What storage estimate does the paper give for block headers in part 7?","About 4.2 megabytes per year","About 4.2 terabytes per year","About 42 gigabytes per day","About 4.2 kilobytes per year","This shows that keeping only headers is very small."],
+["Part 8, simplified payment verification, lets someone do what?","Check a payment using only block headers, without the whole history","Mine blocks without electricity","Send coins without a signature","Remove their name from the chain","This is for lightweight checking."],
+["Which analogy fits part 9, combining and splitting value?","Paying with several bills and getting change back","Sending a letter by post","Trading shells for cattle","Locking a vault","Transactions can have multiple inputs and outputs."],
+["How does part 10 say privacy is kept in a public ledger?","Keys act as anonymous labels, and using a new key pair per transaction helps","Transactions are secret from everyone","Names are written in invisible ink","Only banks see the ledger","Everyone sees transactions but not names."],
+["According to the lesson’s numbers from part 11, how many blocks deep must a payment be for a 10-percent attacker to fall below a 0.1-percent chance?","5","24","1","340","The paper’s table gives 5 blocks at 10 percent and 24 blocks at 30 percent."],
+["What does the trend in part 11 teach about waiting for confirmations?","The more blocks added after your payment, the less likely it can be reversed","Waiting makes no difference","More blocks make an attack easier","Only one block is ever needed","The attacker’s chance drops quickly with each extra block."],
+["Which word does NOT appear in the white paper, according to the lesson?","Blockchain","Chain","Proof-of-work","Peer-to-peer","The lesson says Satoshi used “chain of blocks” instead of the one-word term."],
+["What was hidden inside the Genesis Block?","A headline from the London Times of January 3, 2009","A photo of Satoshi","The white paper","A list of owners","It proved the block could not predate that day and hinted at why Bitcoin was made."],
+["What was special about the 50-bitcoin reward in the Genesis Block?","It cannot be spent","It was sent to Hal Finney","It was burned by the Times","It paid for electricity","The lesson notes that the first reward cannot be spent."],
+["What happened in block 170?","Satoshi sent 10 bitcoins to Hal Finney","The Genesis Block was mined","Bitcoin hit $1","Satoshi disappeared","This was the first person-to-person payment."],
+["Which statement about Satoshi’s identity does the lesson support?","Nobody has proven who Satoshi is, and a UK court in March 2024 ruled one claimant was not Satoshi","Satoshi was confirmed in 2012","Satoshi is a company in Japan","Satoshi still runs Bitcoin","The identity remains unproven."]
+]
+});
+
+SECTIONS.push({
+n:4,
+title:"The Early Years (2009–2013)",
+sub:"From worthless code to the first pizza, the first exchange, the first crash and the first $1,000.",
+lesson:`
+<h3>A price of nothing</h3>
+<p>When Bitcoin started in 2009, it had no price at all. Nobody was selling it, so nobody could say what a bitcoin was worth. People mined it on ordinary home computers, mostly for fun and curiosity. The first published exchange rate came on <b>October 12, 2009</b>, when a website called New Liberty Standard set a rate of <b>1,309.03 bitcoins for one U.S. dollar</b>. They came up with that number by estimating the cost of the electricity a computer used to make bitcoins. In other words, the first price came from the cost of the work, not from a market.</p>
+
+<h3>Bitcoin Pizza Day: May 22, 2010</h3>
+<p>On a forum called Bitcointalk, a programmer in Florida named <b>Laszlo Hanyecz</b> offered 10,000 bitcoins to anyone who would order him pizza. A man known online as Jercos accepted, and two Papa John’s pizzas were delivered. That was the first known time bitcoins were used to buy a real item. At the time the coins were worth about $41. People celebrate May 22 every year as <b>Bitcoin Pizza Day</b>. It is also a famous lesson about patience, because those 10,000 coins later became worth hundreds of millions of dollars, and at the 2025 peak well over a billion.</p>
+
+<h3>The first exchange and the first spike</h3>
+<p>For Bitcoin to have a price, people needed a place to trade it. In July 2010 a website called <b>Mt. Gox</b> turned into a Bitcoin exchange. It began its life as a site for trading cards from the game Magic: The Gathering, and the name stood for “Magic: The Gathering Online eXchange.” A programmer named Jed McCaleb started it and sold it in 2011 to Mark Karpelès. Around the same time, a popular tech news site called Slashdot wrote about Bitcoin, and the price jumped roughly tenfold in a few days from fractions of a cent to several cents. At its peak, Mt. Gox handled most Bitcoin trading in the world. Keep that in mind, because it matters in the next section.</p>
+
+<h3>The 184 billion bitcoin bug: August 15, 2010</h3>
+<p>On <b>August 15, 2010</b>, someone discovered that a bug in the code let a transaction create about <b>184 billion bitcoins</b> out of thin air. The problem was an overflow, like a car odometer that flips back to zero. Within hours, the developers found it, released a fixed version, and the network agreed to throw out the bad block and follow the corrected chain. The bug showed two things. Bitcoin’s software was written by humans and could have mistakes. It also showed that the community could respond fast. The 21 million limit was restored.</p>
+
+<h3>Parity with the dollar: February 2011</h3>
+<p>On <b>February 9, 2011</b>, one bitcoin reached a price of one U.S. dollar for the first time. That same month a hidden website called <b>Silk Road</b> launched on the dark web. It was a marketplace where people sold illegal goods and paid with bitcoin. The site was created by Ross Ulbricht, who used the name “Dread Pirate Roberts.” Silk Road gave Bitcoin a bad reputation and, for a while, a lot of its early demand. The FBI shut it down in October 2013. Ulbricht was sentenced to life in prison in 2015 and received a pardon in January 2025.</p>
+<p>Many people wrongly think Bitcoin was invented for crime. The paper never mentions it, and the public ledger actually makes crime easier to trace than cash. But the early link stuck in the public mind.</p>
+
+<h3>The first big boom and bust: 2011</h3>
+<p>In June 2011, the price rocketed to around $31 as news stories spread. Then Mt. Gox was hacked, and after that the price crashed. By late 2011 a bitcoin was worth only about $2. It had lost about 90 percent of its value. This was the first of many boom-and-bust cycles that Bitcoin would go through. Each time, it survived.</p>
+
+<h3>Building the ecosystem</h3>
+<p>During these years, businesses started to appear. In 2011, <b>BitPay</b> began helping merchants accept Bitcoin. <b>Bitcoin Magazine</b> began publishing in 2011, co-founded by a young writer named Vitalik Buterin, who later created Ethereum. In 2012, <b>Coinbase</b> was founded, and in September 2012 the <b>Bitcoin Foundation</b> was formed to support developers and spread the word.</p>
+
+<h3>The first halving: November 28, 2012</h3>
+<p>Bitcoin’s code says that the reward for finding a new block is cut in half about every four years, or more exactly every 210,000 blocks. This is called the <b>halving</b>. On <b>November 28, 2012</b>, the reward dropped from 50 bitcoins to <b>25 bitcoins</b> per block. A halving slows the speed at which new bitcoins are created, which is one reason Bitcoin is called scarce. It is part of a plan that ends with a cap of 21 million coins.</p>
+
+<h3>2013: Cyprus, $1,000 and China</h3>
+<p>In March 2013, the island nation of Cyprus had a banking crisis. Banks closed for days, and the government took a share of savings above a certain size in some banks. Many people saw that as a lesson about how fragile bank deposits can be, and interest in Bitcoin grew. In April the price shot past $200 and then fell by more than half.</p>
+<p>In October 2013, the first Bitcoin ATM opened in a coffee shop in Vancouver, Canada. In the same month, the FBI shut down Silk Road. In November 2013 the price of one bitcoin crossed <b>$1,000</b> for the first time. Then in December, China’s central bank told financial companies in China not to deal in Bitcoin, and the price dropped sharply. A pattern was forming: big news makes the price jump, bad news makes it crash.</p>
+
+<div class="callout"><p><b>Key takeaways.</b> The first price came from electricity costs in October 2009. Pizza Day was May 22, 2010, with 10,000 coins spent. The 184 billion coin bug of August 15, 2010 was fixed in hours. Bitcoin hit $1 in February 2011 and fell to about $2 after the 2011 crash. The first halving came on November 28, 2012, cutting the reward from 50 to 25. Bitcoin first crossed $1,000 in November 2013.</p></div>
+`,
+q:[
+["The first published exchange rate in October 2009 was based on what?","The estimated cost of the electricity used to make bitcoins","The price of gold","A vote of early users","A bank’s decision","The lesson says the number came from the cost of the work, not from a market."],
+["How many bitcoins was one U.S. dollar worth in that first published rate?","1,309.03","50","10,000","21 million","The rate was about 1,309 bitcoins per dollar."],
+["Why do people tell the Pizza Day story as a lesson about patience?","Those 10,000 coins later became worth hundreds of millions of dollars or more","The pizzas were delivered late","Papa John’s refused the order","The coins were stolen","The story shows the cost of spending an asset that grows."],
+["Who offered 10,000 bitcoins for pizza?","Laszlo Hanyecz, a programmer in Florida","Hal Finney","Jed McCaleb","Ross Ulbricht","Hanyecz posted the offer on the Bitcointalk forum."],
+["What did the name Mt. Gox originally stand for?","Magic: The Gathering Online eXchange","Mountain Gold Exchange","My Trusted Gox","Money Transfer Gox","It was originally a card-trading site."],
+["Who owned Mt. Gox after 2011?","Mark Karpelès","Jed McCaleb","Satoshi Nakamoto","Laszlo Hanyecz","McCaleb sold it to Karpelès."],
+["If a friend says Mt. Gox was just a small side site, what fact from the lesson contradicts that?","At its peak it handled most Bitcoin trading in the world","It never had customers","It was run by the government","It only traded cards","Its size is why its later collapse mattered."],
+["What kind of mistake caused the 184 billion bitcoin bug?","An overflow, like an odometer flipping back to zero","A hacker guessing a password","A power outage","A typo in the white paper","The bug let a transaction create far too many coins."],
+["What did the fix of the August 2010 bug show?","The software could have mistakes and the community could correct them quickly","Bitcoin must be shut down","Satoshi controls the rules","Bitcoin has no limit","The bad block was discarded and the corrected chain was adopted."],
+["What happened on February 9, 2011?","One bitcoin first reached the price of one dollar","The first halving","Silk Road was shut down","Bitcoin Pizza Day","This was called parity with the dollar."],
+["Why does the lesson say Bitcoin was NOT invented for crime?","The white paper never mentions it and the public ledger makes crime easier to trace than cash","Criminals refuse to use computers","Silk Road was legal","Governments created Bitcoin","The early link to Silk Road stuck in the public mind but is not the purpose."],
+["What was the nickname of Silk Road’s creator?","Dread Pirate Roberts","Jercos","Satoshi","The Chancellor","Ross Ulbricht used the name."],
+["What happened to the price between June 2011 and late 2011?","It rose to around $31 and then crashed to about $2","It stayed at $1","It rose to $1,000","It fell to zero and ended","The lesson calls this the first big boom and bust."],
+["Roughly how much value did Bitcoin lose in that crash?","About 90 percent","About 5 percent","About 30 percent","Almost none","From about $31 to about $2 is a loss of around 90 percent."],
+["Which future Ethereum creator helped start Bitcoin Magazine?","Vitalik Buterin","Hal Finney","Nick Szabo","Adam Back","The lesson mentions a young writer named Vitalik Buterin."],
+["What is the halving, as defined in the lesson?","The block reward is cut in half roughly every 210,000 blocks","The price is cut in half every year","Half of all coins are destroyed","Satoshi’s coins are split","This slows the rate of new coin creation."],
+["What did the first halving on November 28, 2012 change?","The reward dropped from 50 to 25 bitcoins per block","The reward rose to 100","The block time doubled","The cap changed to 42 million","It was the first of the scheduled reductions."],
+["How is a halving connected to the idea of scarcity?","It slows the creation of new coins on the way to a fixed cap","It destroys old coins","It lowers fees to zero","It makes mining free","A fixed cap and shrinking issuance are what make Bitcoin scarce."],
+["What was the lesson’s point about the Cyprus crisis of March 2013?","It showed how fragile bank deposits can be and interest in Bitcoin grew","Cyprus banned the internet","Cyprus adopted Bitcoin as law","Cyprus mined the most coins","Savers saw deposits above a certain size taxed in some banks."],
+["Where did the first Bitcoin ATM open in October 2013?","A coffee shop in Vancouver, Canada","A bank in New York","A mall in Tokyo","A gas station in Texas","This is a detail from the lesson."],
+["What did China’s central bank do in December 2013 according to the lesson?","Told financial companies not to deal in Bitcoin, and the price dropped","Bought a million bitcoins","Made Bitcoin legal tender","Created its own white paper","Bad news made the price fall."],
+["Which pairing of event and date is correct?","Silk Road shut down by the FBI in October 2013","Pizza Day in October 2013","First halving in 2009","Genesis Block in 2013","The lesson pairs the FBI action with October 2013."]
+]
+});
+
+SECTIONS.push({
+n:5,
+title:"Growing Pains (2014–2019)",
+sub:"The Mt. Gox collapse, the block size wars, the 2017 boom and the long crypto winter.",
+lesson:`
+<h3>The collapse of Mt. Gox: February 2014</h3>
+<p>By early 2014, the exchange Mt. Gox, which you met last section, was in trouble. Customers were having trouble withdrawing. Mt. Gox halted withdrawals in early February 2014, its website went dark on February 24, and it filed for bankruptcy a few days later. The company said about <b>850,000 bitcoins</b> were missing. About 750,000 of them belonged to customers and about 100,000 belonged to the company. Later, roughly 200,000 coins were found, but most of the rest never came back. At that time, this was an enormous share of all the bitcoins in existence.</p>
+<p>What went wrong? Investigations pointed to a mix of poor security, bad management and theft that went on for years. Mt. Gox’s boss, Mark Karpelès, was later convicted in Japan on a data-manipulation charge in 2019 but cleared of the larger embezzlement charge.</p>
+<p>The price crashed from over $1,000 to a low of about $200 by early 2015. Many people said Bitcoin was dead. But look closely at what actually failed. It was not the Bitcoin network. It was a company that held other people’s coins. This is the origin of a famous saying: <b>“Not your keys, not your coins.”</b> If someone else holds the keys to your bitcoin, you are trusting them, and that is exactly what Bitcoin was designed to avoid.</p>
+
+<h3>The quiet builders</h3>
+<p>From 2014 to 2016, the price moved sideways and the news was gloomy. Meanwhile developers kept working. In July 2015, a younger project called <b>Ethereum</b>, created by Vitalik Buterin and others, went live. It aimed to run small computer programs on a blockchain. That started a whole new world of other cryptocurrencies. On <b>July 9, 2016</b>, Bitcoin had its second halving, and the block reward fell from 25 to <b>12.5 bitcoins</b>.</p>
+
+<h3>The block size wars</h3>
+<p>Early on, Satoshi had put a limit on how big one block could be: about <b>1 megabyte</b>. That kept the network lightweight so ordinary computers could keep up. As more people used Bitcoin, blocks filled up, fees rose, and payments took longer. A bitter fight began about what to do.</p>
+<ul>
+<li><b>The “big block” camp</b> said: make the blocks bigger so more payments fit on the main chain.</li>
+<li><b>The “small block” camp</b> said: bigger blocks will make it too costly for regular people to run nodes, which would make Bitcoin less decentralized. Better to build extra layers on top.</li>
+</ul>
+<p>Between 2015 and 2017, several proposals came and went, including Bitcoin XT and Bitcoin Classic. The fight got personal and loud. It taught people something important about Bitcoin: nobody is in charge. No company or founder could simply decide. Changes only happen if the people running the software agree to run it.</p>
+
+<h3>SegWit and the first big split</h3>
+<p>A compromise upgrade called <b>Segregated Witness</b>, or <b>SegWit</b>, moved signature data into a separate area. This made room for more transactions and fixed a bug called transaction malleability, which made some advanced tools easier to build. SegWit activated on <b>August 24, 2017</b>.</p>
+<p>Not everyone liked this path. On <b>August 1, 2017</b>, a group of big-block supporters split off and created a new coin called <b>Bitcoin Cash</b>, with larger blocks. This kind of split is called a <b>fork</b>. The original chain kept the name Bitcoin (BTC). Anyone who held bitcoins before the split received an equal amount of Bitcoin Cash. Another planned upgrade, called SegWit2x, was canceled in November 2017 when the agreement fell apart.</p>
+
+<h3>The Lightning Network</h3>
+<p>Another answer to the scaling problem came from two researchers, Joseph Poon and Thaddeus Dryja, who published the <b>Lightning Network</b> paper in 2015. The idea: two people open a payment channel by putting some bitcoin on the main chain. After that, they can send each other many tiny payments instantly and almost for free, with only the final result recorded on the main chain. It is like opening a bar tab. You order lots of drinks all night and settle one bill at closing time. Lightning started to go live in 2018.</p>
+
+<h3>The 2017 mania</h3>
+<p>In January 2017 a bitcoin cost about $1,000. By December the price had soared past $19,000. Why? A wave of new coins was sold in <b>ICOs</b>, or initial coin offerings, which let startups raise money by selling new tokens. The news was full of fortunes made overnight. In December 2017, two big U.S. exchanges, Cboe and CME, launched Bitcoin futures, which signaled to many that big finance was paying attention. On <b>December 17, 2017</b> the price peaked near $19,800.</p>
+
+<h3>The crypto winter: 2018</h3>
+<p>Then came the crash. Throughout 2018 the price fell month after month, and by December 2018 it bottomed near <b>$3,200</b>. That was a drop of around 84 percent from the peak. Many ICO projects turned out to be scams or went broke. People called this period a <b>crypto winter</b>. Even so, the network kept producing a block every ten minutes, without missing a beat.</p>
+
+<h3>2019: a slow thaw</h3>
+<p>Prices recovered partway in 2019, reaching nearly $14,000 in June before sliding back. In June 2019, the social media giant Facebook announced a plan for its own digital currency, Libra. Governments around the world suddenly started paying much closer attention to digital money. Libra never launched in the form first announced, but it made regulators think hard about cryptocurrencies.</p>
+
+<h3>What the pattern teaches</h3>
+<p>Look at the whole stretch from 2009 to 2019. Prices swung wildly. Companies failed. Experts called Bitcoin dead many times. Yet each time, the network kept running and the number of builders grew. A good habit for new learners is to separate the <b>price</b> from the <b>network</b>. The price is a mood. The network is a machine.</p>
+
+<div class="callout"><p><b>Key takeaways.</b> Mt. Gox stopped withdrawals in February 2014, and about 850,000 bitcoins went missing. The second halving was on July 9, 2016. The block size debate showed that nobody is in charge. SegWit activated on August 24, 2017, and Bitcoin Cash split off on August 1, 2017. Lightning offers fast, cheap payments. The price peaked near $19,800 in December 2017 and fell to about $3,200 by December 2018.</p></div>
+`,
+q:[
+["When Mt. Gox stopped withdrawals in February 2014, roughly how many bitcoins did the company say were missing?","About 850,000","About 8,500","About 85 million","About 21 million","About 750,000 were customers’ coins and about 100,000 were the company’s own."],
+["The lesson stresses that what actually failed in the Mt. Gox disaster was not the Bitcoin network. What was it?","A company that held other people’s coins","The proof-of-work puzzle","The 21 million limit","The Genesis Block","The lesson separates the company’s failure from the network’s survival."],
+["Which saying grew out of the Mt. Gox story?","Not your keys, not your coins","Buy low, sell high","Trust the middleman","The blockchain never forgets","If someone else holds your keys, you are trusting them."],
+["How low did the price fall after the 2014 crash, according to the lesson?","About $200","About $2","About $20,000","About $3,200","The price dropped from over $1,000 to about $200 by early 2015."],
+["What was Ethereum designed to do, according to the lesson?","Run small computer programs on a blockchain","Replace the Federal Reserve","Fix the Mt. Gox bug","Cut the Bitcoin supply","It started a whole new world of other cryptocurrencies."],
+["What was the block reward after the second halving on July 9, 2016?","12.5 bitcoins","25 bitcoins","6.25 bitcoins","50 bitcoins","The reward fell from 25 to 12.5."],
+["Why had Satoshi put a block size limit of about 1 megabyte in place?","To keep the network light enough for ordinary computers to keep up","To make Bitcoin illegal","To raise fees","To stop mining","A small limit keeps node costs low."],
+["Which argument belonged to the “small block” camp?","Bigger blocks would make it too costly for regular people to run nodes","Block size should be unlimited so fees stay at zero","Bitcoin should be run by one company","Block size does not matter at all","They worried about decentralization and preferred building layers on top."],
+["What did the block size wars teach about Bitcoin?","Nobody is in charge, so changes only happen if people running the software agree","The founder decides everything","The government sets the rules","Exchanges vote on each rule","The fight was loud because no one could simply order a change."],
+["What did SegWit do?","Moved signature data to a separate area, making room for more transactions","Doubled the 21 million cap","Banned fees","Removed the proof of work","It also fixed a bug called transaction malleability."],
+["On what date did SegWit activate?","August 24, 2017","August 1, 2017","July 9, 2016","December 17, 2017","The date is in the lesson."],
+["On what date did Bitcoin Cash split from Bitcoin?","August 1, 2017","August 24, 2017","November 2017","June 2019","The lesson places the split earlier than SegWit’s activation."],
+["What is a fork, as described in the lesson?","A split where a group follows different rules and creates a separate chain","A type of mining chip","A hash function","A wallet backup","Bitcoin Cash was a hard fork from Bitcoin."],
+["If you held 2 bitcoins right before the August 1, 2017 split, what did you receive?","An equal amount of Bitcoin Cash","Nothing","Ten times as many bitcoins","A refund from Mt. Gox","Holders received the same amount of the new coin."],
+["What happened to SegWit2x?","It was canceled in November 2017 when the agreement fell apart","It was adopted in 2018","It created Ethereum","It lowered the supply","The lesson says it was canceled."],
+["The lesson compares the Lightning Network to which everyday situation?","Opening a bar tab and paying one bill at closing time","Mailing a letter","Buying a house","Printing a ticket","Many small payments happen off the main chain and settle later."],
+["Who published the Lightning Network paper in 2015?","Joseph Poon and Thaddeus Dryja","Vitalik Buterin and Mark Karpelès","Hal Finney and Nick Szabo","Adam Back and Wei Dai","The lesson names Poon and Dryja."],
+["What is an ICO, as explained in the lesson?","A way for startups to raise money by selling new tokens","A kind of Bitcoin halving","A bank loan","A type of wallet","ICOs were a big part of the 2017 mania."],
+["Which two exchanges launched Bitcoin futures in December 2017?","Cboe and CME","Nasdaq and Mt. Gox","Coinbase and BitPay","Ethereum and Libra","This signaled that big finance was paying attention."],
+["Roughly what percentage did the price fall from the December 2017 peak to the December 2018 low?","Around 84 percent","Around 10 percent","Around 40 percent","Around 99 percent","From about $19,800 to about $3,200 is a drop of roughly 84 percent."],
+["Why did the Libra announcement in June 2019 matter for Bitcoin even though Libra never launched as planned?","It made governments pay much closer attention to digital money","It raised the Bitcoin supply","It replaced the Lightning Network","It was written by Satoshi","Regulators started to think hard about cryptocurrencies."],
+["What habit does the lesson recommend to new learners?","Separate the price, which is a mood, from the network, which is a machine","Check the price every hour","Ignore the price and the network","Trust only exchanges","The network kept producing blocks while the price swung."]
+]
+});
+
+SECTIONS.push({
+n:6,
+title:"Wall Street Walks In (2020–2026)",
+sub:"Pandemic money, companies and countries buying bitcoin, big collapses, ETFs and the road to $126,000.",
+lesson:`
+<h3>2020: a crash and a new story</h3>
+<p>In March 2020, the COVID-19 pandemic shook markets all over the world. On <b>March 12, 2020</b>, often called Black Thursday, nearly everything sold off at once, and Bitcoin dropped about half in a day or so, to below $4,000. Then governments and central banks responded with huge amounts of new money and low interest rates. That fueled a new story: if governments can create so much money so quickly, maybe a scarce asset like Bitcoin is a good place to keep savings.</p>
+<p>On <b>May 11, 2020</b>, Bitcoin had its third halving, which cut the block reward from 12.5 to <b>6.25 bitcoins</b>.</p>
+
+<h3>Companies start buying</h3>
+<p>In August 2020, a software company called MicroStrategy, led by Michael Saylor, did something new. It put about $250 million of its cash into bitcoin, buying 21,454 coins, and kept buying afterward. In October 2020, the payment company PayPal said its users could buy and sell crypto. In February 2021, the car company Tesla announced a $1.5 billion bitcoin purchase. And in April 2021, the exchange Coinbase became a public company on the Nasdaq stock market. Bitcoin was no longer just a hobby for tech fans.</p>
+
+<h3>China bans mining, and Bitcoin shrugs</h3>
+<p>In mid-2021, China ordered a ban on Bitcoin mining within its borders. China had been home to a large share of the world’s mining machines. The network’s total computing power, called the <b>hash rate</b>, dropped sharply. But the machines moved to other countries, including the United States and Kazakhstan, and the hash rate recovered within months. This was a real-life test: a major government tried to stop Bitcoin, and the network kept going.</p>
+
+<h3>El Salvador makes Bitcoin legal tender</h3>
+<p>On <b>September 7, 2021</b>, El Salvador became the first country to make Bitcoin legal tender, which means businesses had to be ready to accept it alongside the U.S. dollar. The government launched a digital wallet called Chivo and gave citizens a $30 bonus to try it. The idea was to lower the cost of sending money home from relatives abroad. The move was controversial. In January 2025, as part of an agreement with the International Monetary Fund, El Salvador changed the law so private businesses are no longer forced to accept Bitcoin, though the government kept its own holdings.</p>
+
+<h3>The 2021 peak and Taproot</h3>
+<p>On <b>November 10, 2021</b>, the price reached a new record of about $68,800. A few days later, on November 14, a software upgrade called <b>Taproot</b> went live. It improved privacy and made complicated transactions more efficient. It was the biggest upgrade since SegWit.</p>
+
+<h3>2022: the great collapse of the middlemen</h3>
+<p>In 2022, the whole crypto world went through a painful year, and most of the damage came from companies, not from Bitcoin itself.</p>
+<ul>
+<li><b>May 2022: Terra and Luna.</b> A so-called stablecoin named UST lost its link to the dollar and crashed, and its sister coin Luna went to nearly zero. Roughly forty billion dollars of value vanished.</li>
+<li><b>Summer 2022: Celsius and Three Arrows Capital.</b> Lenders and funds that had taken huge risks went bankrupt.</li>
+<li><b>November 2022: FTX.</b> FTX was one of the biggest exchanges, run by Sam Bankman-Fried. It filed for bankruptcy on November 11, 2022, after it was revealed that customer money had been used for other purposes. Bankman-Fried was convicted of fraud in November 2023 and later sentenced to 25 years in prison.</li>
+</ul>
+<p>The price of bitcoin fell to around $15,500, roughly 77 percent below the peak. Once again, “not your keys, not your coins” was proven right. People who kept their own coins did not lose them in these bankruptcies. People who left coins on these platforms often did.</p>
+
+<h3>2024: the ETFs arrive</h3>
+<p>An <b>ETF</b>, or exchange-traded fund, is an investment that you buy and sell through a normal brokerage account, like a stock. A <b>spot Bitcoin ETF</b> holds real bitcoin behind the scenes, and each share represents a slice of it. For years the U.S. Securities and Exchange Commission (SEC) said no. On <b>January 10, 2024</b>, the SEC approved a group of spot Bitcoin ETFs, and they began trading the next day. Large firms like BlackRock offered them, and billions of dollars poured in quickly. The trade-off is that ETF owners do not hold the keys. They hold shares that track the price.</p>
+<p>On <b>April 20, 2024</b>, the fourth halving cut the reward to <b>3.125 bitcoins</b>. On December 5, 2024, the price crossed <b>$100,000</b> for the first time.</p>
+
+<h3>2025: the Strategic Bitcoin Reserve and a new record</h3>
+<p>On <b>March 6, 2025</b>, the U.S. president signed an executive order creating a <b>Strategic Bitcoin Reserve</b>, built from bitcoin that the government had already taken in criminal cases. It was a symbolic step: a major government was saying it would keep bitcoin, not sell it. On <b>October 6, 2025</b>, the price set an all-time high of about <b>$126,198</b>.</p>
+<p>Only days later, on October 10, a market shock wiped out around $19 billion in borrowed-money bets in a single day. The price then slid through the end of the year.</p>
+
+<h3>2026: another reminder</h3>
+<p>Through 2026 the price kept sliding, falling to the neighborhood of $58,000 to $62,000 by mid-year, about half of the October 2025 record. In early November 2026, it was trading in the high $70,000s. Prices change daily, so always look up a live price instead of trusting a number in a course. What does not change is the pattern: Bitcoin has had several drops of 50 percent or more and then recovered to new highs each time so far. That is history, not a promise. The next halving is expected around April 2028, when the reward will drop to 1.5625 bitcoins.</p>
+
+<div class="callout"><p><b>Key takeaways.</b> The third halving was on May 11, 2020. MicroStrategy and Tesla made companies buying bitcoin normal. China’s 2021 mining ban did not stop the network. El Salvador’s law took effect on September 7, 2021. FTX failed in November 2022. Spot ETFs were approved on January 10, 2024. The fourth halving was April 20, 2024. The all-time high was about $126,198 on October 6, 2025. Past performance is not a promise of future results.</p></div>
+`,
+q:[
+["What happened to Bitcoin on March 12, 2020, often called Black Thursday?","It dropped about half in a day or so, to below $4,000","It hit a new record of $20,000","It was banned in Europe","It had its third halving","The pandemic sell-off hit almost every market."],
+["What new story took hold after governments created huge amounts of money in 2020?","A scarce asset like Bitcoin could be a place to keep savings","Gold had stopped existing","Banks would stop lending","Bitcoin supply would double","The argument is about scarcity versus money creation."],
+["What was the block reward after the third halving on May 11, 2020?","6.25 bitcoins","12.5 bitcoins","3.125 bitcoins","25 bitcoins","The reward was cut in half from 12.5."],
+["How many bitcoins did MicroStrategy buy in its first purchase in August 2020?","21,454","1.5 billion","250","10,000","The lesson says about $250 million bought 21,454 coins."],
+["Which company announced a $1.5 billion bitcoin purchase in February 2021?","Tesla","PayPal","Coinbase","MicroStrategy","Tesla’s announcement was among the big corporate moves."],
+["Why was Coinbase’s April 2021 listing on the Nasdaq a milestone?","It showed Bitcoin businesses had joined the regular stock market","It created Bitcoin","It paid for Mt. Gox losses","It ended the halving","It signaled mainstream acceptance."],
+["What is the “hash rate”?","The total computing power working on the network","The price in dollars","The number of wallets","The fee for each payment","China’s ban caused it to drop sharply before it recovered."],
+["What did the aftermath of China’s 2021 mining ban test?","Whether a major government could stop the network","Whether banks would open on weekends","Whether the halving would happen","Whether the white paper was true","The machines moved elsewhere and the hash rate recovered."],
+["What made El Salvador’s September 7, 2021 law notable?","It was the first country to make Bitcoin legal tender","It created Bitcoin","It banned all banks","It mined the first block","The lesson says it was the first."],
+["What did El Salvador change in January 2025?","Private businesses were no longer forced to accept Bitcoin","It banned Bitcoin","It doubled the Chivo bonus","It created a new halving","This came with an agreement with the International Monetary Fund."],
+["What was Taproot?","A software upgrade in November 2021 that improved privacy and efficiency","A fund approved by the SEC","A halving","A new exchange","It was the biggest upgrade since SegWit."],
+["What happened in May 2022 in the Terra and Luna collapse?","The stablecoin UST lost its link to the dollar and Luna went to nearly zero","The Bitcoin network stopped","The SEC approved ETFs","China banned mining","About forty billion dollars of value vanished."],
+["The lesson says most damage in 2022 came from what?","Companies, not Bitcoin itself","The Bitcoin code","The halving","Miners","FTX, Celsius and others were middlemen."],
+["On what date did FTX file for bankruptcy?","November 11, 2022","November 10, 2021","January 10, 2024","May 2022","FTX filed after revelations that customer money was misused."],
+["How low did Bitcoin fall in 2022, and about how far below the 2021 peak was that?","Around $15,500, about 77 percent below the peak","Around $3,200, about 84 percent below the peak","Around $1,000, about 99 percent below","Around $60,000, about 10 percent below","The lesson gives the 2022 low as around $15,500."],
+["Why does the 2022 story support the saying “not your keys, not your coins”?","People who held their own coins did not lose them in the bankruptcies, while many who left coins on platforms did","The price rose for those who used exchanges","Every wallet was frozen","Keys were stolen from all users","Self-custody protected people from the failing companies."],
+["What does a spot Bitcoin ETF hold?","Real bitcoin behind the scenes, with shares representing a slice","Only paper contracts with no bitcoin","Dollars","Gold","Spot means it holds the actual asset."],
+["What is the main trade-off for an ETF owner described in the lesson?","They do not hold the keys; they hold shares that track the price","They pay no fees","They can mine","They can send coins to anyone","ETF owners have price exposure without self-custody."],
+["On what date did the SEC approve the group of spot Bitcoin ETFs?","January 10, 2024","March 6, 2025","April 20, 2024","October 6, 2025","They started trading the next day."],
+["What was the block reward after the fourth halving?","3.125 bitcoins","6.25 bitcoins","1.5625 bitcoins","12.5 bitcoins","The April 20, 2024 halving cut the reward in half again."],
+["What did the March 6, 2025 executive order create, and what was it made of?","A Strategic Bitcoin Reserve built from bitcoin the government already took in criminal cases","A reserve funded by a new tax","A national mining company","A ban on exchanges","It was symbolic: the plan was to keep bitcoin rather than sell it."],
+["Which statement about the price in 2025 and 2026 does the lesson support?","It set a record near $126,198 on October 6, 2025 and then slid, reaching about half that by mid-2026","It never rose above $100,000","It rose every month from 2025 to 2026","It was fixed by the government","The lesson also tells you to check a live price instead of trusting a number in a course."]
+]
+});
+
+SECTIONS.push({
+n:7,
+title:"How Bitcoin Works, Part 1: Keys, Wallets and Transactions",
+sub:"What you really own, how a payment is built, and why fees depend on size and not on amount.",
+lesson:`
+<h3>Bitcoin is a ledger, not a pile of coins</h3>
+<p>Many people picture bitcoin as little gold coins sitting inside a phone. That picture is wrong, and it causes lots of confusion. Bitcoin is a shared <b>ledger</b>: a public list that records who can spend what. There are no files to copy. Your “coins” are entries on that list. What you really hold is the power to unlock those entries, and that power comes from a secret.</p>
+
+<h3>Units: bitcoins and satoshis</h3>
+<p>You do not need to own a whole bitcoin. A bitcoin splits into 100 million tiny pieces. The smallest piece is called a <b>satoshi</b>, or “sat” for short. So <b>1 bitcoin = 100,000,000 satoshis</b>. If bitcoin costs $80,000, one satoshi is worth less than a tenth of a cent. People often buy a small amount, like $20 worth, and that is perfectly fine.</p>
+
+<h3>Private keys, public keys and addresses</h3>
+<p>When you create a Bitcoin wallet, your device makes a <b>private key</b>. It is a giant random number. It is so big that the number of possibilities is on the same enormous scale as the number of atoms in the universe, which is why nobody can guess one. From the private key, math produces a <b>public key</b>. From the public key, more math produces an <b>address</b>, which looks like a long string such as one starting with “bc1.” The math works in one direction only. You can go from private key to address, but nobody can go backward from an address to your private key.</p>
+<p>Here is a good comparison. Your <b>address</b> is like your email address: you can give it to anyone who wants to send you something. Your <b>private key</b> is like your email password, except that there is no “forgot password” button and no company to call. Whoever has the private key controls the money.</p>
+
+<h3>What a wallet really is</h3>
+<p>A <b>wallet</b> is not a container of coins. It is a keychain. It stores your private keys, makes new addresses, and builds and signs transactions. The coins themselves always stay on the blockchain.</p>
+<p>To make life easier, modern wallets create all your keys from one list of 12 or 24 ordinary words called a <b>seed phrase</b> or recovery phrase. The words come from a standard list of 2,048 words. If your phone breaks, you can type the words into a new wallet and all your keys come back. That is also why anyone who finds your words can take everything. We will talk about how to protect them in Section 9.</p>
+
+<h3>The anatomy of a transaction</h3>
+<p>A Bitcoin payment is a message that says: “I am taking these specific pieces of money that I own, and I am giving them to these new owners.” It has three main parts.</p>
+<ul>
+<li><b>Inputs.</b> These point to earlier payments that sent money to you and that you have not spent yet. They are called unspent transaction outputs, or <b>UTXOs</b>. Think of each one as a bill or a coin in your pocket.</li>
+<li><b>Outputs.</b> These say how much goes to which new addresses.</li>
+<li><b>Signatures.</b> You sign with your private key to prove you are allowed to spend those inputs.</li>
+</ul>
+<p>Here is the rule that surprises beginners: an input must be spent <i>entirely</i>. It is like paying for a $3 snack with a $5 bill. The cashier cannot tear the bill. You hand over the whole $5 and receive $2 in change. In Bitcoin, the “change” is sent back to a new address that you control.</p>
+
+<h3>A worked example</h3>
+<p>Maya has one UTXO worth 0.005 bitcoin. She wants to pay her friend Jordan 0.003 bitcoin. She sets a fee of 0.0001 bitcoin. Her wallet builds a transaction with one input of 0.005. It has two outputs: 0.003 to Jordan and 0.0019 back to Maya as change. If you add those up, 0.003 + 0.0019 = 0.0049. The missing 0.0001 is the fee. That leftover amount is picked up by the miner who includes the transaction in a block.</p>
+
+<h3>How fees really work</h3>
+<p>The fee is not a percentage of the amount. It depends on how much space the transaction takes up in a block, measured in bytes. A transaction with many inputs is larger and costs more. Sending $10 or $10 million takes roughly the same room if the shape is the same, so it costs roughly the same fee. When the network is busy, people bid higher fees to get into the next block first, a bit like paying for express shipping.</p>
+
+<h3>From your wallet to the blockchain</h3>
+<ol>
+<li>Your wallet builds and signs the transaction.</li>
+<li>It sends the transaction to a few nodes, which check it and pass it on to their neighbors. In a few seconds most of the network has heard about it.</li>
+<li>Each node checks the rules: Are the signatures valid? Do the inputs really exist and are they still unspent? Do the outputs add up to no more than the inputs? A transaction that breaks a rule is thrown out.</li>
+<li>Valid transactions wait in a place called the <b>mempool</b>, short for memory pool. It is a waiting room. Miners usually pick the ones with the best fee for their size first.</li>
+<li>A miner places your transaction in a block. That is your first <b>confirmation</b>. Each new block built on top adds another confirmation.</li>
+</ol>
+<p>For small payments, people often accept one confirmation. For large amounts, many wait for six confirmations, which takes about an hour. This works because every extra block makes it much harder to rewrite, just like part 11 of the white paper showed.</p>
+
+<h3>How double spending is stopped</h3>
+<p>Remember the puzzle from Section 1? Here is the answer. If Maya tries to send the same UTXO to Jordan and to someone else, the network accepts only the first one it sees get confirmed. The second is rejected because its input is already spent. No bank is needed. The ledger itself, which everyone can check, is the referee.</p>
+
+<h3>Public, but not by name</h3>
+<p>Every transaction is visible to everyone forever. But addresses are not labeled with names. This is called <b>pseudonymous</b>, meaning it is like writing under a pen name. If someone learns that an address is yours, they can follow your history. That is why privacy-minded people use a fresh address for each payment, which most wallets do automatically.</p>
+
+<h3>Payments cannot be reversed</h3>
+<p>Once a Bitcoin transaction is buried under several blocks, it is final. There is no chargeback button and no customer service desk. That is good for stopping fraud against sellers, but it means you must double-check every address before you send.</p>
+
+<div class="callout"><p><b>Key takeaways.</b> Bitcoin is a ledger, and a wallet is a keychain. 1 bitcoin equals 100 million satoshis. A seed phrase of 12 or 24 words can rebuild all your keys. Transactions have inputs, outputs and signatures, and inputs are spent whole with change returned to you. Fees depend on size, not amount. Confirmations make payments harder to reverse over time.</p></div>
+`,
+q:[
+["Why does the lesson say the “little gold coins inside a phone” picture is wrong?","Bitcoin is a shared ledger, and a wallet holds keys, not coins","Phones are too small","Gold cannot be digital","Coins are stored by banks","The coins are entries on the ledger; you hold the power to unlock them."],
+["How many satoshis make up one bitcoin?","100,000,000","21,000,000","1,000","2,048","One satoshi is the smallest unit."],
+["If bitcoin costs $80,000, one satoshi is worth about what?","Less than a tenth of a cent","About a dollar","About $80","About a thousand dollars","80,000 dollars divided by 100 million is 0.0008 dollars."],
+["What comes first when your wallet creates your keys?","A private key, which produces the public key and then the address","An address, which produces the private key","A seed phrase from a bank","A public key from the miners","The math goes in one direction from private key to address."],
+["Why can nobody guess a private key?","It is a giant random number with a number of possibilities on the same scale as the atoms in the universe","It is changed every minute","It is stored by the government","It is only three digits","The size of the space of possible numbers makes guessing hopeless."],
+["Which is the best comparison for an address?","An email address you can share so people can send you something","An email password","A bank vault","A seed phrase","Your private key is the password."],
+["There is no “forgot password” button for a private key. What is the main consequence?","Whoever has the key controls the money, and you cannot recover it without your backup","The bank can reset it for you","Satoshi can reset it","Miners can restore it","No company stands behind it."],
+["According to the lesson, what does a wallet actually store?","Your keys","Your coins","Your bank account","The whole blockchain","The coins stay on the blockchain."],
+["How many words are in the standard list that seed phrases come from?","2,048","12","24","21 million","Seed phrases of 12 or 24 words are chosen from a list of 2,048."],
+["If your phone breaks, what lets you restore your wallet?","Typing your seed phrase into a new wallet","Calling the miners","Asking the government","Mailing the phone to Satoshi","The words regenerate all your keys."],
+["What does UTXO stand for in the lesson?","Unspent transaction output","Universal transfer exchange operation","Unique token exchange order","Unconfirmed transaction offer","Think of it as a bill in your pocket."],
+["Why does a wallet send change back to you?","Each input must be spent whole, like paying a $3 snack with a $5 bill","Banks require it","Miners keep change as a tip","Change prevents hacking","The input cannot be torn, so the extra returns to a new address."],
+["In Maya’s example, she has one UTXO of 0.005 and sends 0.003 to Jordan with a fee of 0.0001. How much change goes back to Maya?","0.0019","0.002","0.0021","0.0001","0.005 minus 0.003 minus 0.0001 equals 0.0019."],
+["Who receives the fee amount in Maya’s example?","The miner who includes the transaction in a block","Jordan","Maya’s wallet company","Satoshi","The leftover amount is picked up by the miner."],
+["Two transactions each send the same amount. One has 1 input, the other has 6 inputs. Which statement is right?","The 6-input transaction is larger in bytes and tends to cost a higher fee","They cost exactly the same","The 1-input one always costs more","Fees depend only on how rich you are","Fees depend on size in bytes."],
+["Why do fees usually not depend on how much money you send?","Fees are based on how much block space the data uses, not on the amount","Banks set fees by percent","Miners cannot see amounts","Amounts are secret","Sending $10 or $10 million takes about the same room."],
+["Where do valid transactions wait before a miner includes them?","The mempool","The vault","The seed list","The exchange","The mempool is like a waiting room."],
+["What is a confirmation?","A block that includes your transaction, plus each block built on top","An email from your bank","A signature from Satoshi","A seed phrase check","Each extra block adds another."],
+["Why do many people wait for about six confirmations for large payments?","Each additional block makes reversal far harder, and six takes roughly an hour","Six is a legal requirement","Six blocks give you a refund","Six confirmations unlock the wallet","This links to the white paper’s math."],
+["A seller receives two conflicting transactions that spend the same UTXO. What does the network do?","Accepts only the one that gets confirmed first and rejects the other","Accepts both","Cancels the sellers account","Asks a bank to decide","The ledger acts as the referee."],
+["What does “pseudonymous” mean for Bitcoin?","Transactions are public but addresses are not labeled with real names","Transactions are completely private","Transactions are only visible to banks","Names are required on every transaction","It is like writing under a pen name."],
+["Why must you double-check an address before sending?","Confirmed transactions are final, with no chargeback","The fee will be refunded","The miners can fix mistakes for free","Your seed phrase will cancel it","Finality is both a strength and a risk."]
+]
+});
+
+SECTIONS.push({
+n:8,
+title:"How Bitcoin Works, Part 2: Blocks, Mining and Nodes",
+sub:"The chain of fingerprints, the guessing game called mining, the 21 million cap and who really enforces the rules.",
+lesson:`
+<h3>Inside a block</h3>
+<p>A <b>block</b> is a page in the ledger. It holds a batch of transactions, plus a small header on top. The header has a few key items: the fingerprint (hash) of the previous block, a fingerprint that summarizes all the transactions inside, a timestamp, a number that sets the difficulty, and a free number called the <b>nonce</b>. Nonce is short for “number used once,” and it is the number miners change over and over while they work.</p>
+<p>The most important item is the link to the previous block. Because each block contains the fingerprint of the one before it, the blocks form a chain. Suppose someone changes a single transaction in an old block. That block’s fingerprint changes completely. The next block no longer matches, and neither does the one after that. To hide the change, the cheater would have to redo the work for that block and every block after it, while the honest network keeps adding new ones. That is why old history is almost impossible to rewrite.</p>
+<p>A new block is added about every <b>10 minutes</b> on average. The word average matters. Sometimes two blocks come within a minute, and sometimes it takes an hour. That is the nature of luck.</p>
+
+<h3>What mining actually is</h3>
+<p><b>Mining</b> is a giant guessing game, and it works like this.</p>
+<ol>
+<li>A miner gathers transactions from the mempool and bundles them into a candidate block. The first transaction is special: it pays the miner the reward.</li>
+<li>The miner runs the block header through the SHA-256 hash recipe. The result is a fingerprint.</li>
+<li>The network has a target. The fingerprint must be lower than that target, which in practice means it must begin with a long string of zeros.</li>
+<li>Nobody can predict a fingerprint. So the miner changes the nonce, hashes again, and checks again. And again. Today’s machines do this hundreds of trillions of times per second.</li>
+<li>When one miner finally hits a fingerprint below the target, they broadcast the block. Every other computer can check the answer with one quick hash.</li>
+</ol>
+<p>A good comparison is rolling dice until you get a number lower than a very low target. There is no shortcut and no trick. The only way to win more often is to roll more dice, which means using more computing power and more electricity. That cost is the “work” in <b>proof of work</b>. The work is the proof that someone really spent effort on this block.</p>
+
+<h3>The difficulty adjustment</h3>
+<p>What if lots of new machines join and blocks start coming every 2 minutes? Bitcoin handles it automatically. Every <b>2,016 blocks</b>, which is about two weeks (2,016 × 10 minutes = 14 days), the network checks how long those blocks took. If they came too fast, the target is made harder. If they came too slow, the target is made easier. This keeps the pace near 10 minutes no matter how much computing power joins or leaves. It is a thermostat for the whole network.</p>
+
+<h3>Mining machines and pools</h3>
+<p>In 2009 you could mine with a home computer. Then people used graphics cards. Around 2013, companies created chips built only for the job, called <b>ASICs</b>, which stands for application-specific integrated circuits. They are incredibly fast at one task and useless for anything else. The whole network’s combined speed is the <b>hash rate</b>.</p>
+<p>Because winning a block alone is like winning a lottery, many miners join <b>pools</b>. A pool combines everyone’s power and splits the rewards in proportion. That makes income steadier.</p>
+
+<h3>The reward and the 21 million cap</h3>
+<p>A miner who wins a block collects two things: the <b>block subsidy</b> (new bitcoins) and all the transaction fees in that block. The subsidy gets cut in half every <b>210,000 blocks</b>, roughly every four years.</p>
+<ul>
+<li>2009: 50 bitcoins per block</li>
+<li>2012: 25</li>
+<li>2016: 12.5</li>
+<li>2020: 6.25</li>
+<li>2024: 3.125</li>
+<li>Around 2028: 1.5625</li>
+</ul>
+<p>Do the math for the first stretch: 210,000 blocks × 50 coins = 10.5 million bitcoins. That is already half of all bitcoins that will ever exist. Each period creates half as many as the one before, and the total approaches <b>21 million</b>. The last tiny fraction will be mined around the year 2140. After that, miners will be paid only by fees. As of this writing, more than 20 million bitcoins have already been mined.</p>
+<p>Note: the 21 million cap is not a law of a government. It is a rule inside the software that every node enforces.</p>
+
+<h3>Nodes: the referees</h3>
+<p>A <b>node</b> is a computer running Bitcoin software. A <b>full node</b> downloads the whole blockchain and checks every rule for itself: Are the signatures real? Has any coin been spent twice? Is the block reward correct? Is the proof of work valid? If anything is wrong, the node rejects the block, even if a miner spent huge amounts to make it.</p>
+<p>So here is the division of jobs. <b>Miners propose blocks. Nodes judge them.</b> A miner who tried to pay themselves 100 bitcoins instead of the allowed amount would waste their electricity, because every node would throw the block away. Thousands of independent nodes around the world keep the rules honest. Anyone can run one, even on a small home computer.</p>
+
+<h3>Agreeing on one history</h3>
+<p>Sometimes two miners find a block at almost the same moment. For a short time, part of the network sees one block and part sees the other. This is a temporary split. It is solved when the next block is found. Nodes follow the chain with the most accumulated work, and the losing block is dropped as a <b>stale block</b>. This is why more confirmations mean more safety. A transaction in a stale block simply goes back to waiting.</p>
+
+<h3>The 51 percent attack</h3>
+<p>What if one group controlled more than half of all the mining power? They could briefly out-build the honest miners. This is called a <b>51 percent attack</b>. They could reverse their own recent payments and block certain transactions. But look at what they still could not do. They could not steal coins from other people, because they do not have the private keys. They could not create extra coins beyond the rules, because nodes would reject the blocks. They could not change the rules. And the attack would be extremely expensive. Attackers would need to buy or rent a gigantic amount of machines and electricity. If it succeeded, trust in Bitcoin might fall, so the value of anything they held would fall too.</p>
+
+<h3>The energy question</h3>
+<p>Mining uses a lot of electricity, and critics call that wasteful. Supporters argue that the energy is what secures the network, the way guards and vaults cost money for a bank. They also point out that miners look for the cheapest power, which often means leftover or surplus energy that would otherwise go unused. This debate is ongoing, and a thoughtful learner should know both sides.</p>
+
+<div class="callout"><p><b>Key takeaways.</b> Blocks link by fingerprints, so the past is nearly impossible to alter. Mining is a guessing game that costs real energy. Difficulty resets every 2,016 blocks to keep a 10-minute pace. Halvings occur every 210,000 blocks and the cap is 21 million. Miners propose blocks and nodes judge them. A 51 percent attack is costly and still cannot steal coins or break the rules.</p></div>
+`,
+q:[
+["What is the nonce?","A free number that miners change over and over while hashing the block header","The fingerprint of the previous block","The block reward","The amount of the fee","Nonce means “number used once.”"],
+["Why does changing one old transaction break the chain from that block onward?","The block’s fingerprint changes, so every later block no longer matches","The miners delete the later blocks","The nodes run out of space","The nonce resets to zero","Each block holds the fingerprint of the one before it."],
+["The lesson says a block arrives about every 10 minutes. What does the word “average” warn you about?","Some blocks come in a minute and others take an hour","Blocks come exactly on the clock","Blocks never exceed 10 minutes","Blocks stop at night","Luck makes the timing uneven."],
+["In step 3 of mining, what must the fingerprint be to win?","Lower than the network’s target, which means it begins with many zeros","Equal to the previous fingerprint","Larger than the target","Exactly 10 characters long","The target defines a very low number."],
+["Why can miners not use a shortcut to find a winning nonce?","Fingerprints cannot be predicted, so they must keep guessing","Nodes give out answers","The answer is posted on a website","The reward is fixed","The only way to win more often is more computing power."],
+["Which part of mining is called the “work” in proof of work?","The computing effort and electricity spent making guesses","The writing of the white paper","The signing of the transaction","The act of sending coins","The cost of guessing is the proof."],
+["How does one quick check show that a block is valid?","Every other computer hashes the header once and sees it is below the target","Everyone must redo all guesses","A bank approves it","A miner emails everyone","Hard to do, easy to check."],
+["If 2,016 blocks arrive in only 12 days instead of 14, what will the next adjustment do?","Make the target harder so blocks slow down","Make the target easier","Cut the supply","Delete the extra blocks","Too fast means harder."],
+["How many days do 2,016 blocks take at the ideal 10-minute pace?","14 days","10 days","30 days","4 years","2,016 times 10 minutes is 20,160 minutes, which is 14 days."],
+["What does the difficulty adjustment do for the network as a whole?","Keeps the pace near 10 minutes even as computing power comes and goes","Doubles the price","Pays the fees","Chooses the winning miner","The lesson calls it a thermostat."],
+["What does ASIC stand for in the lesson?","Application-specific integrated circuit","Automated secure internet computer","Advanced signature input check","Anonymous satoshi inventory chip","These chips are built only for one job."],
+["Why do many miners join pools?","Pooling smooths out income like sharing lottery winnings","Pools make the 21 million cap bigger","Pools remove fees","Pools are required by law","Winning alone is rare and unpredictable."],
+["A miner who wins a block collects which two things?","The block subsidy and the transaction fees in that block","Gold and silver","Interest and dividends","A salary and a bonus","The subsidy shrinks at each halving."],
+["After how many blocks does the subsidy get cut in half?","210,000","2,016","21,000","1,050,000","Roughly every four years."],
+["How many bitcoins were created during the first 210,000 blocks?","10.5 million","21 million","5 million","2.1 million","210,000 times 50 equals 10.5 million, which is half of the cap."],
+["Which subsidy is expected after the halving around 2028?","1.5625 bitcoins","3.125 bitcoins","0.78125 bitcoins","6.25 bitcoins","The reward halves again from 3.125."],
+["Around what year will the last tiny fraction of bitcoin be mined?","2140","2030","2050","2100","After that, miners will be paid by fees alone."],
+["What enforces the 21 million cap?","A rule in the software that every node checks","A government law","A bank","The largest miner","Nodes reject blocks that break it."],
+["Which sentence about nodes is correct according to the lesson?","Miners propose blocks and nodes judge them","Nodes propose blocks and miners judge them","Only miners check the rules","Nodes can print more coins","This is the division of jobs."],
+["A miner builds a block paying themselves 100 bitcoins instead of the allowed amount. What happens?","Every node rejects the block and the miner wastes electricity","The block is accepted because of the work","The miner is paid by the bank","The cap rises to 21.1 million","Invalid blocks are thrown out regardless of cost."],
+["What is a stale block?","A block dropped because the network followed the chain with more accumulated work","A block with no transactions","A block from 2009","A block that pays double","It results from two miners finding blocks at about the same time."],
+["Which of these could a 51 percent attacker NOT do, per the lesson?","Steal coins from other people without their private keys","Reverse their own recent payments","Block certain transactions","Briefly out-build the honest miners","They do not have other people’s keys."]
+]
+});
+
+SECTIONS.push({
+n:9,
+title:"Getting, Holding and Protecting Bitcoin",
+sub:"Ways to buy, hot and cold wallets, seed phrase safety, the biggest scams, taxes and smart habits.",
+lesson:`
+<div class="callout"><p><b>Important.</b> This course is education, not financial, legal or tax advice. Bitcoin is volatile and you can lose money. Never put in more than you can afford to lose, and talk to a licensed professional about your own situation.</p></div>
+
+<h3>Ways people get bitcoin</h3>
+<ul>
+<li><b>Exchanges.</b> Companies like Coinbase, Kraken and others let you link a bank account and buy. They must follow identity rules called <b>KYC</b>, short for “know your customer,” so you will upload an ID. This is the easiest way for most beginners.</li>
+<li><b>Bitcoin ETFs.</b> You buy shares through a regular brokerage. You get price exposure but not the coins or the keys.</li>
+<li><b>Peer-to-peer.</b> You trade directly with another person. This can be private, but you need to be careful about scams.</li>
+<li><b>Bitcoin ATMs.</b> Machines that sell bitcoin for cash. They tend to charge much higher fees and are a favorite tool of scammers, so be careful.</li>
+<li><b>Earning it.</b> Getting paid in bitcoin for work or selling something for it.</li>
+<li><b>Mining.</b> Not realistic for beginners, because large companies with special machines dominate.</li>
+</ul>
+
+<h3>Dollar-cost averaging</h3>
+<p>Because the price jumps around, many people buy a fixed dollar amount on a schedule, for example $25 every week, no matter what the price is. This is called <b>dollar-cost averaging</b>, or DCA. When the price is low your money buys more satoshis, and when it is high it buys fewer. It will not guarantee a profit, but it removes the pressure of trying to guess the perfect moment, which even professionals fail at.</p>
+
+<h3>Custody: who holds the keys?</h3>
+<p>This is the single most important idea in the section. <b>Custody</b> means who controls the private keys.</p>
+<ul>
+<li><b>Custodial.</b> A company, such as an exchange, holds the keys for you. It is convenient and you can reset your password, but you are trusting the company. Remember Mt. Gox and FTX.</li>
+<li><b>Self-custody.</b> You hold the keys yourself. No one can freeze or lose your coins, but you alone are responsible. If you lose the keys and the backup, the money is gone forever.</li>
+</ul>
+<p>A sensible beginner path is to start on a reputable exchange with a small amount, learn how everything works, and then practice moving a small amount to your own wallet before you scale up.</p>
+
+<h3>Hot wallets and cold wallets</h3>
+<p>A <b>hot wallet</b> is connected to the internet, like an app on your phone. It is handy for small amounts, like the cash in your pocket. A <b>cold wallet</b> keeps keys offline. The most popular kind is a <b>hardware wallet</b>, a small device that stores your keys and signs transactions inside the device, so your keys never touch your computer. Think of it like the safe at home for the money you do not need to spend this week. Buy hardware wallets only straight from the maker, never from a stranger or a used listing, because a tampered device can steal from you.</p>
+
+<h3>Protecting your seed phrase</h3>
+<p>Your 12 or 24 recovery words are the master key to everything. Follow these rules.</p>
+<ul>
+<li>Write the words by hand on paper or stamp them in metal. Metal survives fire and floods.</li>
+<li>Keep at least one backup in a separate safe place, such as a different location than your home.</li>
+<li>Never take a photo of the words, never store them in notes, email or the cloud, and never type them into a website.</li>
+<li>Never share them with anyone. Real support teams will never ask for your seed phrase.</li>
+<li>Test your backup by restoring a small wallet before storing a large amount.</li>
+</ul>
+<p>Some people add an optional extra word or <b>passphrase</b> for more security. Others use <b>multisignature</b>, or multisig, which requires, for example, two out of three keys to approve a payment. That way losing one key, or having one stolen, is not a disaster.</p>
+
+<h3>The most common scams</h3>
+<ul>
+<li><b>Giveaway scams.</b> “Send 1 bitcoin and get 2 back.” Real people never double your money.</li>
+<li><b>Fake support.</b> Someone pretending to be from a wallet company or exchange asks for your seed phrase or tells you to install remote-control software.</li>
+<li><b>Phishing.</b> Fake websites or emails that copy a real company. Always type the web address yourself or use a bookmark.</li>
+<li><b>Romance and “pig-butchering” scams.</b> A stranger builds a friendship online for weeks, then convinces you to invest in a fake platform.</li>
+<li><b>Address swapping and poisoning.</b> Malware or tricks that swap the address you copied for the attacker’s. Always check the first and last characters of the address before you confirm.</li>
+<li><b>Recovery scams.</b> After you lose money, someone offers to recover it for a fee. They are scammers too.</li>
+<li><b>Guaranteed returns.</b> No honest investment can guarantee profit. This one phrase should end the conversation.</li>
+</ul>
+<p>A simple rule: if you feel rushed, secretive or excited about a deal, stop. Scammers create urgency on purpose.</p>
+
+<h3>A smart first send</h3>
+<p>Before you send a large amount anywhere, send a tiny test amount first. Wait for it to arrive. Then send the rest. It costs a little extra in fees, but it can save you from a very expensive typing mistake.</p>
+
+<h3>Taxes and records</h3>
+<p>In the United States, the IRS treats bitcoin as property, not as currency. In general, selling it, trading it or spending it can trigger a taxable gain or loss depending on what you paid for it. Simply buying and holding is generally not a taxable event. Rules differ by country and change over time, so keep records of what you bought, when, and for how much, and ask a qualified tax professional.</p>
+
+<h3>Lightning for everyday payments</h3>
+<p>Remember Lightning from Section 5? Wallets that support it let you send small payments in seconds with very low fees. It is a good fit for tips, coffee-sized purchases and sending money across borders. The Lightning Network adds some new things to learn, so beginners should start slowly.</p>
+
+<h3>Volatility and position size</h3>
+<p>Bitcoin has dropped 50 to 80 percent several times. If you can’t imagine staying calm while your holdings fall by half, you have put in too much. Think about <b>position size</b>: the part of your overall money that you put into Bitcoin. Keep an emergency fund in regular savings first, pay high-interest debt, and only then consider Bitcoin with money you can leave alone for years.</p>
+
+<div class="callout"><p><b>Key takeaways.</b> Custody means who holds the keys. Exchanges are convenient but custodial. A hardware wallet is a cold wallet. Protect your seed phrase on paper or metal, never in photos or the cloud, and never share it. Scammers use urgency and promises of guaranteed returns. Send a test amount first. Keep records for taxes. Size your position so you can sleep at night.</p></div>
+`,
+q:[
+["What does KYC stand for, and what must you do?","Know your customer; you upload an ID to an exchange","Keep your coins; you store them offline","Key your cash; you enter a password","Know your coins; you tell a friend","Exchanges follow identity rules."],
+["What do you get when you buy a spot Bitcoin ETF through a regular brokerage?","Price exposure but not the coins or the keys","The private keys to real coins","A hardware wallet","A seed phrase","This matches the lesson’s ETF description."],
+["Why does the lesson warn about Bitcoin ATMs?","They tend to charge much higher fees and are a favorite scammer tool","They only accept gold","They create new bitcoins","They always give refunds","The lesson calls out high fees and scams."],
+["You buy $25 of bitcoin every week no matter the price. What is this strategy called?","Dollar-cost averaging","Position sizing","Multisig","Pig-butchering","A fixed amount on a schedule."],
+["Under dollar-cost averaging, what happens when the price is low?","Your fixed dollars buy more satoshis","Your fixed dollars buy fewer satoshis","The schedule stops","The fee becomes zero","The same dollars buy more when price is lower."],
+["Which statement about dollar-cost averaging is correct according to the lesson?","It does not guarantee profit but removes the pressure of timing the market","It guarantees a profit","It works only with ETFs","It requires a hardware wallet","The lesson makes both points."],
+["What does “custody” mean?","Who controls the private keys","Who mines the block","Who pays the fee","Who owns the exchange","This is the key idea of the section."],
+["A friend keeps all bitcoin on one exchange. What risk does the lesson tie to this?","The company could freeze, lose or misuse the coins, as in the Mt. Gox and FTX cases","The coins will be mined twice","The coins will rust","The halving will remove the coins","Custodial means trusting the company."],
+["What is the main downside of self-custody?","You alone are responsible, and lost keys with no backup mean lost money","The coins are frozen by banks","You must pay income tax each day","Nobody can send you bitcoin","Responsibility is the tradeoff."],
+["What is a hardware wallet?","A small device that stores keys offline and signs transactions inside","A paper receipt from an exchange","A mining machine","A website","Keys never touch your computer."],
+["A seller offers a ‘discounted’ used hardware wallet that is already set up. What does the lesson say to do?","Refuse; buy only straight from the maker","Buy it and use it right away","Buy it, then change the password","Buy two of them","A tampered device can steal from you."],
+["Which is a good way to store a 24-word seed phrase?","Written by hand or stamped in metal, with a backup stored in a separate safe place","A photo saved to your phone gallery","A note in your email drafts","A screenshot in the cloud","Digital copies are risky."],
+["A person claiming to be ‘support’ asks for your seed phrase to fix a problem. What is correct?","Real support never asks for it, so this is a scam","Give it so they can help","Give only half of it","Give it if they know your name","Never share the phrase."],
+["Why test your backup before storing a large amount?","To make sure you can restore the wallet from the words","To earn interest","To reduce fees","To change the seed phrase","A tested backup avoids unpleasant surprises."],
+["What does a 2-of-3 multisig require?","Two out of three keys must approve a payment","Three people must each pay a fee","Two wallets must hold three coins","Three days of waiting","Losing one key is not a disaster."],
+["Which promise should end the conversation with an investment offer?","Guaranteed returns","A written risk warning","A clear fee list","A request for a test amount","No honest investment can guarantee profit."],
+["What is the idea behind a ‘pig-butchering’ scam?","A stranger builds trust for weeks, then pushes you into a fake investment platform","A hacker steals a hardware wallet","A miner takes extra fees","A bank freezes accounts","It is a slow scam built on a fake relationship."],
+["Before approving a send, why check the first and last characters of the address?","To catch malware or tricks that swap the address you copied","To lower the fee","To speed up the block","To make the amount larger","Address swapping is a real threat."],
+["After losing money in a scam, someone offers to recover it for an upfront fee. How should you treat this?","As another scam","As a trustworthy service","As a tax requirement","As a bank program","Recovery scams target victims twice."],
+["What simple rule does the lesson give for spotting scams?","If you feel rushed, secretive or excited about a deal, stop","Act fast before the offer ends","Keep deals secret from family","Trust anyone who knows your name","Scammers create urgency on purpose."],
+["Why send a small test amount first?","To confirm the address works before sending the rest","To pay less tax","To avoid ever paying fees","To mine a block","It can save you from a costly typing mistake."],
+["How does the IRS treat bitcoin, according to the lesson?","As property, so selling, trading or spending can trigger a gain or loss","As cash with no tax impact","As a foreign currency only","As a gift","Records of purchases are important."],
+["What does ‘position size’ mean?","The share of your overall money you put into Bitcoin","The size of a block","The length of your seed phrase","The width of a hardware wallet","Size it so you can stay calm in a big drop."],
+["The lesson suggests what order before considering Bitcoin?","Build an emergency fund and pay high-interest debt first","Buy bitcoin first and save later","Borrow to buy","Invest everything at once","Only use money you can leave alone for years."]
+]
+});
+
+SECTIONS.push({
+n:10,
+title:"The Big Picture: Why It Matters and What Comes Next",
+sub:"Digital gold, the best arguments for and against, real-world uses, community wealth and your next steps.",
+lesson:`
+<h3>Back to the three jobs of money</h3>
+<p>In Section 1, we said money does three jobs: medium of exchange, store of value and unit of account. Let’s grade Bitcoin honestly on each job.</p>
+<ul>
+<li><b>Store of value.</b> This is the job Bitcoin is best known for. Its supply is capped at 21 million, so supporters call it “digital gold.” But its price swings are huge, so as a store of value it has worked best over long periods and has been painful over short ones.</li>
+<li><b>Medium of exchange.</b> It works for sending value across the world, especially with Lightning. But most everyday shops still use cards or cash, so it is not common for daily spending.</li>
+<li><b>Unit of account.</b> Prices are almost always still shown in dollars, partly because bitcoin’s price moves so much.</li>
+</ul>
+<p>So the honest scorecard is mixed, and that is why the discussion is still alive.</p>
+
+<h3>The case in favor</h3>
+<p>Supporters make several arguments.</p>
+<ul>
+<li><b>Hard-capped supply.</b> No central bank can create more. Nobody can inflate it away.</li>
+<li><b>Open and borderless.</b> Anyone with a phone and internet can use it, with no permission. This matters to the unbanked.</li>
+<li><b>Self-custody.</b> You can hold your own savings without a middleman who can freeze it.</li>
+<li><b>Transparent rules.</b> Anyone can read the code and check the supply.</li>
+<li><b>Resilience.</b> It has run nonstop since January 2009, through crashes, bans and hacks of companies.</li>
+</ul>
+
+<h3>The case against</h3>
+<p>Critics also make strong points, and you should know them.</p>
+<ul>
+<li><b>Volatility.</b> Drops of more than 50 percent have happened several times, which makes it risky for savings you need soon.</li>
+<li><b>No cash flow.</b> A business pays profits and a rental property pays rent. Bitcoin pays nothing by itself, so its value depends on what others will pay for it later.</li>
+<li><b>Energy use.</b> Mining uses lots of electricity.</li>
+<li><b>Crime and scams.</b> Criminals use it, and scams are common, although cash and banks are also used by criminals.</li>
+<li><b>Concentration.</b> Early adopters and big holders own a large share of the supply.</li>
+<li><b>Future risks.</b> Some worry about future quantum computers, which might one day break parts of today’s cryptography. Developers study upgrades to prepare for this.</li>
+<li><b>Self-custody is hard.</b> Losing keys is permanent, and many people are not ready for that responsibility.</li>
+</ul>
+<p>A mature thinker holds both lists in mind. The case in favor and the case against can both contain truth.</p>
+
+<h3>Where Bitcoin is used today</h3>
+<ul>
+<li><b>Savings in unstable economies.</b> People in countries with fast inflation use it to protect savings.</li>
+<li><b>Sending money home.</b> Workers abroad can send value to family in minutes for low fees, especially using Lightning.</li>
+<li><b>Investment portfolios.</b> ETFs, funds and some companies hold it as a long-term asset.</li>
+<li><b>Governments.</b> El Salvador made it legal tender in 2021, and the United States created a Strategic Bitcoin Reserve in 2025 from seized coins.</li>
+<li><b>Building blocks.</b> Developers are building tools on top, such as Lightning for payments.</li>
+</ul>
+
+<h3>Bitcoin and community wealth</h3>
+<p>Remember Greenwood, the district called Black Wall Street? One thing that made it strong was that people in the community owned the banks, businesses and buildings, so money kept working inside the community. Block Wall Street teaches Bitcoin because it offers a different kind of toolkit: a savings system anyone can join without asking permission, a way to hold your own keys, and a way to build financial skills that families can pass down. Tools alone do not build wealth. Knowledge, discipline and community do. Bitcoin is a tool, and learning how to use it carefully is the part that makes the difference.</p>
+
+<h3>Common myths to retire</h3>
+<ul>
+<li><b>“Bitcoin is anonymous.”</b> It is pseudonymous, and the public ledger can be traced.</li>
+<li><b>“Bitcoin is only for criminals.”</b> Illegal use is a small share of activity, and it was never the design goal.</li>
+<li><b>“Bitcoin is backed by nothing.”</b> It is backed by its rules, its network and the energy spent securing it. Whether that is worth a price is a market judgment.</li>
+<li><b>“I missed it.”</b> No one can know the future. Learning, small steps and patience matter more than a feeling of being late.</li>
+<li><b>“Someone can shut it down.”</b> Governments can restrict businesses in their country. Shutting down the whole network would mean silencing every node on earth.</li>
+</ul>
+
+<h3>Your next steps</h3>
+<ol>
+<li><b>Read the white paper.</b> It is nine pages and you now know all of its ideas. Open it and see how much you can follow on your own.</li>
+<li><b>Practice safely.</b> Create a wallet and send a tiny test amount, around a few dollars, to learn the flow.</li>
+<li><b>Write your backup plan.</b> Decide where a seed phrase would be kept, who might need to know in an emergency, and how you would handle it.</li>
+<li><b>Set your rules.</b> Decide in advance how much you are willing to put in, and never invest money you need soon.</li>
+<li><b>Keep learning.</b> Two well-known books are <i>The Bitcoin Standard</i> by Saifedean Ammous and <i>Mastering Bitcoin</i> by Andreas Antonopoulos, which is more technical. Watch for classes from Block Wall Street and the curriculum from Sun School of Satoshi.</li>
+<li><b>Teach someone.</b> The best way to prove you know it is to explain it to a friend or family member in plain words.</li>
+</ol>
+
+<h3>A final thought</h3>
+<p>In 2008, a nine-page paper asked whether people could send money to each other without a trusted middleman. Nobody is certain how the story will end. What you now have is something more valuable than a prediction: you understand where Bitcoin came from, how it works, how to protect yourself, and how to think about both sides. That puts you ahead of most people who have strong opinions about it. Next up is the final exam.</p>
+
+<div class="callout"><p><b>Key takeaways.</b> Bitcoin scores best as a store of value over long periods and weaker as everyday money and unit of account. There are real arguments on both sides: scarcity and openness versus volatility, energy use and no cash flow. Myths such as “anonymous” and “backed by nothing” need correcting. Tools only help when paired with knowledge and discipline. Read the white paper, practice with tiny amounts, and keep learning.</p></div>
+`,
+q:[
+["Which of the three jobs of money does the lesson say Bitcoin is best known for?","Store of value","Unit of account","Medium of exchange","Fractional reserve","The capped supply earns it the “digital gold” label."],
+["Why is Bitcoin’s role as a unit of account weak, according to the lesson?","Prices are almost always still shown in dollars, partly because its price moves so much","Nobody can count to 21 million","Merchants cannot see the blockchain","It has no wallets","A volatile price is hard to use as a measuring stick."],
+["Which statement matches the lesson’s scorecard of Bitcoin as a store of value?","It has worked best over long periods and has been painful over short ones","It has never lost value","It has always lost value","It is backed by gold","The lesson gives a mixed grade."],
+["Which of these is an argument IN FAVOR of Bitcoin from the lesson?","A hard-capped supply that no central bank can change","Rapid price stability","Zero energy use","Guaranteed profits","The cap is the first listed argument."],
+["Which of these is an argument AGAINST Bitcoin from the lesson?","It pays no cash flow by itself, so its value depends on what others will pay later","It can be copied for free","It has no code to read","It is controlled by Satoshi","Unlike a business or rental property, it pays nothing on its own."],
+["How does the lesson describe the quantum computing worry?","Future quantum computers might break parts of today’s cryptography, and developers study upgrades","Quantum computers already control Bitcoin","Quantum computers will make blocks bigger","Quantum computers are banned","It is presented as a future risk."],
+["What does the lesson say a mature thinker should do with the lists for and against Bitcoin?","Hold both in mind, since both can contain truth","Ignore the list against","Ignore the list in favor","Choose one by flipping a coin","The text encourages balanced thinking."],
+["Why can Lightning help people sending money to family in another country?","It can move value in minutes for low fees","It removes the need for a phone","It makes Bitcoin anonymous","It avoids all taxes","The lesson names remittances as a key use."],
+["Which pair of government actions does the lesson mention?","El Salvador’s 2021 legal tender law and the U.S. Strategic Bitcoin Reserve in 2025","China’s 2021 mining ban and Cyprus’s 2013 bank levy","Japan’s Mt. Gox law and the UK’s court ruling","The Federal Reserve’s Libra and the IMF’s Chivo","These are the examples in the lesson."],
+["According to the lesson, what helped Greenwood stay strong?","People in the community owned the banks, businesses and buildings, so money kept working inside","The government printed extra dollars for it","It had its own cryptocurrency","It avoided all banks","Local ownership kept money circulating."],
+["What does the lesson say about tools and wealth?","Tools alone do not build wealth; knowledge, discipline and community do","Tools guarantee wealth","Wealth comes from luck only","Tools are useless","Bitcoin is a tool, and careful learning is the key."],
+["Why is the myth “Bitcoin is anonymous” wrong?","It is pseudonymous and the public ledger can be traced","Names are on every transaction","Nobody can see transactions","Banks hide all data","Addresses are not names, but they can be followed."],
+["The lesson says illegal use was never the design goal. What supports that?","The white paper describes a payment system for everyone and the public ledger traces activity","Satoshi was a criminal","Silk Road wrote the code","Banks forbade it","It ties back to Section 4."],
+["Which answer to “Bitcoin is backed by nothing” does the lesson give?","It is backed by its rules, its network and the energy spent securing it, and the market decides its price","It is backed by gold","It is backed by the U.S. government","It is backed by the largest miner","The lesson frames the price as a market judgment."],
+["What is the lesson’s answer to the feeling of “I missed it”?","No one can know the future; learning, small steps and patience matter more","It is too late for everyone","Buy everything immediately","Only experts can join","The text discourages a rush."],
+["Why would shutting down Bitcoin worldwide be extremely hard?","It would require silencing every node on earth, and governments can only restrict businesses in their own country","One government can erase the ledger","Satoshi can turn it off","Banks can delete it","The network is run by many independent nodes."],
+["What is the first next step in the lesson’s list?","Read the white paper","Buy as much as possible","Quit your job","Give away your seed phrase","It is nine pages and you now know all its ideas."],
+["How large a test amount does the lesson suggest when practicing?","A tiny amount, around a few dollars","A month of salary","All of your savings","Exactly one bitcoin","The idea is to learn the flow safely."],
+["Which book from the lesson is more technical?","Mastering Bitcoin by Andreas Antonopoulos","The Bitcoin Standard by Saifedean Ammous","The Puzzle","Black Wall Street","The lesson notes Mastering Bitcoin is the more technical one."],
+["Which set of rules does the lesson say to decide in advance?","How much you are willing to put in, and never invest money you need soon","How high the price must be before you tell friends","Which exchange to trust forever","Which miner to follow","It stresses discipline."],
+["What does the lesson give as the best way to prove you know the material?","Explain it to a friend or family member in plain words","Memorize the price chart","Mine a block","Buy a hardware wallet","Teaching reveals understanding."],
+["What does the closing thought say you now have?","Understanding of where Bitcoin came from, how it works, how to protect yourself and how to think about both sides","A guaranteed profit","A prediction of next year’s price","Control over the network","The lesson says understanding is more valuable than a prediction."]
+]
+});
+
+
+FINAL=[
+["A coin collector notices that rare stamps are durable, portable and scarce, but each stamp is different in value. Which trait of good money do stamps lack most?","Uniformity, since one stamp is not the same as another","Durability","Scarcity","Portability","Money needs units that are fully interchangeable, the trait called fungible."],
+["Which pair correctly links an old idea to its main weakness, as taught in the course?","DigiCash and e-gold: both depended on one company","Hashcash and RPOW: both needed a bank","b-money and bit gold: both were run by the Federal Reserve","PGP and RSA: both banned cryptography","Central companies were single points of failure."],
+["Why did the Yap stone story matter for understanding Bitcoin?","It showed money can work as a shared record of who owns what, which is a ledger","It proved stone is the best money","It showed paper money fails","It showed gold is cheap","Ownership was tracked by community memory."],
+["What is the key difference between how a bank balance and a bitcoin balance work?","A bank balance is a record kept by a middleman, while bitcoin is a shared ledger secured by keys and the network","A bank balance is secret and bitcoin is not on any list","A bank balance uses signatures while bitcoin does not","They are identical","The course contrasts trusted middlemen with a shared ledger."],
+["Put these events in the correct order: Genesis Block, Lehman Brothers failure, first halving, Mt. Gox bankruptcy.","Lehman failure, Genesis Block, first halving, Mt. Gox bankruptcy","Genesis Block, Lehman failure, Mt. Gox bankruptcy, first halving","Mt. Gox bankruptcy, Lehman failure, Genesis Block, first halving","First halving, Genesis Block, Lehman failure, Mt. Gox bankruptcy","September 2008, January 2009, November 2012, February 2014."],
+["Which fact about the white paper is TRUE?","It is nine pages with 12 parts and does not use the word blockchain","It is 90 pages and uses the word blockchain on every page","It was published by a bank in 2010","It explains how to buy bitcoin on an exchange","The lesson highlighted the missing word."],
+["Which sentence best explains why a longer wait makes a payment safer, using the white paper’s math?","The chance of an attacker catching up drops very fast with each extra block","Each block adds a bank guarantee","Each block lowers the fee","Each block doubles the coin supply","Part 11 of the paper shows the falling probability."],
+["What did the headline in the Genesis Block accomplish?","It proved the block could not have been made before that date and hinted at Bitcoin’s purpose","It named Satoshi","It listed all future halvings","It paid the first miner","It served as a timestamp and a statement."],
+["Which of these is NOT a fact about Satoshi from the course?","Satoshi’s identity was confirmed in 2012","The first person-to-person payment went to Hal Finney","Satoshi sent a final private email in 2011","A UK court ruled in 2024 that one claimant was not Satoshi","Satoshi’s identity remains unproven."],
+["In a sentence, why did the 2010 overflow bug not destroy Bitcoin?","The community found it within hours and agreed on a corrected chain","The government fixed it","The coins were backed by gold","Nobody noticed","Quick response restored the 21 million rule."],
+["A merchant says, “I accept bitcoin because it was designed for crime.” Which fact best corrects them?","The white paper never mentions crime, and the public ledger is easier to trace than cash","Silk Road never existed","Bitcoin is run by the police","Bitcoin is anonymous so it cannot be traced","The course says the early link stuck in the public mind but is not the purpose."],
+["Which pair shows a boom followed by a bust in the course?","June 2011 near $31 to about $2 by late 2011","February 2011 at $1 to $1 in 2012","November 2013 at $1,000 to $2,000 in 2014","January 2024 to April 2024","A drop of around 90 percent."],
+["What was lost with Mt. Gox, and what was NOT lost?","About 850,000 bitcoins held by a company were missing, but the network itself kept running","The entire network ended","The white paper was deleted","The cap changed","The failure was of a custodian, not of the protocol."],
+["Why did the block size debate matter to the idea that no one is in charge?","No company or founder could force a change; it depended on what people running software accepted","The CEO of a bank decided","Satoshi voted","Miners alone chose","The debate was loud because decisions are by consensus."],
+["Which statement is true about the August 2017 events?","Bitcoin Cash split on August 1 and SegWit activated on August 24","SegWit activated on August 1 and Bitcoin Cash split on August 24","Both happened in 2016","Both happened in 2019","The split came first."],
+["What problem does the Lightning Network try to ease and how?","Slow and costly small payments, by using off-chain channels settled later","High mining energy, by banning ASICs","Seed phrase loss, by storing keys online","Inflation, by cutting supply","It works like a bar tab."],
+["How much did the price fall from the December 2017 peak to the December 2018 low, roughly?","About 84 percent","About 20 percent","About 50 percent exactly","About 5 percent","From roughly $19,800 to roughly $3,200."],
+["Which was the third halving and what was the reward afterward?","May 11, 2020, with a reward of 6.25","July 9, 2016, with a reward of 12.5","April 20, 2024, with a reward of 3.125","November 28, 2012, with a reward of 25","The third halving cut 12.5 to 6.25."],
+["Why does the course say China’s 2021 mining ban was a test?","A major government tried to stop mining and the network recovered as machines moved elsewhere","It proved miners need governments","It ended the halving","It created Taproot","Hash rate fell sharply and then recovered."],
+["Which of these 2022 events was a collapse of a middleman and not a failure of Bitcoin’s protocol?","FTX filing for bankruptcy","The Genesis Block","SegWit activation","The first halving","Most 2022 damage came from companies."],
+["What is the key trade-off of owning a spot Bitcoin ETF compared with self-custody?","Easy access through a brokerage, but no control of the keys","Higher privacy","Direct signing of transactions","No price risk","ETF owners hold shares that track the price."],
+["Which statement about the 2024 to 2026 price story is supported?","A record near $126,198 on October 6, 2025 was followed by a substantial decline, and anyone should check a live price","The price rose every month","The price never exceeded $100,000","Bitcoin was banned worldwide","Prices change daily."],
+["A friend says her wallet “holds her coins.” What is the most accurate correction?","The wallet holds keys, and the coins are entries on the blockchain","The wallet holds gold","The wallet holds files that can be copied","The wallet is a bank account","A wallet is a keychain."],
+["Maya has one UTXO of 0.01 bitcoin. She pays 0.004 with a fee of 0.0002. How much change returns to her?","0.0058","0.006","0.0042","0.0002","0.01 minus 0.004 minus 0.0002 equals 0.0058."],
+["Two transactions both send $100. Transaction A has 8 inputs and B has 1 input. Which is expected to cost the higher fee?","A, because it uses more bytes","B, because it is smaller","They cost the same","Neither has a fee","Fees follow size."],
+["What is the main reason private keys are practically impossible to guess?","The number of possible keys is enormous, on the same scale as the count of atoms in the universe","They are only used once a year","They are held by miners","They are published","The key space is huge."],
+["A seed phrase is 12 words chosen from a list of how many words?","2,048","210,000","2,016","21 million","The standard list has 2,048 words."],
+["If a node receives a block whose reward is larger than allowed, what will it do?","Reject the block no matter how much work was spent","Accept it because work was done","Ask the bank","Split the block","Nodes enforce the rules."],
+["How many days does it take for 2,016 blocks at the ideal pace?","14","7","30","365","2,016 times 10 minutes."],
+["If the network’s computing power suddenly doubles, what happens over the following weeks?","Difficulty rises to bring the block pace back near 10 minutes","Fees double","The 21 million cap doubles","The halving happens early","Difficulty adjusts every 2,016 blocks."],
+["What are the two payments a winning miner collects?","The block subsidy and transaction fees","Interest and dividends","Salary and bonus","Taxes and tips","The subsidy halves every 210,000 blocks."],
+["How many bitcoins were created in the first 210,000 blocks?","10.5 million","21 million","1 million","5.25 million","210,000 times 50."],
+["Which action is beyond the power of a 51 percent attacker?","Stealing coins from other people without their keys","Briefly out-building the honest miners","Reversing their own recent payments","Blocking certain transactions","They still need private keys and cannot break the rules."],
+["Which sentence describes the division of jobs between miners and nodes?","Miners propose blocks and nodes check them against the rules","Nodes mine and miners vote","Banks approve and nodes print","Miners write the rules and nodes follow","Nodes act as referees."],
+["Which is the best summary of the energy debate in the course?","Critics call it wasteful; supporters say it secures the network and often uses surplus power","Everyone agrees it uses no energy","Everyone agrees it uses too much","It is settled by law","Learners should know both sides."],
+["Which of the following is the safest way to store a recovery phrase?","Written by hand or stamped in metal and kept in a separate safe location","A photo in the cloud","An email to yourself","A text to a friend","Never store it digitally."],
+["What does ‘not your keys, not your coins’ warn about?","Trusting a company that holds your keys","Using a hardware wallet","Paying fees","Waiting for confirmations","It dates to Mt. Gox and was reinforced by FTX."],
+["Which is the clearest red flag of a scam?","A guaranteed return and pressure to act quickly","A clear list of fees","A request to test with a small amount","A reputable maker selling a hardware wallet","Scammers create urgency."],
+["Why should you send a small test amount first?","To confirm the address and process before risking the full amount","To avoid all fees","To speed up the block","To avoid taxes","A small cost can prevent a big mistake."],
+["Which situation is generally a taxable event in the United States according to the course?","Selling bitcoin for a gain","Buying and holding bitcoin","Creating a new wallet","Backing up a seed phrase","Selling, trading or spending can trigger a gain or loss."],
+["Which of these best fits dollar-cost averaging?","Buying $50 every Friday no matter the price","Buying everything at the top","Selling after each drop","Borrowing to buy a lot at once","A fixed amount on a schedule."],
+["Which pairing correctly grades Bitcoin on a job of money, as the course teaches?","Store of value: strongest over long periods; unit of account: weak because prices are still in dollars","Medium of exchange: best job; store of value: failed","Unit of account: strongest","All three: perfect","The scorecard is mixed."],
+["Which argument is a criticism of Bitcoin the course asks you to understand?","It pays no cash flow of its own","It has too small a supply cap","It can be printed by banks","It has no public code","Its value depends on what others will pay later."],
+["Which statement best captures the course’s view of community wealth?","Tools matter, but knowledge, discipline and community ownership are what build wealth","Bitcoin alone ends inequality","Banks are always bad","Wealth comes only from luck","Greenwood’s strength was local ownership and circulation."]
+];
+
+</script>
+
+<script>
+/* ============ SETTINGS ============ */
+var W3F_KEY="cbde23f6-f617-4b16-953f-7b0aab0e9f58";   // Block Wall Street Web3Forms key (reports go to blockwallstreet638@gmail.com)
+var PASS=70;
+var SKIP=/[?&]skip=1/.test(location.search);           // owner preview: add ?skip=1 to the web address to skip the reading timer
+var STORE="bws_btc_beginners_v1";
+var COURSE="Bitcoin for Beginners";
+var PARTNER="Curriculum in partnership with Sun School of Satoshi";
+/* ---- ACCESS GATE (set these two after you deploy the Worker; leave WORKER_URL empty to run the course open) ---- */
+var WORKER_URL="https://bws-access.blockwallstreet638.workers.dev";                                   // e.g. "https://bws-access.YOURNAME.workers.dev"
+var PAY_URL="bitcoin-for-beginners-payment-BWSSite.html";    // the payment page file/address
+var CODE_KEY="bws_btc_code";var ACCESS_CODE="";
+
+/* ============ STATE ============ */
+var S=load();
+function blank(){return {name:"",email:"",started:null,seconds:0,secs:{},final:{best:0,first:null,attempts:0,passed:false},done:null,sent:false,cert:null}}
+function load(){try{var r=localStorage.getItem(STORE);if(r){var o=JSON.parse(r);if(o&&o.secs)return o}}catch(e){}return blank()}
+function save(){try{localStorage.setItem(STORE,JSON.stringify(S))}catch(e){}}
+function sec(n){if(!S.secs[n])S.secs[n]={best:0,first:null,attempts:0,passed:false,time:0,read:false,reread:false};return S.secs[n]}
+
+/* ============ HELPERS ============ */
+var $=function(s,r){return (r||document).querySelector(s)};
+var app=$("#app");
+function esc(t){return String(t).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
+function shuffle(a){a=a.slice();for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t}return a}
+function words(h){var d=document.createElement("div");d.innerHTML=h;return (d.textContent||"").trim().split(/\s+/).length}
+function minSecs(n){var w=words(SECTIONS[n-1].lesson);return Math.round(w/300*60)}
+function mins(s){return Math.max(1,Math.round(s/60))}
+function letter(p){return p>=90?"A":p>=80?"B":p>=70?"C":"—"}
+function passedCount(){var c=0;SECTIONS.forEach(function(s){if(sec(s.n).passed)c++});return c}
+function unlocked(n){return n===1||sec(n-1).passed}
+function sectionAvg(){var t=0;SECTIONS.forEach(function(s){t+=sec(s.n).best});return Math.round(t/SECTIONS.length)}
+function overall(){return Math.round(sectionAvg()*0.5+S.final.best*0.5)}
+function fmtDate(d){return new Date(d).toLocaleDateString("en-US",{year:"numeric",month:"long",day:"numeric"})}
+function fmtDur(s){var h=Math.floor(s/3600),m=Math.round((s%3600)/60);return (h?h+"h ":"")+m+"m"}
+function progress(){var total=SECTIONS.length+1;var done=passedCount()+(S.final.passed?1:0);var p=Math.round(done/total*100);$("#pfill").style.width=p+"%";$("#ptxt").textContent=p+"%"}
+var view="welcome";
+
+/* ============ AUDIO (read aloud) ============ */
+var TTS={ok:("speechSynthesis" in window),voices:[],voice:null,rate:0.95,units:[],idx:0,state:"stop",token:0,armed:false,done:false};
+var PRON=[[/UTXOs?/g,"U T X O"],[/ASICs/g,"A-sics"],[/ASIC/g,"A-sic"],[/\bKYC\b/g,"K Y C"],[/\bDCA\b/g,"D C A"],[/\bETFs\b/g,"E T Fs"],[/\bETF\b/g,"E T F"],[/\bSEC\b/g,"S E C"],[/\bICOs\b/g,"I C Os"],[/\bICO\b/g,"I C O"],[/\bUST\b/g,"U S T"],[/\bSHA-256\b/g,"S H A 256"],[/\bRSA\b/g,"R S A"],[/\bPGP\b/g,"P G P"],[/\bBTC\b/g,"bitcoin"],[/\bSegWit2x\b/g,"Seg Wit 2 x"],[/\bSegWit\b/g,"Seg Wit"],[/\bIRS\b/g,"I R S"],[/\bFTX\b/g,"F T X"],[/\bCME\b/g,"C M E"],[/\bCboe\b/g,"C B O E"],[/\bMt\. Gox\b/g,"Mount Gox"],[/\bGenesis\b/g,"Genesis"],[/\bsats?\b/g,"sats"],[/\bnonce\b/g,"non-sss"],[/bc1/g,"B C 1"]];
+function loadVoices(){
+  if(!TTS.ok)return;
+  var all=speechSynthesis.getVoices()||[];
+  TTS.voices=all.filter(function(v){return /^en/i.test(v.lang)});
+  var saved=null;try{saved=localStorage.getItem("bws_voice")}catch(e){}
+  var pick=null;
+  if(saved)pick=TTS.voices.find(function(v){return v.name===saved});
+  if(!pick){
+    var order=[/Aria|Jenny|Michelle|Emma|Ana\b|Sonia|Libby/i,/Zira|Samantha|Karen|Moira|Tessa|Serena|Google US English|Female/i];
+    for(var i=0;i<order.length&&!pick;i++){pick=TTS.voices.find(function(v){return order[i].test(v.name)})}
+  }
+  TTS.voice=pick||TTS.voices[0]||null;
+  var sel=$("#voiceSel");
+  if(sel){sel.innerHTML=TTS.voices.map(function(v){return '<option value="'+esc(v.name)+'"'+(TTS.voice&&v.name===TTS.voice.name?" selected":"")+'>'+esc(v.name)+'</option>'}).join("")}
+}
+if(TTS.ok){loadVoices();speechSynthesis.onvoiceschanged=loadVoices}
+function chunks(t){
+  var out=[],parts=t.match(/[^.!?]+[.!?]+["”')\]]*\s*|[^.!?]+$/g)||[t];var cur="";
+  parts.forEach(function(p){if((cur+p).length>170&&cur){out.push(cur);cur=p}else cur+=p});
+  if(cur.trim())out.push(cur);return out;
+}
+function say(i){
+  if(!TTS.ok)return;
+  speechSynthesis.cancel();TTS.token++;var my=TTS.token;TTS.idx=i;TTS.state="play";TTS.armed=true;ui();
+  speakUnit(my);
+}
+function speakUnit(my){
+  if(my!==TTS.token)return;
+  if(TTS.idx>=TTS.units.length){TTS.state="stop";TTS.idx=0;TTS.done=true;mark(null);ui();var s=SECTIONS[cur-1];if(s)checkGate(true);return}
+  var el=TTS.units[TTS.idx];mark(el);
+  var text=el.innerText.replace(/\s+/g," ");PRON.forEach(function(r){text=text.replace(r[0],r[1])});
+  var parts=chunks(text),k=0;
+  (function next(){
+    if(my!==TTS.token)return;
+    if(k>=parts.length){TTS.idx++;speakUnit(my);return}
+    var u=new SpeechSynthesisUtterance(parts[k++]);
+    if(TTS.voice)u.voice=TTS.voice;u.rate=TTS.rate;u.pitch=1.08;u.lang=(TTS.voice&&TTS.voice.lang)||"en-US";
+    u.onend=next;u.onerror=function(e){if(my===TTS.token&&e.error!=="interrupted"&&e.error!=="canceled")next()};
+    speechSynthesis.speak(u);
+  })();
+}
+function mark(el){var o=document.querySelector(".speaking");if(o)o.classList.remove("speaking");if(el){el.classList.add("speaking");el.scrollIntoView({block:"center",behavior:"smooth"})}}
+function stopSay(){if(!TTS.ok)return;TTS.token++;speechSynthesis.cancel();TTS.state="stop";TTS.idx=0;mark(null);ui()}
+function pauseSay(){if(!TTS.ok)return;TTS.token++;speechSynthesis.cancel();TTS.state="pause";ui()}
+function ui(){
+  var p=$("#aPlay");if(!p)return;
+  p.textContent=TTS.state==="play"?"⏸ Pause":(TTS.state==="pause"?"▶ Resume":"▶ Listen");
+}
+
+/* ============ VIEWS ============ */
+var cur=0;
+function go(v){stopSay();view=v;window.scrollTo(0,0);closeMenu()}
+function showWelcome(){
+  go("welcome");
+  var h='<div class="hero"><div class="eyebrow">Block Wall Street presents</div><h1>Bitcoin for <span>Beginners</span></h1><p class="small" style="font-size:19px;color:var(--text)">From the first idea to the blockchain. 10 sections, a quiz after each one, a 44-question final exam and a certificate of completion.</p></div>';
+  h+='<div class="card"><h2>What you will get</h2><ul><li>Plan on about 2 to 2.5 hours at a normal pace, with lessons written in plain words that an 8th grader can follow.</li><li>A <b>Listen</b> button in every lesson that reads it out loud to you.</li><li>The complete history of Bitcoin, plus the official white paper.</li><li>Quizzes you cannot beat by skimming. You have to <b>read</b> or <b>listen</b> first. The lesson is hidden while you take the quiz.</li><li>You need <b>'+PASS+'%</b> on each quiz to move on.</li><li>Your grades and certificate are sent to Block Wall Street.</li><li>A bonus <b>DCA Calculator</b> with an easy walk-through at the end.</li></ul></div>';
+  if(S.started){
+    h+='<div class="card"><h2>Welcome back, '+esc(S.name.split(" ")[0])+'</h2><p>Your progress is saved on this device.</p><button class="primary" onclick="showHome()">Continue the course</button> <button class="ghost" onclick="resetAll()">Start over as someone else</button></div>';
+  }else{
+    h+='<div class="card"><h2>Start here</h2><label for="nm">Your full name (this is exactly how it will print on your certificate)</label><input type="text" id="nm" autocomplete="name" placeholder="First and last name"><label for="em">Your email (optional, so we can reach you)</label><input type="email" id="em" autocomplete="email" placeholder="you@example.com"><p class="small">Check your spelling. You can fix it once more on the last screen before your certificate is made.</p><div id="nerr" class="small" style="color:var(--bad)"></div><button class="primary" onclick="begin()">Begin the course</button></div>';
+  }
+  h+='<p class="small" style="text-align:center">This course is education only. It is not financial, legal or tax advice.</p>';
+  app.innerHTML=h;
+}
+function begin(){
+  var n=$("#nm").value.trim().replace(/\s+/g," ");var e=$("#em").value.trim();
+  if(n.length<3||n.indexOf(" ")<0){$("#nerr").textContent="Please type your first and last name.";return}
+  S.name=n;S.email=e;S.started=Date.now();save();showHome();
+}
+function resetAll(){if(confirm("This erases saved progress on this device. Continue?")){try{localStorage.removeItem(STORE)}catch(e){}S=blank();showWelcome();progress()}}
+
+function showHome(){
+  go("home");progress();
+  var h='<div class="hero" style="padding-top:6px"><div class="eyebrow">Course map</div><h1 style="font-size:clamp(36px,7vw,60px)">Hello, <span>'+esc(S.name.split(" ")[0])+'</span></h1></div>';
+  h+='<div class="card"><h2>The White Paper</h2><p>Satoshi Nakamoto’s nine-page paper that started it all. You will walk through it in Section 3. Open it anytime:</p><p><a class="btn" style="display:inline-block;text-decoration:none;border:1px solid var(--gold2);padding:9px 16px;border-radius:10px" href="https://bitcoin.org/bitcoin.pdf" target="_blank" rel="noopener">Official link: bitcoin.org/bitcoin.pdf</a> <a class="btn" style="display:inline-block;text-decoration:none;border:1px solid var(--line);padding:9px 16px;border-radius:10px;color:var(--text)" href="bitcoin-whitepaper.pdf" target="_blank" rel="noopener">Course copy (PDF)</a></p></div>';
+  h+='<div class="grid">';
+  SECTIONS.forEach(function(s){
+    var d=sec(s.n),ok=unlocked(s.n);
+    var tag=d.passed?'<span class="tag ok">'+d.best+'% · passed</span>':(ok?'<span class="tag">'+(d.attempts?'best '+d.best+'%':'ready')+'</span>':'<span class="tag lock">🔒 locked</span>');
+    h+='<div class="sec" '+(ok?'style="cursor:pointer" onclick="openSection('+s.n+')"':'')+'><div class="num">'+s.n+'</div><div class="meta"><b>'+esc(s.title)+'</b><span>'+esc(s.sub)+'</span><br><span>≈ '+Math.round(words(s.lesson)/150+s.q.length*0.3)+' min · '+s.q.length+'-question quiz</span></div>'+tag+'</div>';
+  });
+  var fin=passedCount()===SECTIONS.length;
+  h+='<div class="sec" '+(fin?'style="cursor:pointer;border-color:var(--gold)" onclick="startQuiz(\'final\')"':'')+'><div class="num">★</div><div class="meta"><b>Final Exam</b><span>44 questions covering the whole course. '+PASS+'% to pass.</span></div>'+(S.final.passed?'<span class="tag ok">'+S.final.best+'% · passed</span>':(fin?'<span class="tag">ready</span>':'<span class="tag lock">🔒 pass all 10 first</span>'))+'</div>';
+  var bon=passedCount()===SECTIONS.length;
+  h+='<div class="sec" '+(bon?'style="cursor:pointer" onclick="showBonus()"':'')+'><div class="num">$</div><div class="meta"><b>Bonus: DCA Calculator</b><span>An easy walk-through plus a what-if tool for steady buying.</span></div>'+(bon?'<span class="tag">open</span>':'<span class="tag lock">🔒 pass all 10 first</span>')+'</div>';
+  h+='</div>';
+  if(S.final.passed){h+='<div class="card"><h2>Your certificate</h2><button class="primary" onclick="showCert()">View my certificate</button></div>'}
+  app.innerHTML=h;buildDrawer();
+}
+function buildDrawer(){
+  var d=$("#drawer"),h='<div class="logo" style="margin-bottom:10px">COURSE MENU</div><div class="sec" onclick="showHome()"><div class="num">⌂</div><div class="meta"><b>Course map</b></div></div>';
+  SECTIONS.forEach(function(s){var ok=unlocked(s.n),x=sec(s.n);h+='<div class="sec" '+(ok?'onclick="openSection('+s.n+')"':'style="opacity:.5"')+'><div class="num">'+s.n+'</div><div class="meta"><b>'+esc(s.title)+'</b></div><span class="tag '+(x.passed?'ok':'')+'">'+(x.passed?x.best+'%':ok?'open':'🔒')+'</span></div>'});
+  h+='<div class="sec" '+(passedCount()===SECTIONS.length?'onclick="startQuiz(\'final\')"':'style="opacity:.5"')+'><div class="num">★</div><div class="meta"><b>Final Exam</b></div></div>';
+  h+='<div class="sec" '+(passedCount()===SECTIONS.length?'onclick="showBonus()"':'style="opacity:.5"')+'><div class="num">$</div><div class="meta"><b>Bonus: DCA Calculator</b></div></div>';
+  d.innerHTML=h;
+}
+function openMenu(){buildDrawer();$("#drawer").classList.add("open");$("#veil").classList.add("open")}
+function closeMenu(){$("#drawer").classList.remove("open");$("#veil").classList.remove("open")}
+$("#menuBtn").onclick=function(){if(S.started)openMenu()};$("#veil").onclick=closeMenu;
+
+
+function audioHTML(){
+  var h='<div class="audio" id="audioBar">';
+  if(TTS.ok){h+='<button class="primary" id="aPlay">▶ Listen</button><button id="aPrev" title="Previous paragraph">⏮</button><button id="aNext" title="Next paragraph">⏭</button><button id="aStop">⏹</button><span class="lab">SPEED</span><select id="rate"><option value="0.8">Slow</option><option value="0.95" selected>Normal</option><option value="1.1">Fast</option><option value="1.3">Faster</option></select><span class="lab">VOICE</span><select id="voiceSel"></select>'}
+  else{h+='<span class="small">Your browser cannot read aloud. Try Microsoft Edge or Google Chrome.</span>'}
+  return h+'</div>';
+}
+function wireAudio(){
+  TTS.units=Array.prototype.slice.call(document.querySelectorAll("#lessonBody h3,#lessonBody p,#lessonBody li"));
+  if(TTS.ok){
+    loadVoices();
+    $("#aPlay").onclick=function(){if(TTS.state==="play")pauseSay();else say(TTS.idx)};
+    $("#aPrev").onclick=function(){say(Math.max(0,TTS.idx-1))};
+    $("#aNext").onclick=function(){say(Math.min(TTS.units.length-1,TTS.idx+1))};
+    $("#aStop").onclick=stopSay;
+    $("#rate").onchange=function(){TTS.rate=parseFloat(this.value);if(TTS.state==="play")say(TTS.idx)};
+    $("#voiceSel").onchange=function(){var nm=this.value;TTS.voice=TTS.voices.find(function(v){return v.name===nm});try{localStorage.setItem("bws_voice",nm)}catch(e){}if(TTS.state==="play")say(TTS.idx)};
+    $("#lessonBody").onclick=function(e){if(!TTS.armed)return;var el=e.target.closest("h3,p,li");var i=TTS.units.indexOf(el);if(i>=0)say(i)};
+  }
+}
+/* ----- lesson ----- */
+var bottomSeen=false,io=null;
+function openSection(n){
+  if(!unlocked(n))return;
+  cur=n;go("lesson");bottomSeen=false;TTS.done=false;TTS.armed=false;
+  var s=SECTIONS[n-1],d=sec(n);
+  var h='<div class="lessonhead"><div class="eyebrow">Section '+n+' of '+SECTIONS.length+'</div><h1>'+esc(s.title)+'</h1><div class="small">'+esc(s.sub)+'</div></div>';
+  h+=audioHTML();
+  h+='<div class="small" id="hint">Tip: press Listen, or tap any paragraph while the audio is on to start reading from there.</div>';
+  h+='<article id="lessonBody">'+s.lesson+'</article>';
+  h+='<div id="sentinel"></div><div class="gate"><div class="msg" id="gateMsg"></div><button class="primary" id="qBtn" disabled onclick="startQuiz('+n+')">Take the Section '+n+' quiz ('+s.q.length+' questions)</button><p class="small">The lesson is hidden during the quiz, so read or listen carefully first.</p></div>';
+  app.innerHTML=h;
+  wireAudio();
+  if(io)io.disconnect();
+  io=new IntersectionObserver(function(en){if(en[0].isIntersecting){bottomSeen=true;checkGate()}},{threshold:0.1});io.observe($("#sentinel"));
+  checkGate();
+}
+function need(n){var d=sec(n);var m=minSecs(n);if(d.reread)m=Math.round(m/2);return SKIP?0:m}
+function checkGate(audioDone){
+  if(view!=="lesson")return;
+  var n=cur,d=sec(n),m=need(n),left=Math.max(0,m-d.time);
+  if(audioDone===true&&TTS.done)bottomSeen=true;
+  var ok=(left===0&&(bottomSeen||SKIP))||d.read;
+  var b=$("#qBtn"),g=$("#gateMsg");if(!b)return;
+  b.disabled=!ok;
+  g.textContent=ok?"You are ready. Good luck!":(left>0?"Quiz unlocks after about "+Math.floor(left/60)+":"+("0"+(left%60)).slice(-2)+" of reading time"+(bottomSeen?"":" and when you reach the end of the lesson")+".":"Scroll to the end of the lesson (or let the audio finish) to unlock the quiz.");
+  if(ok&&!d.read){d.read=true;save()}
+}
+setInterval(function(){
+  if(document.hidden||!S.started)return;
+  if(view==="lesson"){var d=sec(cur);d.time++;S.seconds++;if(d.time%10===0)save();checkGate()}
+  else if(view==="quiz"){S.seconds++}
+},1000);
+window.addEventListener("beforeunload",save);
+
+/* ----- quiz ----- */
+var Qz=null;
+function buildItems(src){
+  return shuffle(src).map(function(r){
+    var opts=shuffle([0,1,2,3]).map(function(k){return {t:r[1+k],ok:k===0}});
+    return {q:r[0],opts:opts,why:r[5],pick:-1};
+  });
+}
+function startQuiz(which){
+  stopSay();
+  if(which==="final"){Qz={kind:"final",n:0,title:"Final Exam",items:buildItems(FINAL),i:0}}
+  else{var s=SECTIONS[which-1];cur=which;Qz={kind:"sec",n:which,title:"Section "+which+" Quiz",items:buildItems(s.q),i:0}}
+  go("quiz");renderQ();
+}
+function renderQ(){
+  var it=Qz.items[Qz.i],N=Qz.items.length,answered=Qz.items.filter(function(x){return x.pick>=0}).length;
+  var h='<div class="card"><div class="qhead"><span>'+esc(Qz.title)+'</span><span>Question '+(Qz.i+1)+' of '+N+'</span></div><div class="qbar"><i style="width:'+Math.round(answered/N*100)+'%"></i></div>';
+  h+='<div class="qtext">'+esc(it.q)+'</div>';
+  it.opts.forEach(function(o,k){h+='<button class="opt'+(it.pick===k?' sel':'')+'" onclick="pick('+k+')">'+String.fromCharCode(65+k)+'. '+esc(o.t)+'</button>'});
+  h+='<div class="nav"><button class="ghost" onclick="stepQ(-1)" '+(Qz.i===0?'disabled':'')+'>← Back</button>';
+  if(Qz.i<N-1)h+='<button class="primary" onclick="stepQ(1)">Next →</button>';
+  else h+='<button class="primary" onclick="finishQ()">Submit answers</button>';
+  h+='</div><div class="dots">';
+  Qz.items.forEach(function(x,k){h+='<i class="'+(x.pick>=0?'done ':'')+(k===Qz.i?'cur':'')+'" onclick="jumpQ('+k+')">'+(k+1)+'</i>'});
+  h+='</div><div class="small">'+answered+' of '+N+' answered. You can change an answer until you submit.</div>';
+  if(Qz.kind==="sec")h+='<div style="margin-top:12px"><button class="ghost" onclick="leaveQuiz()">Leave quiz and go back to the lesson</button></div>';
+  h+='</div>';app.innerHTML=h;
+}
+function pick(k){Qz.items[Qz.i].pick=k;renderQ()}
+function stepQ(d){Qz.i=Math.max(0,Math.min(Qz.items.length-1,Qz.i+d));renderQ();window.scrollTo(0,0)}
+function jumpQ(k){Qz.i=k;renderQ();window.scrollTo(0,0)}
+function leaveQuiz(){if(confirm("Leave this quiz? Your answers will not be saved.")){openSection(Qz.n)}}
+function finishQ(){
+  var un=Qz.items.filter(function(x){return x.pick<0}).length;
+  if(un&&!confirm(un+" question"+(un>1?"s are":" is")+" unanswered and will count as wrong. Submit anyway?"))return;
+  var N=Qz.items.length,c=0;Qz.items.forEach(function(x){if(x.pick>=0&&x.opts[x.pick].ok)c++});
+  var pct=Math.round(c/N*100),pass=pct>=PASS;
+  var d=Qz.kind==="final"?S.final:sec(Qz.n);
+  if(d.first===null||d.first===undefined)d.first=pct;
+  d.attempts++;if(pct>d.best)d.best=pct;
+  if(pass)d.passed=true;
+  if(!pass&&Qz.kind==="sec"){d.read=false;d.reread=true;d.time=0}
+  save();progress();showResult(c,N,pct,pass);
+}
+function showResult(c,N,pct,pass){
+  go("result");
+  var isFinal=Qz.kind==="final";
+  var h='<div class="card score '+(pass?'':'fail')+'"><div class="eyebrow">'+esc(Qz.title)+' result</div><div class="big">'+pct+'%</div><p><b>'+c+' of '+N+' correct</b> · '+(pass?'You passed!':'You need '+PASS+'% to pass.')+'</p>';
+  if(pass){
+    if(isFinal)h+='<button class="primary" onclick="showCert()">Continue to my certificate →</button>';
+    else if(Qz.n<SECTIONS.length)h+='<button class="primary" onclick="openSection('+(Qz.n+1)+')">Go to Section '+(Qz.n+1)+' →</button>';
+    else h+='<button class="primary" onclick="startQuiz(\'final\')">Section 10 done! Start the final exam →</button> <button onclick="showBonus()">Try the DCA Calculator</button>';
+    h+=' <button class="ghost" onclick="showHome()">Course map</button>';
+  }else{
+    if(isFinal)h+='<p>Review the sections you found hardest, then try the exam again. The questions will be shuffled.</p><button class="primary" onclick="showHome()">Back to course map</button> <button class="ghost" onclick="startQuiz(\'final\')">Retake now</button>';
+    else h+='<p>Go back and read or listen to the lesson again, then retake the quiz. The questions and answers will be shuffled.</p><button class="primary" onclick="openSection('+Qz.n+')">Review the lesson</button>';
+  }
+  h+='</div><div class="card"><h2>Review</h2>';
+  Qz.items.forEach(function(x,k){
+    var right=x.pick>=0&&x.opts[x.pick].ok,good=x.opts.filter(function(o){return o.ok})[0].t;
+    h+='<div class="rev"><div class="q">'+(k+1)+'. '+esc(x.q)+'</div>';
+    if(right)h+='<div class="y">✔ '+esc(good)+'</div>';
+    else{h+='<div class="n">✘ Your answer: '+(x.pick>=0?esc(x.opts[x.pick].t):'(no answer)')+'</div><div class="y">✔ Correct: '+esc(good)+'</div><div class="why">'+esc(x.why)+'</div>'}
+    h+='</div>';
+  });
+  h+='</div>';app.innerHTML=h;
+}
+
+/* ----- certificate + report ----- */
+function certId(){
+  if(S.cert)return S.cert.id;
+  var base=S.name.toUpperCase()+"|"+new Date(S.done||Date.now()).toISOString().slice(0,10)+"|"+overall();
+  var h=5381;for(var i=0;i<base.length;i++){h=((h<<5)+h+base.charCodeAt(i))>>>0}
+  var dt=new Date(S.done||Date.now()),p=function(n){return ("0"+n).slice(-2)};
+  return "BWS-BTC-"+dt.getFullYear()+p(dt.getMonth()+1)+p(dt.getDate())+"-"+h.toString(16).toUpperCase().slice(0,6);
+}
+function showCert(){
+  go("cert");
+  if(!S.done){S.done=Date.now();save()}
+  var sent=S.sent;
+  var h='<div class="hero" style="padding-top:0"><div class="eyebrow">Congratulations</div><h1 style="font-size:clamp(38px,7vw,64px)">You <span>did it</span>, '+esc(S.name.split(" ")[0])+'</h1></div>';
+  h+='<div class="card"><h2>Your results</h2><p><b>Overall course grade: '+overall()+'% ('+letter(overall())+')</b><br><span class="small">Section quizzes average '+sectionAvg()+'% (counts 50%). Final exam '+S.final.best+'% (counts 50%).</span></p></div>';
+  if(!sent){
+    h+='<div class="card"><h2>Check your name</h2><p>This is exactly what will be printed on your certificate and sent to Block Wall Street with your grades.</p><input type="text" id="cn" value="'+esc(S.name)+'"><div class="small" id="cerr" style="color:var(--bad)"></div><br><button class="primary" id="sendBtn" onclick="finish()">Looks right. Make my certificate and send my report</button></div>';
+  }else{
+    h+=certBlock();
+  }
+  app.innerHTML=h;
+  if(sent){drawCert();if(!S.reportSent&&view==='cert'&&!window._sending){var st=$('#sendStatus');if(st&&!st.innerHTML)st.innerHTML='<div class="status warn">Your report has not been confirmed as sent. <button onclick="retrySend()">Send it now</button></div>'}}
+}
+function certBlock(){
+  return '<div id="sendStatus"></div><div class="card"><canvas id="cert" width="1600" height="1130"></canvas><div class="nav" style="justify-content:flex-start;flex-wrap:wrap"><button class="primary" onclick="dlCert()">⬇ Download certificate (PNG)</button><button onclick="printCert()">🖨 Print / save as PDF</button><button onclick="showBonus()">DCA Calculator</button><button class="ghost" onclick="showHome()">Course map</button></div></div>';
+}
+function finish(){
+  var n=$("#cn").value.trim().replace(/\s+/g," ");
+  if(n.length<3||n.indexOf(" ")<0){$("#cerr").textContent="Please enter your first and last name.";return}
+  S.name=n;S.cert=null;S.cert={id:certId()};S.sent=true;S.reportSent=false;save();
+  showCert();
+  $("#sendStatus").innerHTML='<div class="status warn">Sending your report to Block Wall Street…</div>';
+  drawCert().then(function(){return sendReport()});
+}
+function report(){
+  var L=[];
+  L.push("BLOCK WALL STREET — BITCOIN FOR BEGINNERS — COMPLETION REPORT");
+  L.push("");
+  L.push("Student name: "+S.name);
+  L.push("Student email: "+(S.email||"(not given)"));
+  L.push("Started: "+fmtDate(S.started)+"   Completed: "+fmtDate(S.done));
+  L.push("Active time in course: "+fmtDur(S.seconds));
+  L.push("Certificate ID: "+S.cert.id);
+  L.push("Access code used: "+(ACCESS_CODE||"(none)"));
+  L.push("");
+  L.push("OVERALL COURSE GRADE: "+overall()+"% ("+letter(overall())+")");
+  L.push("  = 50% section quiz average ("+sectionAvg()+"%) + 50% final exam ("+S.final.best+"%)");
+  L.push("");
+  L.push("SECTION QUIZ GRADES (best score | first attempt | attempts)");
+  SECTIONS.forEach(function(s){var d=sec(s.n);L.push("  "+(s.n<10?" ":"")+s.n+". "+s.title+" — "+d.best+"%  |  first "+d.first+"%  |  "+d.attempts+" attempt"+(d.attempts===1?"":"s"))});
+  L.push("");
+  L.push("FINAL EXAM (44 questions): "+S.final.best+"%  |  first "+S.final.first+"%  |  "+S.final.attempts+" attempt"+(S.final.attempts===1?"":"s"));
+  L.push("");
+  L.push("CERTIFICATE TEXT");
+  L.push("  CERTIFICATE OF COMPLETION");
+  L.push("  This certifies that "+S.name.toUpperCase());
+  L.push("  has successfully completed BITCOIN FOR BEGINNERS");
+  L.push("  Overall grade "+overall()+"% ("+letter(overall())+") · Final exam "+S.final.best+"%");
+  L.push("  Date: "+fmtDate(S.done)+" · ID: "+S.cert.id);
+  L.push("  Block Wall Street · "+PARTNER);
+  return L.join("\n");
+}
+function sendReport(){
+  var subject="Bitcoin for Beginners completed: "+S.name+" — "+overall()+"% ("+letter(overall())+") — "+S.cert.id;
+  function post(withFile,blob){
+    var fd=new FormData();
+    fd.append("access_key",W3F_KEY);fd.append("subject",subject);fd.append("from_name","BWS Bitcoin Course");
+    fd.append("student_name",S.name);if(/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(S.email))fd.append("email",S.email);
+    fd.append("overall_grade",overall()+"%");fd.append("certificate_id",S.cert.id);fd.append("message",report());
+    if(withFile&&blob)fd.append("attachment",blob,"Certificate-"+S.name.replace(/[^A-Za-z0-9]+/g,"_")+".png");
+    return fetch("https://api.web3forms.com/submit",{method:"POST",body:fd}).then(function(r){return r.json()});
+  }
+  return new Promise(function(res){$("#cert").toBlob(res,"image/png")}).then(function(blob){
+    return post(true,blob).then(function(j){if(j&&j.success)return j;return post(false)}).catch(function(){return post(false)});
+  }).then(function(j){
+    var el=$("#sendStatus");
+    if(j&&j.success){S.reportSent=true;save();el.innerHTML='<div class="status ok">✔ Your report and certificate details were sent to Block Wall Street.</div>'}
+    else el.innerHTML='<div class="status warn">We could not send the report. Check your internet, then <button onclick="retrySend()">try again</button></div>';
+  }).catch(function(){
+    $("#sendStatus").innerHTML='<div class="status warn">We could not send the report. Check your internet, then <button onclick="retrySend()">try again</button></div>';
+  });
+}
+function retrySend(){$("#sendStatus").innerHTML='<div class="status warn">Sending…</div>';sendReport()}
+
+function drawCert(){
+  var fontP=(document.fonts&&document.fonts.load)?Promise.all([document.fonts.load("120px 'Great Vibes'"),document.fonts.load("80px 'Bebas Neue'"),document.fonts.load("28px 'Barlow'")]).catch(function(){}):Promise.resolve();
+  return fontP.then(function(){
+    var c=$("#cert");if(!c)return;var x=c.getContext("2d"),W=c.width,H=c.height;
+    var g=x.createLinearGradient(0,0,W,H);g.addColorStop(0,"#0a1628");g.addColorStop(1,"#143059");x.fillStyle=g;x.fillRect(0,0,W,H);
+    x.strokeStyle="#f0b429";x.lineWidth=10;x.strokeRect(36,36,W-72,H-72);x.lineWidth=2;x.strokeRect(60,60,W-120,H-120);
+    [[60,60],[W-60,60],[60,H-60],[W-60,H-60]].forEach(function(p){x.fillStyle="#f0b429";x.beginPath();x.arc(p[0],p[1],12,0,7);x.fill()});
+    x.textAlign="center";x.fillStyle="#f0b429";
+    x.font="64px 'Bebas Neue',Impact,sans-serif";x.fillText("B L O C K   W A L L   S T R E E T",W/2,170);
+    x.fillStyle="#9fb2cf";x.font="26px 'DM Mono',monospace";x.fillText("EDUCATION  ·  COMMUNITY  ·  OWNERSHIP",W/2,212);
+    x.fillStyle="#ffffff";fit(x,"CERTIFICATE OF COMPLETION",W-260,108,"'Bebas Neue',Impact,sans-serif");x.fillText("CERTIFICATE OF COMPLETION",W/2,345);
+    x.fillStyle="#9fb2cf";x.font="32px 'Barlow',Arial,sans-serif";x.fillText("This certifies that",W/2,420);
+    var name=S.name,fs=130;x.font=fs+"px 'Great Vibes','Brush Script MT',cursive";while(x.measureText(name).width>W-300&&fs>50){fs-=6;x.font=fs+"px 'Great Vibes','Brush Script MT',cursive"}
+    x.fillStyle="#f0b429";x.fillText(name,W/2,555);
+    x.strokeStyle="#f0b429";x.lineWidth=2;x.beginPath();x.moveTo(300,585);x.lineTo(W-300,585);x.stroke();
+    x.fillStyle="#9fb2cf";x.font="32px 'Barlow',Arial,sans-serif";x.fillText("has successfully completed the course",W/2,650);
+    x.fillStyle="#ffffff";fit(x,"BITCOIN FOR BEGINNERS",W-300,96,"'Bebas Neue',Impact,sans-serif");x.fillText("BITCOIN FOR BEGINNERS",W/2,750);
+    x.fillStyle="#9fb2cf";x.font="28px 'Barlow',Arial,sans-serif";x.fillText("From the First Idea to the Blockchain  ·  10 Sections  ·  Final Exam",W/2,795);
+    x.fillStyle="#e9eef7";x.font="34px 'Barlow',Arial,sans-serif";x.fillText("Overall Grade: "+overall()+"% ("+letter(overall())+")     ·     Final Exam: "+S.final.best+"%",W/2,860);
+    x.fillStyle="#f0b429";x.font="30px 'Barlow',Arial,sans-serif";x.fillText(PARTNER,W/2,915);
+    // signature + date
+    x.strokeStyle="#9fb2cf";x.lineWidth=1.5;x.beginPath();x.moveTo(190,1005);x.lineTo(560,1005);x.moveTo(W-560,1005);x.lineTo(W-190,1005);x.stroke();
+    x.fillStyle="#9fb2cf";x.font="24px 'Barlow',Arial,sans-serif";x.fillText("Founder, Block Wall Street",375,1040);x.fillText("Date: "+fmtDate(S.done),W-375,1040);
+    x.font="22px 'DM Mono',monospace";x.fillText("Certificate ID: "+S.cert.id,W/2,1075);
+    // seal
+    var sx=W/2,sy=990;x.fillStyle="#f0b429";x.beginPath();x.arc(sx,sy,62,0,7);x.fill();x.fillStyle="#0a1628";x.beginPath();x.arc(sx,sy,52,0,7);x.fill();x.strokeStyle="#f0b429";x.lineWidth=2;x.beginPath();x.arc(sx,sy,44,0,7);x.stroke();
+    x.fillStyle="#f0b429";fit(x,"BWS",70,44,"'Bebas Neue',Impact,sans-serif");x.fillText("BWS",sx,sy+8);fit(x,"VERIFIED",64,13,"'DM Mono',monospace");x.fillText("VERIFIED",sx,sy+30);
+  });
+}
+function fit(x,text,maxW,size,fam){x.font=size+"px "+fam;while(x.measureText(text).width>maxW&&size>10){size-=2;x.font=size+"px "+fam}}
+function dlCert(){var a=document.createElement("a");a.download="Certificate-"+S.name.replace(/[^A-Za-z0-9]+/g,"_")+".png";a.href=$("#cert").toDataURL("image/png");a.click()}
+function printCert(){var w=window.open("","_blank");if(!w){alert("Please allow pop-ups to print.");return}w.document.write('<html><head><title>Certificate</title><style>@page{size:landscape;margin:0}body{margin:0}img{width:100%}</style></head><body><img src="'+$("#cert").toDataURL("image/png")+'"></body></html>');w.document.close();w.focus();setTimeout(function(){w.print()},400)}
+
+
+/* ============ BONUS: DCA CALCULATOR ============ */
+var BONUS_TEXT='<div class="lessonhead"><div class="eyebrow">Bonus tool</div><h1>The DCA Calculator</h1><div class="small">A what-if machine for steady buying. Easy walk-through first, then try it yourself.</div></div>'+
+'<article id="lessonBody">'+
+'<h3>What is this tool?</h3>'+
+'<p>You learned in Section 9 that dollar-cost averaging, or DCA, means buying a fixed dollar amount on a schedule, no matter what the price is. This calculator lets you test that idea. It is a what-if machine. It does not know the future, and it does not predict anything. It simply shows what steady buying would do in different price stories.</p>'+
+'<div class="stepcard"><h3>Step 1: How much each time?</h3>'+
+'<p>In the first box, type the number of dollars you would put in on each buy. Start small, like 25 dollars. Small and steady beats big and scary.</p>'+
+'<h3>Step 2: How often?</h3>'+
+'<p>Pick daily, weekly, every two weeks or monthly. Many people choose weekly or monthly so that it matches payday.</p>'+
+'<h3>Step 3: For how long?</h3>'+
+'<p>Type the number of years. Try 1, then try 4, and notice how time changes the result. DCA is built for the long haul.</p>'+
+'<h3>Step 4: What is the starting price?</h3>'+
+'<p>This is what one bitcoin costs on your very first buy. Press the Get today’s price button, or type any number you like. Typing a number is great for exploring.</p>'+
+'<h3>Step 5: Pick a story for where the price ends up</h3>'+
+'<p>Tap one of the buttons: price falls in half, stays flat, doubles, or goes up five times. You can also type your own ending price. Nobody knows which story will happen, so try them all. A smart planner asks, “Could I live with the bad story?”</p>'+
+'<h3>Step 6: Ups and downs</h3>'+
+'<p>Leave the ups and downs box checked. Real bitcoin zigzags up and down along the way. When the price dips, your same dollars buy more bitcoin. That is the secret power of DCA. Uncheck the box to see a smooth, straight-line price instead.</p>'+
+'<h3>Step 7: Fees</h3>'+
+'<p>Exchanges usually charge a small fee on every buy. The box starts at one half of one percent. Change it to match your exchange.</p>'+
+'<h3>How to read your results</h3>'+
+'<ul><li><b>You put in</b> is all the dollars you spent in total.</li>'+
+'<li><b>You own</b> is how much bitcoin you collected. It is also shown in satoshis, the tiny pieces you learned about in Section 7.</li>'+
+'<li><b>Your average cost</b> is your total dollars divided by your bitcoin. This is the price you effectively paid for one whole bitcoin.</li>'+
+'<li><b>Worth at the end</b> is what your bitcoin would be worth at the ending price.</li>'+
+'<li><b>Gain or loss</b> compares the worth at the end with what you put in. Green means a gain and red means a loss.</li>'+
+'<li><b>Lump sum</b> shows what would have happened if you had put all the money in on day one instead. Sometimes lump sum wins and sometimes DCA wins. The real gift of DCA is that it is calmer and takes away the pressure of picking the perfect day.</li></ul>'+
+'<p>The chart shows two lines. The gray line is the money you put in. The gold line is what it was worth along the way.</p>'+
+'<h3>Three experiments to try</h3>'+
+'<ol><li>Pick the flat story. Turn ups and downs on, then off. Notice that with zigzags you can end up ahead even though the price finished where it started.</li>'+
+'<li>Pick the price-falls-in-half story. Notice you still end up owning more bitcoin than the smooth case, because you bought more during the dip.</li>'+
+'<li>Compare 25 dollars every week with 100 dollars every month. How close are the totals?</li></ol>'+
+'<p>Remember, this is for learning only. It is not a prediction and it is not financial advice.</p></div>'+
+'</article>';
+var CAL={mult:0.5};
+function showBonus(){
+  go("bonus");TTS.armed=false;
+  var h=BONUS_TEXT.replace('<article id="lessonBody">',audioHTML()+'<div class="small" id="hint">Tip: press Listen to hear the walk-through read aloud.</div><article id="lessonBody">');
+  h+='<div class="card calc" id="calc"><h2>Try it</h2>'+
+  '<div class="row2"><div><label for="c_amt">1. Dollars per buy</label><input type="number" id="c_amt" value="25" min="1" step="1"></div>'+
+  '<div><label for="c_freq">2. How often?</label><select id="c_freq"><option value="365">Daily</option><option value="52" selected>Weekly</option><option value="26">Every two weeks</option><option value="12">Monthly</option></select></div>'+
+  '<div><label for="c_yrs">3. For how many years?</label><input type="number" id="c_yrs" value="4" min="0.25" max="30" step="0.25"></div>'+
+  '<div><label for="c_start">4. Starting price of 1 bitcoin ($)</label><input type="number" id="c_start" value="77000" min="1" step="100"></div></div>'+
+  '<div class="chips"><button class="chip ghost" id="c_live">Get today’s price</button><span class="small" id="c_livemsg"></span></div>'+
+  '<label>5. Where does the price end up?</label><div class="chips" id="c_scen"></div>'+
+  '<div class="row2"><div><label for="c_end">Ending price of 1 bitcoin ($)</label><input type="number" id="c_end" min="1" step="100"></div>'+
+  '<div><label for="c_fee">7. Fee per buy (%)</label><input type="number" id="c_fee" value="0.5" min="0" max="10" step="0.1"></div></div>'+
+  '<label style="display:flex;gap:10px;align-items:center;font-weight:500"><input type="checkbox" id="c_bump" checked style="width:22px;height:22px"> 6. Add ups and downs along the way (more like real life)</label>'+
+  '<div id="c_out"></div></div>'+
+  '<div class="nav"><button class="primary" onclick="showHome()">Back to course map</button>'+(S.final.passed?'<button onclick="showCert()">My certificate</button>':'')+'</div>';
+  app.innerHTML=h;wireAudio();
+  var sc=[["Falls in half",0.5],["Stays flat",1],["Doubles",2],["Goes up 5 times",5],["My own price",null]];
+  $("#c_scen").innerHTML=sc.map(function(s,i){return '<button class="chip ghost" data-i="'+i+'">'+s[0]+'</button>'}).join("");
+  function setScen(i){CAL.mult=sc[i][1];Array.prototype.forEach.call(document.querySelectorAll("#c_scen .chip"),function(b,k){b.classList.toggle("on",k===i)});if(CAL.mult!==null){$("#c_end").value=Math.round((+$("#c_start").value||0)*CAL.mult)}calc()}
+  Array.prototype.forEach.call(document.querySelectorAll("#c_scen .chip"),function(b){b.onclick=function(){setScen(+b.getAttribute("data-i"))}});
+  ["c_amt","c_freq","c_yrs","c_fee","c_bump"].forEach(function(id){$("#"+id).oninput=calc;$("#"+id).onchange=calc});
+  $("#c_start").oninput=function(){if(CAL.mult!==null)$("#c_end").value=Math.round((+this.value||0)*CAL.mult);calc()};
+  $("#c_end").oninput=function(){CAL.mult=null;Array.prototype.forEach.call(document.querySelectorAll("#c_scen .chip"),function(b,k){b.classList.toggle("on",k===4)});calc()};
+  $("#c_live").onclick=function(){loadLive(setScen)};
+  CAL.mult=0.5;setScen(0);
+  loadLive(setScen);
+}
+
+var PRICE_SOURCES=[
+ ["Coinbase","https://api.coinbase.com/v2/prices/BTC-USD/spot",function(j){return +j.data.amount}],
+ ["Kraken","https://api.kraken.com/0/public/Ticker?pair=XBTUSD",function(j){var k=Object.keys(j.result)[0];return +j.result[k].c[0]}],
+ ["Blockchain.com","https://blockchain.info/ticker",function(j){return +j.USD.last}],
+ ["Coinpaprika","https://api.coinpaprika.com/v1/tickers/btc-usd",function(j){return +j.quotes.USD.price}],
+ ["CoinGecko","https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd",function(j){return +j.bitcoin.usd}]
+];
+function fetchT(url,ms){var c=new AbortController(),t=setTimeout(function(){c.abort()},ms);return fetch(url,{signal:c.signal,cache:"no-store"}).then(function(r){clearTimeout(t);if(!r.ok)throw new Error("http "+r.status);return r.json()})}
+function applyPrice(p,setScen){
+  $("#c_start").value=Math.round(p);
+  if(CAL.mult!==null)$("#c_end").value=Math.round(p*CAL.mult);
+  calc();
+}
+function loadLive(setScen){
+  var msg=$("#c_livemsg");if(!msg)return;
+  msg.textContent="Looking up today’s price…";
+  var i=0;
+  (function next(){
+    if(i>=PRICE_SOURCES.length){
+      var saved=null;try{saved=JSON.parse(localStorage.getItem("bws_btc_price"))}catch(e){}
+      if(saved&&saved.p){applyPrice(saved.p);msg.textContent="Live price unavailable right now. Using the last price saved on this device ($"+Math.round(saved.p).toLocaleString()+" from "+saved.src+", "+new Date(saved.t).toLocaleString()+"). You can also type a price.";}
+      else msg.textContent="Could not reach a live price source (check your internet or an ad blocker). Type a price in the box instead.";
+      return;
+    }
+    var s=PRICE_SOURCES[i++];
+    fetchT(s[1],6000).then(function(j){
+      var p=s[2](j);if(!(p>1000&&p<10000000))throw new Error("bad price");
+      try{localStorage.setItem("bws_btc_price",JSON.stringify({p:p,src:s[0],t:Date.now()}))}catch(e){}
+      applyPrice(p);msg.textContent="Live price loaded from "+s[0]+": $"+Math.round(p).toLocaleString()+" (as of "+new Date().toLocaleTimeString()+")";
+    }).catch(next);
+  })();
+}
+function money(v){var a=Math.abs(v);return (v<0?"-":"")+"$"+(a>=100?Math.round(a).toLocaleString():a.toFixed(2))}
+function calc(){
+  var out=$("#c_out");if(!out)return;
+  var amt=+$("#c_amt").value,ppy=+$("#c_freq").value,yrs=+$("#c_yrs").value,sp=+$("#c_start").value,ep=+$("#c_end").value,fee=(+$("#c_fee").value||0)/100,bump=$("#c_bump").checked;
+  if(!(amt>0&&yrs>0&&sp>0&&ep>0)){out.innerHTML='<p class="small">Fill in every box with a number above zero to see your results.</p>';return}
+  var N=Math.max(2,Math.round(yrs*ppy)),btc=0,invested=0,vals=[],invs=[],cycle=ppy*0.75;
+  for(var i=0;i<N;i++){
+    var f=i/(N-1),p=sp*Math.pow(ep/sp,f);
+    if(bump&&i<N-1){p*=1+0.3*Math.sin(2*Math.PI*i/cycle)*(1-f*0.6)}
+    btc+=amt*(1-fee)/p;invested+=amt;
+    var endNow=(i===N-1)?ep:p;vals.push(btc*endNow);invs.push(invested);
+  }
+  var worth=btc*ep,gain=worth-invested,pct=gain/invested*100,avg=invested/btc;
+  var lumpBtc=invested*(1-fee)/sp,lumpWorth=lumpBtc*ep,lumpPct=(lumpWorth-invested)/invested*100;
+  var cls=gain>=0?"up":"dn";
+  var h='<div class="res">'+
+   '<div><small>You put in</small><b>'+money(invested)+'</b></div>'+
+   '<div><small>You own</small><b>'+btc.toFixed(6)+' BTC</b><br><span class="small">'+Math.round(btc*1e8).toLocaleString()+' sats</span></div>'+
+   '<div><small>Your average cost</small><b>'+money(avg)+'</b><br><span class="small">per whole bitcoin</span></div>'+
+   '<div><small>Worth at the end</small><b>'+money(worth)+'</b></div>'+
+   '<div><small>Gain or loss</small><b class="'+cls+'">'+(gain>=0?"+":"")+money(gain)+' ('+(pct>=0?"+":"")+pct.toFixed(1)+'%)</b></div>'+
+   '<div><small>Lump sum on day one</small><b>'+money(lumpWorth)+'</b><br><span class="small">'+(lumpPct>=0?"+":"")+lumpPct.toFixed(1)+'%</span></div></div>';
+  h+=chart(vals,invs,yrs);
+  var better=worth>=lumpWorth?"Steady buying (DCA) did better than the lump sum in this story.":"The lump sum did better than steady buying in this story. That happens when the price climbs early. DCA still gave you a calmer ride.";
+  h+='<div class="callout"><p><b>In plain words:</b> You would put in '+money(amt)+' '+({365:"every day",52:"every week",26:"every two weeks",12:"every month"})[ppy]+' for '+yrs+' year'+(yrs===1?"":"s")+', which is '+N+' buys and '+money(invested)+' in total. That would collect about '+btc.toFixed(4)+' bitcoin at an average cost of '+money(avg)+'. If the price ends at '+money(ep)+', your bitcoin would be worth '+money(worth)+', a '+(gain>=0?"gain":"loss")+' of '+money(Math.abs(gain))+'. '+better+'</p></div>';
+  h+='<p class="small">What-if tool for learning only. Not a prediction and not financial advice.</p>';
+  out.innerHTML=h;
+}
+function chart(vals,invs,yrs){
+  var W=700,H=250,L=58,R=12,T=14,B=30,n=vals.length,max=Math.max.apply(null,vals.concat(invs))*1.08||1;
+  function X(i){return L+(W-L-R)*i/(n-1)}function Y(v){return T+(H-T-B)*(1-v/max)}
+  function path(a){var s="";var step=Math.max(1,Math.floor(n/300));for(var i=0;i<n;i+=step){s+=(s?"L":"M")+X(i).toFixed(1)+" "+Y(a[i]).toFixed(1)}s+="L"+X(n-1).toFixed(1)+" "+Y(a[n-1]).toFixed(1);return s}
+  var g="";for(var k=0;k<=4;k++){var v=max*k/4;g+='<line x1="'+L+'" x2="'+(W-R)+'" y1="'+Y(v)+'" y2="'+Y(v)+'" stroke="#25416b" stroke-width="1"/><text x="'+(L-6)+'" y="'+(Y(v)+4)+'" fill="#9fb2cf" font-size="11" text-anchor="end" font-family="DM Mono,monospace">'+(v>=1e6?"$"+(v/1e6).toFixed(1)+"M":v>=1e3?"$"+Math.round(v/1e3)+"k":"$"+Math.round(v))+'</text>'}
+  var xs="";[0,0.5,1].forEach(function(f){xs+='<text x="'+(L+(W-L-R)*f)+'" y="'+(H-8)+'" fill="#9fb2cf" font-size="11" text-anchor="'+(f===0?"start":f===1?"end":"middle")+'" font-family="DM Mono,monospace">'+(f===0?"Start":(yrs*f).toFixed(1).replace(".0","")+" yr")+'</text>'});
+  return '<svg viewBox="0 0 '+W+' '+H+'" style="width:100%;height:auto;background:#0b1a31;border:1px solid var(--line);border-radius:12px" role="img" aria-label="Chart of money put in versus value over time">'+g+xs+'<path d="'+path(invs)+'" fill="none" stroke="#9fb2cf" stroke-width="2.5"/><path d="'+path(vals)+'" fill="none" stroke="#f0b429" stroke-width="3"/><text x="'+(L+8)+'" y="'+(T+14)+'" fill="#f0b429" font-size="12" font-family="DM Mono,monospace">● Worth along the way</text><text x="'+(L+190)+'" y="'+(T+14)+'" fill="#9fb2cf" font-size="12" font-family="DM Mono,monospace">● Money put in</text></svg>';
+}
+
+/* ============ START ============ */
+progress();
+function gateScreen(msg,busy){
+  app.innerHTML='<div class="card" style="max-width:560px;margin:40px auto;text-align:center"><h1 style="margin-top:0">Bitcoin for Beginners</h1><p>Enter your personal access code to start the course.</p>'+
+  '<input id="gcode" placeholder="BWS-XXXX-XXXX-XXXX" autocomplete="off" style="width:100%;padding:12px;font-size:18px;text-align:center;letter-spacing:1px;border-radius:8px;border:1px solid #888;box-sizing:border-box">'+
+  '<p id="gmsg" style="min-height:22px;color:#f87171">'+(msg||"")+'</p><button class="btn" id="gbtn">'+(busy?"Checking...":"Unlock course")+'</button>'+
+  '<p style="margin-top:22px;font-size:14px">Don\'t have a code yet? <a href="'+PAY_URL+'">Get access here</a>.</p></div>';
+  var b=$("#gbtn");b.onclick=function(){tryCode($("#gcode").value)};
+  $("#gcode").onkeydown=function(e){if(e.key==="Enter")tryCode(this.value)};
+}
+function tryCode(c){
+  c=String(c||"").trim().toUpperCase();
+  if(!c){gateScreen("Please type your code.");return}
+  fetch(WORKER_URL+"/api/verify",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({code:c})})
+  .then(function(r){return r.json()}).then(function(j){
+    if(j&&j.ok){ACCESS_CODE=c;try{localStorage.setItem(CODE_KEY,c)}catch(e){} if(j.name&&!S.name){S.name=j.name;save()} showWelcome()}
+    else gateScreen((j&&j.error)||"That code did not work.");
+  }).catch(function(){
+    var cached="";try{cached=localStorage.getItem(CODE_KEY)||""}catch(e){}
+    if(cached&&cached===c){ACCESS_CODE=c;showWelcome()} else gateScreen("Could not reach the access server. Check your internet and try again.");
+  });
+}
+if(!WORKER_URL||SKIP){showWelcome()}
+else{var sc="";try{sc=localStorage.getItem(CODE_KEY)||""}catch(e){} if(sc){app.innerHTML='<p style="text-align:center;margin-top:60px">Checking your access...</p>';tryCode(sc)}else gateScreen("")}
+</script>
+</body>
+</html>

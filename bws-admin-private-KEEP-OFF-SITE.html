@@ -1,0 +1,9 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><title>BWS Admin — Course Codes</title>
+<style>body{font:16px system-ui;background:#0b0d12;color:#e8eaf0;max-width:560px;margin:30px auto;padding:0 16px}input,button{width:100%;padding:10px;margin:6px 0;border-radius:8px;border:1px solid #333;font-size:16px;background:#141821;color:#e8eaf0}button{background:#f0b23a;color:#111;font-weight:700;cursor:pointer}.c{background:#141821;border:1px solid #2a3140;border-radius:12px;padding:16px;margin:14px 0}pre{white-space:pre-wrap;word-break:break-all}</style></head><body>
+<h2>Block Wall Street — Course Codes</h2><p style="color:#9aa3b5">Private page. Do not put this file on your public site.</p>
+<div class="c"><input id="u" placeholder="Worker address (https://...workers.dev)"><input id="t" type="password" placeholder="Admin token"></div>
+<div class="c"><b>Give a code (Chime / free)</b><input id="n" placeholder="Name"><input id="e" placeholder="Email"><input id="no" placeholder="Note (e.g. Chime 11/08)"><button onclick="go('issue',{name:n.value,email:e.value,note:no.value})">Create code</button></div>
+<div class="c"><b>Look up or cancel a code</b><input id="cd" placeholder="BWS-XXXX-XXXX-XXXX"><button onclick="go('lookup',{code:cd.value})">Look up</button><button onclick="if(confirm('Cancel this code?'))go('revoke',{code:cd.value})">Cancel (revoke) code</button></div>
+<pre id="o"></pre>
+<script>var $=function(i){return document.getElementById(i)};u.value=localStorage.getItem('bws_u')||'';
+function go(a,b){localStorage.setItem('bws_u',u.value);fetch(u.value.replace(/\/$/,'')+'/api/admin/'+a,{method:'POST',headers:{'Content-Type':'application/json',Authorization:'Bearer '+t.value},body:JSON.stringify(b)}).then(function(r){return r.json()}).then(function(j){o.textContent=JSON.stringify(j,null,2)}).catch(function(x){o.textContent='Error: '+x})}</script></body></html>
