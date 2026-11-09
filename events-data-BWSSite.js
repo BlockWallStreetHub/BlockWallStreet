@@ -3,10 +3,10 @@ window.BWS_EVENTS = [
   {
     "title": "Beginner Boot Camp",
     "date": "",
-    "recurring": "Tue & Thu, starts Nov 3",
+    "recurring": "Tue & Thu, starts Nov 10",
     "time": "8:00 PM CST",
     "format": "4 weeks, 8 live sessions, 2 hours each, in person (Chicago) or online",
-    "desc": "A hands-on boot camp that takes you from zero to confident: wallets and self-custody, buying and stacking Bitcoin and other blue chips, on-chain credit and income, and a personal plan you can follow. 8 days in all, every Tuesday and Thursday at 8 PM CST, starting Tuesday, November 3. Every session is live and hands-on, recorded, and comes with its own interactive course for that day. No experience needed.",
+    "desc": "A hands-on boot camp that takes you from zero to confident: wallets and self-custody, buying and stacking Bitcoin and other blue chips, on-chain credit and income, and a personal plan you can follow. 8 days in all, every Tuesday and Thursday at 8 PM CST, starting Tuesday, November 10. Every session is live and hands-on, recorded, and comes with its own interactive course for that day. No experience needed.",
     "price": "$650. Chime 10% off, crypto 15% off. Payment plans available",
     "link": "payment-BWSSite.html",
     "cta": "See payment options",
@@ -16,7 +16,7 @@ window.BWS_EVENTS = [
   },
   {
     "title": "Introduction to Zcash and Top Privacy Coins",
-    "date": "2026-11-06",
+    "date": "2026-11-13",
     "recurring": "",
     "time": "7:00 PM CST",
     "format": "Live online, 2 hours minimum",
